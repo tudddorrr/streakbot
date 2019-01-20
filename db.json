@@ -1,0 +1,590 @@
+{
+  "users": [
+    {
+      "userID": "160924459723653130",
+      "streaks": [
+        {
+          "channelName": "gameplay",
+          "streakLevel": 2,
+          "bestStreak": 4
+        },
+        {
+          "channelName": "art",
+          "streakLevel": 0,
+          "bestStreak": 0
+        },
+        {
+          "channelName": "testland",
+          "streakLevel": 0,
+          "bestStreak": 1
+        },
+        {
+          "channelName": "programming",
+          "streakLevel": 1,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "224330005268791296",
+      "streaks": [
+        {
+          "channelName": "level-design",
+          "streakLevel": 0,
+          "bestStreak": 0
+        },
+        {
+          "channelName": "art",
+          "streakLevel": 2,
+          "bestStreak": 2
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "144297856566689801",
+      "streaks": [
+        {
+          "channelName": "web-dev",
+          "streakLevel": 6,
+          "bestStreak": 6
+        },
+        {
+          "channelName": "art",
+          "streakLevel": 1,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "161152653982695424",
+      "streaks": [
+        {
+          "channelName": "art",
+          "streakLevel": 0,
+          "bestStreak": 1
+        },
+        {
+          "channelName": "programming",
+          "streakLevel": 0,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "143874647572611073",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 1,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "216507978897948672",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 1,
+          "bestStreak": 2
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "216416471767580673",
+      "streaks": [
+        {
+          "channelName": "design",
+          "streakLevel": 0,
+          "bestStreak": 1
+        },
+        {
+          "channelName": "art",
+          "streakLevel": 3,
+          "bestStreak": 3
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "164161795353739265",
+      "streaks": [
+        {
+          "channelName": "testland",
+          "streakLevel": 0,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "104711168601415680",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 1,
+          "bestStreak": 1
+        },
+        {
+          "channelName": "web-dev",
+          "streakLevel": 1,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "97465154714734592",
+      "streaks": [
+        {
+          "channelName": "art",
+          "streakLevel": 0,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "143369412970283008",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 3,
+          "bestStreak": 3
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "202614201452068866",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 3,
+          "bestStreak": 3
+        },
+        {
+          "channelName": "gameplay",
+          "streakLevel": 0,
+          "bestStreak": 1
+        },
+        {
+          "channelName": "design",
+          "streakLevel": 0,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "175381683560906752",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 1,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    }
+  ],
+  "streaks": [
+    {
+      "streakID": "b8b48a6e-0a4e-45ca-9efc-9bf080ee1660",
+      "userID": "160924459723653130",
+      "messageID": "530449925247336459",
+      "channelName": "gameplay",
+      "date": "2019-01-03T18:18:37.549Z",
+      "content": "working on some beautiful Crawle 2"
+    },
+    {
+      "streakID": "b70f9676-5acd-42b0-9963-09558da33c8a",
+      "userID": "224330005268791296",
+      "messageID": "530455714343157771",
+      "channelName": "art",
+      "date": "2019-01-03T18:41:37.762Z",
+      "content": "witness, this great work of art: his name is phantom and we're kittensitting"
+    },
+    {
+      "streakID": "d256cd70-09b9-436e-a601-6ec98a5b95fd",
+      "userID": "224330005268791296",
+      "messageID": "530479036736995330",
+      "channelName": "level-design",
+      "date": "2019-01-03T20:14:18.337Z",
+      "content": "map design for a snow lodge area. except it's pretty, so here's hoping i can actually use it"
+    },
+    {
+      "streakID": "1db3623e-b64c-4ce5-a668-9812b62e4819",
+      "userID": "160924459723653130",
+      "messageID": "530497860916215828",
+      "channelName": "web-dev",
+      "date": "2019-01-03T21:29:06.271Z",
+      "content": "https://sleepystudios.net/appyhour testing testing 1 2 3"
+    },
+    {
+      "streakID": "14f80569-f855-4bdf-847c-8574b12cabed",
+      "userID": "144297856566689801",
+      "messageID": "530511690236821504",
+      "channelName": "web-dev",
+      "date": "2019-01-03T22:24:03.533Z",
+      "content": "https://jellyfish-app.herokuapp.com/profile/1\ngot user profiles with activity streams to work"
+    },
+    {
+      "streakID": "f3560d84-b7f4-4ac3-89b9-e0c16e3ded55",
+      "userID": "161152653982695424",
+      "messageID": "530517853061775375",
+      "channelName": "art",
+      "date": "2019-01-03T22:48:32.772Z",
+      "content": "buncha paperdolls for Crawle 2"
+    },
+    {
+      "streakID": "2b68447a-cfbc-40fc-8dab-7b5114a1dc69",
+      "userID": "224330005268791296",
+      "messageID": "530536333710458890",
+      "channelName": "art",
+      "date": "2019-01-04T00:01:58.921Z",
+      "content": "tudor didnt ask me to but i want to see if it adds to my streak if i continue so here's a doodle of link shredding"
+    },
+    {
+      "streakID": "d5dc9b8f-1da5-4569-84ce-89b45938e569",
+      "userID": "160924459723653130",
+      "messageID": "530720780292456460",
+      "channelName": "gameplay",
+      "date": "2019-01-04T12:14:54.410Z",
+      "content": "(i put my streak down cause the one i did at midnight was to test it was still working). did equipment slots today so specific items can only go into specific slots, obviously these will need some UI but for now its working alright (need to do 2handed weapons too) https://www.youtube.com/watch?v=0REOXUJkaeA"
+    },
+    {
+      "streakID": "aed4c674-26f6-4e2f-84c2-b5e216f6b5b9",
+      "userID": "144297856566689801",
+      "messageID": "530784330641965077",
+      "channelName": "web-dev",
+      "date": "2019-01-04T16:27:26.027Z",
+      "content": "got notifications somewhat working"
+    },
+    {
+      "streakID": "06e1665d-6339-40bf-9d76-9a937482d3a9",
+      "userID": "143874647572611073",
+      "messageID": "530807650837856271",
+      "channelName": "programming",
+      "date": "2019-01-04T18:00:06.021Z",
+      "content": "little screenshot of a firewall config template i created for zyxel zywall100s, basically change the IP info and I can copy and paste this into a fresh zywall and be done, vs configuring by hand. This is the Cisco method."
+    },
+    {
+      "streakID": "116917e9-7580-4a9a-b3cd-8d6d09daff40",
+      "userID": "216507978897948672",
+      "messageID": "530821648635658271",
+      "channelName": "programming",
+      "date": "2019-01-04T18:55:43.347Z",
+      "content": "I completely failed at using IDA pro, x64dbg and cheat engine to try and write a c++ dll to inject into the memory"
+    },
+    {
+      "streakID": "2ef47d38-e95e-4941-9428-8264867a2dd1",
+      "userID": "216416471767580673",
+      "messageID": "530853673786671104",
+      "channelName": "design",
+      "date": "2019-01-04T21:02:58.641Z",
+      "content": "alrighty well I’m not exactly home right now I did bring my little dev journal and am busy penciling shit in when I think of it. Here’s a brief, sloppy overview of some stat concepts"
+    },
+    {
+      "streakID": "d738413c-cd65-4c1f-9c22-271ecc5e401b",
+      "userID": "160924459723653130",
+      "messageID": "530862037367259156",
+      "channelName": "testland",
+      "date": "2019-01-04T21:36:12.697Z",
+      "content": "you bastard bot acknowledge your overlord"
+    },
+    {
+      "streakID": "be31feb3-51f0-4098-beed-dac64b839e16",
+      "userID": "164161795353739265",
+      "messageID": "530895648413843456",
+      "channelName": "testland",
+      "date": "2019-01-04T23:49:46.171Z",
+      "content": "I took a really long nap today."
+    },
+    {
+      "streakID": "1e6676ad-0a54-4b6d-aa69-b4304eae9109",
+      "userID": "104711168601415680",
+      "messageID": "530904655165784074",
+      "channelName": "programming",
+      "date": "2019-01-05T00:25:33.572Z",
+      "content": "after almost 4 (?!) months of not touching source (I'm too tired after work, okay 😦 ), I opened it up. Was totally lost but managed to re-familiarise myself in ~30 minutes, which I think is a pretty good indicator for existing code quality. In the meantime, I implemented some simple stuff (a screenshot function), did a bit of refactoring (which involved removing the current input implementation which wasn't even finished anyway) too."
+    },
+    {
+      "streakID": "fdd18dbf-a6bd-47a4-a611-2acc566d1710",
+      "userID": "160924459723653130",
+      "messageID": "530912699786330123",
+      "channelName": "gameplay",
+      "date": "2019-01-05T00:57:31.591Z",
+      "content": "hide yourself and a friend in some grass"
+    },
+    {
+      "streakID": "0737d09b-392f-45ad-ac2c-86cc83370c02",
+      "userID": "161152653982695424",
+      "messageID": "530915960773804071",
+      "channelName": "art",
+      "date": "2019-01-05T01:10:29.015Z",
+      "content": "looked at some sprites and slightly edited one of them"
+    },
+    {
+      "streakID": "15893c33-00ad-4ba4-8b38-4db4571f51fe",
+      "userID": "161152653982695424",
+      "messageID": "530917431154311209",
+      "channelName": "programming",
+      "date": "2019-01-05T01:16:19.638Z",
+      "content": "converted trash line endings to windows line endings in some unity scripts"
+    },
+    {
+      "streakID": "ab6bf3d0-3f04-4243-92f1-b54e4aa597f4",
+      "userID": "144297856566689801",
+      "messageID": "531013602589671444",
+      "channelName": "web-dev",
+      "date": "2019-01-05T07:38:28.633Z"
+    },
+    {
+      "streakID": "61528a2b-5d7b-4900-83c1-0049ed3748ee",
+      "userID": "97465154714734592",
+      "messageID": "530944907175526400",
+      "channelName": "art",
+      "date": "2019-01-05T03:05:28.633Z",
+      "content": "I was trying to make a trash can in blender. This is hard to get used to"
+    },
+    {
+      "streakID": "3b9be1d7-3c02-4899-9956-7b557cafa6cb",
+      "userID": "160924459723653130",
+      "messageID": "531076423499382814",
+      "channelName": "programming",
+      "date": "2019-01-05T11:48:06.306Z",
+      "content": "StreakBot now has better emoji (for !mystreak, top streaks, etc). We're not using EST for the streak cut off, there's a basic new !stats command , and all the old streaks have been updated (aka day 1 ones) to have their messageID stored with them so we can do some funky stuff later on"
+    },
+    {
+      "streakID": "5252329c-d190-4fa3-9931-e3ca13b6f06f",
+      "userID": "216507978897948672",
+      "messageID": "531541183223300106",
+      "channelName": "programming",
+      "date": "2019-01-06T18:34:53.673Z",
+      "content": "I'm too lazy to post a screenshot but I continued work on my dll"
+    },
+    {
+      "streakID": "d9b06c0a-405d-4b67-8035-0fb45a6bbfbe",
+      "userID": "143369412970283008",
+      "messageID": "531545312045563919",
+      "channelName": "programming",
+      "date": "2019-01-06T18:51:18.049Z",
+      "content": "XInput gamepad support done. Turned out to be pretty easy."
+    },
+    {
+      "streakID": "ba6ced79-3c51-45e0-bd81-73ff9f0d20aa",
+      "userID": "202614201452068866",
+      "messageID": "531608709965807619",
+      "channelName": "programming",
+      "date": "2019-01-06T23:03:13.293Z",
+      "content": "Removed API references to my servers and reducing a layer of complexity and speed up some things"
+    },
+    {
+      "streakID": "769a2fb7-6e1c-4226-81de-6ba2a8f38129",
+      "userID": "160924459723653130",
+      "messageID": "531617461200617479",
+      "channelName": "gameplay",
+      "date": "2019-01-06T23:38:00.063Z",
+      "content": "sneaking a little bit of functionality in. we now have mainhand and offhand slots. mainhand slots can be twohanded which means it'll automatically kick offhand slots out (and vice versa) https://www.youtube.com/watch?v=-yCeWE_9QK0&feature=youtu.be"
+    },
+    {
+      "streakID": "a55c9d70-38f9-403f-9695-42a4586e1e13",
+      "userID": "202614201452068866",
+      "messageID": "531637967652126733",
+      "channelName": "gameplay",
+      "date": "2019-01-07T00:59:28.912Z",
+      "content": "Determined a list of skills/attributes for game"
+    },
+    {
+      "streakID": "84d5325b-b6f9-48c4-8728-67e0094ce4c5",
+      "userID": "144297856566689801",
+      "messageID": "531651847723810816",
+      "channelName": "web-dev",
+      "date": "2019-01-07T01:54:38.155Z"
+    },
+    {
+      "streakID": "3c6dbffb-76cd-4fd6-9898-c1027cb9899a",
+      "userID": "144297856566689801",
+      "messageID": "531699040891568129",
+      "channelName": "web-dev",
+      "date": "2019-01-07T05:02:09.879Z"
+    },
+    {
+      "streakID": "eeb63623-daf7-48a6-b91f-c8ce2a997bd6",
+      "userID": "224330005268791296",
+      "messageID": "531951494602293251",
+      "channelName": "art",
+      "date": "2019-01-07T21:45:19.608Z",
+      "content": "for only six easy payments of $19.99 you can buy THIS CAT! but hurry now, he's in high demand and will probably run away!"
+    },
+    {
+      "streakID": "569a3b3b-f49e-480a-82e5-5afda20d9403",
+      "userID": "143369412970283008",
+      "messageID": "532003071966838786",
+      "channelName": "programming",
+      "date": "2019-01-08T01:10:16.614Z",
+      "content": "Engine programming. DX11 rendering."
+    },
+    {
+      "streakID": "d972ab88-2bb7-4e8d-a37d-3f1dd3570bc9",
+      "userID": "216416471767580673",
+      "messageID": "532007720631402518",
+      "channelName": "art",
+      "date": "2019-01-08T01:28:44.945Z",
+      "content": "Redesigned the backed of Bows for PM. Nothing too fancy, but can now handle more arrows than ever before!"
+    },
+    {
+      "streakID": "60f1a175-a52e-44d0-9cd1-6fecfe2cf1c5",
+      "userID": "202614201452068866",
+      "messageID": "532007932569714688",
+      "channelName": "design",
+      "date": "2019-01-08T01:29:35.383Z",
+      "content": "Developing PlayerData and Asset Databases"
+    },
+    {
+      "streakID": "fbd9f398-fd7c-4094-b0b9-410499416338",
+      "userID": "202614201452068866",
+      "messageID": "532008142200897537",
+      "channelName": "programming",
+      "date": "2019-01-08T01:30:25.362Z",
+      "content": "Created tool to upload images into databases because to lazy to make a full editor at this time when i can directly play with values in the database"
+    },
+    {
+      "streakID": "89b6889c-8bc6-40af-b853-08f0477c5d40",
+      "userID": "144297856566689801",
+      "messageID": "532061241896730625",
+      "channelName": "art",
+      "date": "2019-01-08T05:01:25.313Z",
+      "content": "for cover of a booklet i'm making for class"
+    },
+    {
+      "streakID": "45a218ca-923b-420a-b6a6-e1db3f9efd49",
+      "userID": "216416471767580673",
+      "messageID": "532065739256102913",
+      "channelName": "art",
+      "date": "2019-01-08T05:19:17.617Z",
+      "content": "Not sure how I feel about it just yet (we'll see when it's all in-game) but for now, the 3rd attack in the Light Attack combo for Bows?"
+    },
+    {
+      "streakID": "f07bd572-da3c-4bde-873f-ec66cc979da1",
+      "userID": "202614201452068866",
+      "messageID": "532067190669705218",
+      "channelName": "programming",
+      "date": "2019-01-08T05:25:03.666Z",
+      "content": "Created tool to compress and decompress files to keep game files small and tolerable"
+    },
+    {
+      "streakID": "0c3bfc8a-d577-4b74-a43a-a0b8452916bc",
+      "userID": "160924459723653130",
+      "messageID": "532113336679006219",
+      "channelName": "programming",
+      "date": "2019-01-08T08:28:25.759Z",
+      "content": "updated the !help command to look nicer/be more informative. the top streaks at the end of the day is now one message so the channel is less spammy <@!202614201452068866> . i've added notification controls so the bot won't DM you if your streak ends. the notification controls are togglable with !toggledm <@161152653982695424>"
+    },
+    {
+      "streakID": "c091fd37-a8ce-4b7d-96e9-8972bde48732",
+      "userID": "160924459723653130",
+      "messageID": "532123039119179787",
+      "channelName": "gameplay",
+      "date": "2019-01-08T09:06:58.971Z",
+      "content": "finally finished off all the twohanded/mainhand/offhand item logic. Made it nice and reusable and cleaned it up"
+    },
+    {
+      "streakID": "be988e6c-fd9d-4a86-a3b3-7f9e0202fb5c",
+      "userID": "143874647572611073",
+      "messageID": "532249702394232843",
+      "channelName": "programming",
+      "date": "2019-01-08T17:30:17.807Z"
+    },
+    {
+      "streakID": "4212b2f1-52cc-40e9-b825-6363d60072c2",
+      "userID": "216507978897948672",
+      "messageID": "532252552788705288",
+      "channelName": "programming",
+      "date": "2019-01-08T17:41:37.387Z",
+      "content": "mock exams started, did some very light programming just screwing around"
+    },
+    {
+      "streakID": "3c4b089b-e001-4a55-872b-4c86393d369a",
+      "userID": "224330005268791296",
+      "messageID": "532298363887026177",
+      "channelName": "art",
+      "date": "2019-01-08T20:43:39.604Z",
+      "content": "son of a bitch i drew porn. fuck you"
+    },
+    {
+      "streakID": "4e0fe5ce-5aaa-4e74-b9f7-6e8b5d7b3f78",
+      "userID": "104711168601415680",
+      "messageID": "532315085364789259",
+      "channelName": "web-dev",
+      "date": "2019-01-08T21:50:06.396Z"
+    },
+    {
+      "streakID": "bad57b9d-9a0c-42a5-b376-22d4c62201cf",
+      "userID": "144297856566689801",
+      "messageID": "532330544256778271",
+      "channelName": "web-dev",
+      "date": "2019-01-08T22:51:32.104Z"
+    },
+    {
+      "streakID": "d9d54928-9a63-4a67-b9d5-ddd81bb0b25e",
+      "userID": "175381683560906752",
+      "messageID": "532352344399151124",
+      "channelName": "programming",
+      "date": "2019-01-09T00:18:09.827Z",
+      "content": "Fixed a bug involving  ™ symbol encoding issues."
+    },
+    {
+      "streakID": "aa92b85d-aab8-4ece-ad7a-70491b23f22e",
+      "userID": "143369412970283008",
+      "messageID": "532374693588500491",
+      "channelName": "programming",
+      "date": "2019-01-09T01:46:58.035Z",
+      "content": "More rendering stuff and some file io."
+    },
+    {
+      "streakID": "842f5567-f3a3-49bc-804c-d11f055e5021",
+      "userID": "216416471767580673",
+      "messageID": "532431541918367766",
+      "channelName": "art",
+      "date": "2019-01-09T05:32:51.767Z",
+      "content": "Finalized most of the \"Down\" direction Orb attacks as well as the Idle animation"
+    },
+    {
+      "streakID": "62d5b43e-5985-4fa5-8723-07e6a6803e75",
+      "userID": "160924459723653130",
+      "messageID": "532476588562972692",
+      "channelName": "gameplay",
+      "date": "2019-01-09T08:31:51.677Z",
+      "content": "working on trees, hopefully they'll be interactable next https://www.youtube.com/watch?v=K6O_vuxESsA&feature=youtu.be"
+    },
+    {
+      "streakID": "ba4df801-7634-4636-98ea-4f00beb8c736",
+      "userID": "104711168601415680",
+      "messageID": "535176901380145202",
+      "channelName": "programming",
+      "date": "2019-01-16T19:21:18.627Z",
+      "content": "Uhhh I think this should go in here instead of art, so I did some more thinking on hexagonal autotiles and it's pretty much as simple as representing 6 nodes instead of 4. The connected edges can be encoded into 6 bits (I made an image, see next, with every possible connection to visualise what's needed). The difficulty came in deciding  how the tiles should be structured. I settled on (see image) which would handle my use cases perfectly fine and in a tiny little texture"
+    }
+  ],
+  "channels": [
+    "art",
+    "design",
+    "gameplay",
+    "music",
+    "level-design",
+    "web-dev",
+    "programming",
+    "learning",
+    "production",
+    "writing",
+    "testland"
+  ]
+}
