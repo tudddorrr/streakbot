@@ -118,8 +118,14 @@ exports.getTopStreaks = () => {
   highscores = highscores.map(highscore => {
     return highscore.streakLevel > 0 ? highscore : null
   })
+  highscores = highscores.filter(highscore => highscore !== null && highscore.channelName !== 'testland')
+  
+  // sort them by highest
+  highscores.sort((a, b) => {
+    return b.streakLevel - a.streakLevel
+  })
 
-  return highscores.filter(highscore => highscore !== null && highscore.channelName !== 'testland');
+  return highscores
 }
 
 exports.checkStreaks = clientUsers => {
@@ -215,4 +221,40 @@ exports.getAllStreaksForChannel = channelName => {
 
 exports.getChannels = () => {
   return db.get('channels').value()
+}
+
+exports.getTopAllTimeStreaks = () => {  
+  let highscores = db.get('channels').value()
+  highscores = highscores.map(highscore => {
+    return {
+      channelName: highscore,
+      userID: '',
+      streakLevel: 0
+    }
+  })
+
+  const users = db.get('users').value()
+  users.forEach(user => {
+    user.streaks.forEach(streak => {
+      highscores.forEach(highscore => {
+        if(streak.channelName == highscore.channelName && streak.bestStreak > highscore.streakLevel) {
+          highscore.userID = user.userID
+          highscore.streakLevel = streak.bestStreak
+        }
+      })
+    })
+  })
+
+  // null out any channels with no streaks
+  highscores = highscores.map(highscore => {
+    return highscore.streakLevel > 0 ? highscore : null
+  })
+  highscores = highscores.filter(highscore => highscore !== null && highscore.channelName !== 'testland')
+  
+  // sort them by highest
+  highscores.sort((a, b) => {
+    return b.streakLevel - a.streakLevel
+  })
+
+  return highscores
 }

@@ -5,8 +5,8 @@
       "streaks": [
         {
           "channelName": "gameplay",
-          "streakLevel": 2,
-          "bestStreak": 4
+          "streakLevel": 8,
+          "bestStreak": 8
         },
         {
           "channelName": "art",
@@ -20,7 +20,7 @@
         },
         {
           "channelName": "programming",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 1
         }
       ],
@@ -36,8 +36,8 @@
         },
         {
           "channelName": "art",
-          "streakLevel": 2,
-          "bestStreak": 2
+          "streakLevel": 0,
+          "bestStreak": 5
         }
       ],
       "notificationsEnabled": true
@@ -47,12 +47,12 @@
       "streaks": [
         {
           "channelName": "web-dev",
-          "streakLevel": 6,
+          "streakLevel": 1,
           "bestStreak": 6
         },
         {
           "channelName": "art",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 1
         }
       ],
@@ -79,18 +79,28 @@
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 1
+        },
+        {
+          "channelName": "art",
+          "streakLevel": 0,
+          "bestStreak": 2
+        },
+        {
+          "channelName": "learning",
+          "streakLevel": 0,
+          "bestStreak": 5
         }
       ],
-      "notificationsEnabled": true
+      "notificationsEnabled": false
     },
     {
       "userID": "216507978897948672",
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 2
         }
       ],
@@ -106,8 +116,23 @@
         },
         {
           "channelName": "art",
-          "streakLevel": 3,
-          "bestStreak": 3
+          "streakLevel": 0,
+          "bestStreak": 14
+        },
+        {
+          "channelName": "music",
+          "streakLevel": 0,
+          "bestStreak": 1
+        },
+        {
+          "channelName": "gameplay",
+          "streakLevel": 0,
+          "bestStreak": 2
+        },
+        {
+          "channelName": "programming",
+          "streakLevel": 0,
+          "bestStreak": 1
         }
       ],
       "notificationsEnabled": true
@@ -128,12 +153,12 @@
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 1,
-          "bestStreak": 1
+          "streakLevel": 0,
+          "bestStreak": 2
         },
         {
           "channelName": "web-dev",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 1
         }
       ],
@@ -155,7 +180,7 @@
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 3,
+          "streakLevel": 0,
           "bestStreak": 3
         }
       ],
@@ -166,7 +191,7 @@
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 3,
+          "streakLevel": 1,
           "bestStreak": 3
         },
         {
@@ -187,7 +212,67 @@
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 1,
+          "streakLevel": 0,
+          "bestStreak": 4
+        },
+        {
+          "channelName": "learning",
+          "streakLevel": 0,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "103211274153758720",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 0,
+          "bestStreak": 3
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "158726045032382464",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 0,
+          "bestStreak": 2
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "226044900355866624",
+      "streaks": [
+        {
+          "channelName": "gameplay",
+          "streakLevel": 0,
+          "bestStreak": 1
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "185521491075530752",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 7,
+          "bestStreak": 7
+        }
+      ],
+      "notificationsEnabled": true
+    },
+    {
+      "userID": "193516247592337409",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 0,
           "bestStreak": 1
         }
       ],
@@ -566,12 +651,544 @@
       "content": "working on trees, hopefully they'll be interactable next https://www.youtube.com/watch?v=K6O_vuxESsA&feature=youtu.be"
     },
     {
-      "streakID": "ba4df801-7634-4636-98ea-4f00beb8c736",
+      "streakID": "b0c91a2d-1fb2-4389-92dd-08e5749f5cf8",
+      "userID": "224330005268791296",
+      "messageID": "532595071225167892",
+      "channelName": "art",
+      "date": "2019-01-09T16:22:40.205Z",
+      "content": "i'm busy with work today most likely but here's some small detail tiles"
+    },
+    {
+      "streakID": "6fb76bdc-0e68-436e-89ec-16206ae10836",
+      "userID": "143874647572611073",
+      "messageID": "532616540911304715",
+      "channelName": "art",
+      "date": "2019-01-09T17:47:58.969Z",
+      "content": "inspired by two WoW items, color variants.. please dont rip me apart lol"
+    },
+    {
+      "streakID": "daf7b479-6410-4d0b-8a21-63f0bab624c2",
+      "userID": "143874647572611073",
+      "messageID": "532724567756505096",
+      "channelName": "learning",
+      "date": "2019-01-10T00:57:14.526Z",
+      "content": "Continuing this https://www.youtube.com/watch?v=GhQdlIFylQ8&t=582s its actually pretty good! I'm able to this stuff before him once I see the syntax, so thats a good sign.. I think."
+    },
+    {
+      "streakID": "e3eea8ed-4edd-4ecb-8953-4e5f0ece56d1",
+      "userID": "175381683560906752",
+      "messageID": "532779603245137920",
+      "channelName": "programming",
+      "date": "2019-01-10T04:35:56.006Z",
+      "content": "Stole <@143874647572611073> 's idea and started working on an updater for my site. Commands dictate which project/portion of the site is updated."
+    },
+    {
+      "streakID": "d3c48fd9-1405-4f55-937b-ff0b451d34da",
+      "userID": "175381683560906752",
+      "messageID": "532804642342436864",
+      "channelName": "programming",
+      "date": "2019-01-10T06:15:25.793Z",
+      "content": "Finished the upload logic for the updater. steam library project can now be updated using 'python3 updater.py steamdb'"
+    },
+    {
+      "streakID": "f0bf8841-4943-4241-8a23-a42d0f403835",
+      "userID": "160924459723653130",
+      "messageID": "532839978187882497",
+      "channelName": "gameplay",
+      "date": "2019-01-10T08:35:50.604Z",
+      "content": "first bit of some actual gameplay today. you can now cut down trees for logs and branches and you need an axe equipped to do so. https://www.youtube.com/watch?v=HGCX74_GDBU&feature=youtu.be"
+    },
+    {
+      "streakID": "edbc7d9b-a6b0-454c-ae2b-b980823d1628",
+      "userID": "143874647572611073",
+      "messageID": "532929346126741524",
+      "channelName": "art",
+      "date": "2019-01-10T14:30:57.486Z",
+      "content": "Made some updates to the 1 handed mace, made an S2 inspired gladiator staff with same color scheme as the maces. It looks nothing like the S2 staff, haha. I haven't messed with the 2H mace yet, wasn't sure what to improve off the get go. Please let me know, you guys were very helpful and encouraging."
+    },
+    {
+      "streakID": "134ea6d1-94f1-4ab6-abaf-1f22b5c4eb0e",
+      "userID": "202614201452068866",
+      "messageID": "532970884365811739",
+      "channelName": "design",
+      "date": "2019-01-10T17:16:01.017Z",
+      "content": "Still need an official game name/logo have an idea but not fully settled"
+    },
+    {
+      "streakID": "1138cb95-b598-4e83-9055-02aa7e7f89e8",
+      "userID": "224330005268791296",
+      "messageID": "533002151648034817",
+      "channelName": "art",
+      "date": "2019-01-10T19:20:15.700Z",
+      "content": "working on a custom body suit by custom ordering fabric with pieces all laid out and ready to go. but that means i have to paint all the individual pieces digitally. hrrg"
+    },
+    {
+      "streakID": "86a606c2-69c1-4ec0-8784-751fcef3f7b7",
+      "userID": "216416471767580673",
+      "messageID": "533092728066801665",
+      "channelName": "art",
+      "date": "2019-01-11T01:20:10.848Z",
+      "content": "Experimenting with having the player levitate when using the orb weapon type"
+    },
+    {
+      "streakID": "7e53f9c6-36be-43b5-9885-8ad35ff8dc6f",
+      "userID": "143874647572611073",
+      "messageID": "533107169516716042",
+      "channelName": "learning",
+      "date": "2019-01-11T02:17:33.891Z",
+      "content": "continuing video and doing some exercises I found on the net because the video is slow."
+    },
+    {
+      "streakID": "be9d3be5-7057-466b-8b44-ee321d49a2b4",
+      "userID": "202614201452068866",
+      "messageID": "533138618672349204",
+      "channelName": "programming",
+      "date": "2019-01-11T04:22:31.948Z",
+      "content": "Created a custom installer that creates the game directory and in the start menu. Along with creating shortcuts.. standard installer stuff. Mainly for custom look."
+    },
+    {
+      "streakID": "fdad19b2-494d-44ee-be84-d198f2be1670",
+      "userID": "160924459723653130",
+      "messageID": "533209642021552129",
+      "channelName": "gameplay",
+      "date": "2019-01-11T09:04:45.316Z",
+      "content": "not very exciting but working on the interaction menu that we're going to use across the game. will open up a lot more work on actual gameplay once it's done"
+    },
+    {
+      "streakID": "1b2fd5fc-9cd8-4660-8de4-ca3880655b8f",
+      "userID": "224330005268791296",
+      "messageID": "533287142202408963",
+      "channelName": "art",
+      "date": "2019-01-11T14:12:42.802Z",
+      "content": "finished the front piece, starting the sleeves. as you can see this is an absolute nightmare of a bodysuit"
+    },
+    {
+      "streakID": "0cafc50f-e29d-4136-978a-d55a3b438d8c",
+      "userID": "175381683560906752",
+      "messageID": "533327812359225345",
+      "channelName": "programming",
+      "date": "2019-01-11T16:54:19.351Z",
+      "content": "Can now update landing page with the updater"
+    },
+    {
+      "streakID": "0c18b673-7ba2-433b-88d3-28b380f841a1",
+      "userID": "216416471767580673",
+      "messageID": "533457538608267295",
+      "channelName": "art",
+      "date": "2019-01-12T01:29:48.443Z",
+      "content": "Working on possible indicator animations? We'll see how it goes haha"
+    },
+    {
+      "streakID": "05733b67-274d-489b-aafe-4b20beeb8f37",
+      "userID": "144297856566689801",
+      "messageID": "533462390822404128",
+      "channelName": "web-dev",
+      "date": "2019-01-12T01:49:05.342Z"
+    },
+    {
+      "streakID": "d8a947c3-007a-4ea5-84b4-50ef77186949",
+      "userID": "143874647572611073",
+      "messageID": "533470936125407233",
+      "channelName": "learning",
+      "date": "2019-01-12T02:23:02.637Z",
+      "content": "I was going to take a break tonight due to a case of the sleepys. But I dont want to lose my streak. Continuing the video, thinking up some basic 'programs' to work on. Man this course is really slow, but whatever."
+    },
+    {
+      "streakID": "de2850cf-2f2a-4073-9be0-07675591f2bc",
+      "userID": "216416471767580673",
+      "messageID": "533525807394717697",
+      "channelName": "music",
+      "date": "2019-01-12T06:01:04.930Z",
+      "content": "Did another little \"event\" jingle. So far I've got 3 jingles and 19 tracks. Progress! https://soundcloud.com/skywardriver/quest-finished-jingle"
+    },
+    {
+      "streakID": "8487fa53-0168-4aa5-bb89-057f0d01e155",
+      "userID": "216416471767580673",
+      "messageID": "533565517794115594",
+      "channelName": "art",
+      "date": "2019-01-12T08:38:52.695Z",
+      "content": "Almost all animations for Orbs converted to the \"levitate\" state"
+    },
+    {
+      "streakID": "c71527d5-fe87-41e1-abd5-b2aea101c95e",
+      "userID": "160924459723653130",
+      "messageID": "533677127321518108",
+      "channelName": "gameplay",
+      "date": "2019-01-12T16:02:22.488Z",
+      "content": "so got the interact menu to actually do stuff, now i just need to work on better placement really https://www.youtube.com/watch?v=EKKRHvnVV3E&feature=youtu.be (feat. non-pro unity UI cause I downloaded the wrong version)"
+    },
+    {
+      "streakID": "bb20a38d-4eeb-4367-9502-25bb3a0b4139",
+      "userID": "143874647572611073",
+      "messageID": "533852815538520067",
+      "channelName": "learning",
+      "date": "2019-01-13T03:40:29.750Z",
+      "content": "continuing video, going to probably finish it up tonight heyooo."
+    },
+    {
+      "streakID": "1b192ff3-d238-4552-a598-b194d9e668e4",
+      "userID": "160924459723653130",
+      "messageID": "533967328480722954",
+      "channelName": "gameplay",
+      "date": "2019-01-13T11:15:31.761Z",
+      "content": "got a little chatbox going for general messages, need to do player chat next"
+    },
+    {
+      "streakID": "573b9452-e83c-4aa2-ad1b-e0b825547d38",
+      "userID": "143874647572611073",
+      "messageID": "534131017225601029",
+      "channelName": "learning",
+      "date": "2019-01-13T22:05:58.263Z",
+      "content": "C# continued, need to try to work out a little project to post in programming, new goal."
+    },
+    {
+      "streakID": "efc49db8-5efa-4b81-a5c9-a233abbdde1c",
+      "userID": "216416471767580673",
+      "messageID": "534141596191424529",
+      "channelName": "art",
+      "date": "2019-01-13T22:48:00.480Z",
+      "content": "Almost finished all the Orbs animations for the \"Down\" direction"
+    },
+    {
+      "streakID": "c502a11b-4645-4930-8bf7-07ec4b5d8928",
+      "userID": "175381683560906752",
+      "messageID": "534467349093285909",
+      "channelName": "programming",
+      "date": "2019-01-14T20:22:25.982Z",
+      "content": "wrote up a quick class in python that is helping me modify an existing database."
+    },
+    {
+      "streakID": "85b23880-1800-4bb7-9032-28cf899564c9",
+      "userID": "103211274153758720",
+      "messageID": "534486602047553536",
+      "channelName": "programming",
+      "date": "2019-01-14T21:38:56.254Z",
+      "content": "Hey all, I'm starting out learning some programming in Unity with C#, just a quick question- in some tutoria;;s I foloow they have void Update(), when typing this out in visual studio and using the auto-fill option for that it types it out as private void Update() , is this still alright?"
+    },
+    {
+      "streakID": "f32dea92-0a7f-4780-8408-a9cbf9ce546a",
+      "userID": "143369412970283008",
+      "messageID": "534522819149561888",
+      "channelName": "programming",
+      "date": "2019-01-15T00:02:51.140Z",
+      "content": "Created a simple project manager that creates a folder, initializes a git repo and sets up a session file for Notepad++."
+    },
+    {
+      "streakID": "b29a1f47-4813-42bb-9262-d307cee5e2d9",
+      "userID": "216416471767580673",
+      "messageID": "534545628009725953",
+      "channelName": "art",
+      "date": "2019-01-15T01:33:29.144Z",
+      "content": "Fixed some scaling issues on the arrows for the light attacks on the Bows. Spending the rest of the night filming and editing tutorials for the team for the software we use to animate"
+    },
+    {
+      "streakID": "e2062ace-eb1c-45b9-85c1-bad0bf325821",
+      "userID": "160924459723653130",
+      "messageID": "534641859402792960",
+      "channelName": "gameplay",
+      "date": "2019-01-15T07:55:52.534Z",
+      "content": "well i'm an idiot I forgot to post yesterday but I got chat to be networked using our multiplayer engine's chat component, obviously more polish needs to be done to use real names and colours"
+    },
+    {
+      "streakID": "522eb661-6871-441b-bac2-034a7bc82b7a",
+      "userID": "216416471767580673",
+      "messageID": "534643072567345163",
+      "channelName": "art",
+      "date": "2019-01-15T08:00:41.757Z",
+      "content": "Wasn't able to get much done in terms of art today. Did make a new \"base\" emote done though. I mean, just look at this stud."
+    },
+    {
+      "streakID": "d0b9d640-ad09-441b-9d86-bfa204538d8f",
+      "userID": "158726045032382464",
+      "messageID": "534745838870724609",
+      "channelName": "programming",
+      "date": "2019-01-15T14:49:03.209Z",
+      "content": "coded a camera controller script which allows different perspectives on an otherwise fixed angle 3rd person camera."
+    },
+    {
+      "streakID": "fc27a586-6348-45a2-9551-23427ad09146",
+      "userID": "103211274153758720",
+      "messageID": "534860966181994516",
+      "channelName": "programming",
+      "date": "2019-01-15T22:26:31.682Z",
+      "content": "learning different ways of trigerring events"
+    },
+    {
+      "streakID": "e7b06289-a518-41c1-a416-e20c29142647",
+      "userID": "216416471767580673",
+      "messageID": "535000406015737857",
+      "channelName": "art",
+      "date": "2019-01-16T07:40:36.696Z",
+      "content": "Long shift at work today, but got to do this haha"
+    },
+    {
+      "streakID": "e2b40500-0085-4cd0-ae3a-2eb2da6913fb",
+      "userID": "160924459723653130",
+      "messageID": "535008460530778133",
+      "channelName": "gameplay",
+      "date": "2019-01-16T08:12:37.080Z",
+      "content": "better nicer chat with styling"
+    },
+    {
+      "streakID": "70aa73b7-8dab-4112-a901-86e32c19e00a",
+      "userID": "226044900355866624",
+      "messageID": "535010492679454720",
+      "channelName": "gameplay",
+      "date": "2019-01-16T08:20:41.493Z",
+      "content": "nearly finished a sort-of nyancat ripoff game built to prepare for the upcoming globalgamejam"
+    },
+    {
+      "streakID": "96155fc4-9d8a-49ca-9c32-7ee82a13b16f",
+      "userID": "185521491075530752",
+      "messageID": "535157677601456159",
+      "channelName": "programming",
+      "date": "2019-01-16T18:05:33.178Z",
+      "content": "worked on the camera movement for my game, added in ladders for going up and down between floors of the ship"
+    },
+    {
+      "streakID": "8d5a814e-8edf-4209-951a-89903f307129",
       "userID": "104711168601415680",
       "messageID": "535176901380145202",
       "channelName": "programming",
-      "date": "2019-01-16T19:21:18.627Z",
+      "date": "2019-01-16T19:21:56.417Z",
       "content": "Uhhh I think this should go in here instead of art, so I did some more thinking on hexagonal autotiles and it's pretty much as simple as representing 6 nodes instead of 4. The connected edges can be encoded into 6 bits (I made an image, see next, with every possible connection to visualise what's needed). The difficulty came in deciding  how the tiles should be structured. I settled on (see image) which would handle my use cases perfectly fine and in a tiny little texture"
+    },
+    {
+      "streakID": "984b3d68-8200-4bce-ad00-753967a22962",
+      "userID": "103211274153758720",
+      "messageID": "535211762945884162",
+      "channelName": "programming",
+      "date": "2019-01-16T21:40:28.110Z",
+      "content": "learning about if statements and custom functions"
+    },
+    {
+      "streakID": "48e0b934-ed12-4be5-aee3-6a7d84ea52ba",
+      "userID": "158726045032382464",
+      "messageID": "535298474686677033",
+      "channelName": "programming",
+      "date": "2019-01-17T03:25:01.771Z",
+      "content": "Almost forgot to say! Polished camera with a zoom funtion and smoothed player follow. Recoded player movement to be physics based to take advantage of physics colliders."
+    },
+    {
+      "streakID": "b06faaa3-9213-4901-80ad-a4529c961bf9",
+      "userID": "144297856566689801",
+      "messageID": "535305956079173634",
+      "channelName": "web-dev",
+      "date": "2019-01-17T03:54:45.507Z"
+    },
+    {
+      "streakID": "f0ac36f7-479a-4686-a0e3-22ab1d396442",
+      "userID": "216416471767580673",
+      "messageID": "535324961871495188",
+      "channelName": "art",
+      "date": "2019-01-17T05:10:16.786Z",
+      "content": "Just wrapping up the dodges for Bows in the Down direction. There's a total of 4 different dodge animations per direction per weapon type. (per skeleton). That's a total of 36 animations per direction per weapon type, just for dodges! The project is shaping up to be quite the undertaking, but we're hoping it will be well worth it in the end!"
+    },
+    {
+      "streakID": "89c23947-560e-42d9-ad07-a2a64824026d",
+      "userID": "160924459723653130",
+      "messageID": "535370567411564544",
+      "channelName": "gameplay",
+      "date": "2019-01-17T08:11:30.017Z",
+      "content": "getting started on fires, lots to do"
+    },
+    {
+      "streakID": "136670c2-3563-41bc-99e2-dfe5ebcffc13",
+      "userID": "104711168601415680",
+      "messageID": "535573157290049547",
+      "channelName": "programming",
+      "date": "2019-01-17T21:36:31.273Z",
+      "content": "based on yesterday's tile, here's an example one slightly modified to fit the new bounds"
+    },
+    {
+      "streakID": "566563a9-d3c4-4b85-9d82-e9f238667b52",
+      "userID": "185521491075530752",
+      "messageID": "535625296540467242",
+      "channelName": "programming",
+      "date": "2019-01-18T01:03:42.243Z",
+      "content": "just finished a long day of working on my game for my college game jam"
+    },
+    {
+      "streakID": "e093eb55-2674-457b-9fda-1deb9b478c0d",
+      "userID": "144297856566689801",
+      "messageID": "535679687301529600",
+      "channelName": "web-dev",
+      "date": "2019-01-18T04:39:50.086Z"
+    },
+    {
+      "streakID": "2613ae0e-296e-4bc9-92a6-352afca6d94e",
+      "userID": "216416471767580673",
+      "messageID": "535725923341697026",
+      "channelName": "art",
+      "date": "2019-01-18T07:43:33.547Z",
+      "content": "Just wrapped up the last attack animation for Orbs (for now)"
+    },
+    {
+      "streakID": "71a75ea3-b9bb-48c2-893c-9b8ecb487e67",
+      "userID": "160924459723653130",
+      "messageID": "535730252639371265",
+      "channelName": "gameplay",
+      "date": "2019-01-18T08:00:45.720Z",
+      "content": "been adding a bit more to fires. you now need a rock to light them and scripts get dynamically attached the items on the ground that you can interact with. and of course theres a little light on them now too"
+    },
+    {
+      "streakID": "d28ecd14-20db-439b-996d-7f3534855e5c",
+      "userID": "185521491075530752",
+      "messageID": "535834014833967106",
+      "channelName": "programming",
+      "date": "2019-01-18T14:53:04.558Z",
+      "content": "finished programming the game for my college game jam"
+    },
+    {
+      "streakID": "2980c2f6-4604-4069-b83f-b0714a76e1fc",
+      "userID": "103211274153758720",
+      "messageID": "535944709370150933",
+      "channelName": "programming",
+      "date": "2019-01-18T22:12:56.107Z",
+      "content": "I was making a scrolling texture for a lava effect at work earlier"
+    },
+    {
+      "streakID": "90f600b3-e5fd-4aab-9e0a-b11e0b23b098",
+      "userID": "175381683560906752",
+      "messageID": "535981778150883349",
+      "channelName": "learning",
+      "date": "2019-01-19T00:40:13.996Z",
+      "content": "did some playing around with a few react libs"
+    },
+    {
+      "streakID": "3ed36cf5-5b98-4143-8246-12ea629ddb62",
+      "userID": "216416471767580673",
+      "messageID": "536120394269065227",
+      "channelName": "art",
+      "date": "2019-01-19T09:51:02.707Z",
+      "content": "Orbs are now completely done (though I might be adding a few \"stagger\" variations to each weapon type."
+    },
+    {
+      "streakID": "5c994bf7-d5f9-48f7-9390-2b7be45c9f7e",
+      "userID": "185521491075530752",
+      "messageID": "536121351367294986",
+      "channelName": "programming",
+      "date": "2019-01-19T09:54:50.843Z",
+      "content": "added leaderboards into the mobile game, working on balancing the mechanics"
+    },
+    {
+      "streakID": "62119622-053a-4d56-8af3-6f262761201f",
+      "userID": "160924459723653130",
+      "messageID": "536167064843452436",
+      "channelName": "gameplay",
+      "date": "2019-01-19T12:56:29.848Z",
+      "content": "working on food items"
+    },
+    {
+      "streakID": "148f20e7-c701-489b-9456-b953a72a0b1a",
+      "userID": "104711168601415680",
+      "messageID": "536224819331596312",
+      "channelName": "programming",
+      "date": "2019-01-19T16:45:59.648Z",
+      "content": "Autotiling success. Now to figure out what to actually do with this thing..."
+    },
+    {
+      "streakID": "3d99512d-deaf-4f28-a488-e455e957324d",
+      "userID": "193516247592337409",
+      "messageID": "536269807465791540",
+      "channelName": "programming",
+      "date": "2019-01-19T19:44:45.538Z",
+      "content": "Working on a interpreter and here's the BNF grammar I have so far \nexpr : term((pm_op)term)*\nterm : factor((md_op)factor)*\nmd_op : MUL | DIV\npm_op : PLUS | MINUS\nfactor : INTEGER"
+    },
+    {
+      "streakID": "21b21bcd-7af1-4e8f-a388-2d5c3cc6ceb8",
+      "userID": "216416471767580673",
+      "messageID": "536376470659006465",
+      "channelName": "gameplay",
+      "date": "2019-01-20T02:48:36.120Z",
+      "content": "https://www.youtube.com/watch?v=_-6sB6F8-Tg&feature=youtu.be Combo support is in babyyyyy"
+    },
+    {
+      "streakID": "ea7a0739-c777-4ff8-b806-e84d25a611d4",
+      "userID": "216416471767580673",
+      "messageID": "536435705509969922",
+      "channelName": "programming",
+      "date": "2019-01-20T06:43:58.801Z",
+      "content": "Just cleaned up the database code for the project. Most of it sucks because the IDE can't really spot most of those errors or fuckups. Hopefully I did a good job lol"
+    },
+    {
+      "streakID": "179f8d96-ff61-4da8-b35c-c1be26ac8150",
+      "userID": "216416471767580673",
+      "messageID": "536452364710969355",
+      "channelName": "gameplay",
+      "date": "2019-01-20T07:50:10.665Z",
+      "content": "So not even half of the combat system is in place, but I'm actually having a great time in this endless fight with the simplest enemy I could imagine lol. No Staggers, no momentum values yet, no stamina yet, but the core is getting there. Admins can even toggle hitbox view so we can adjust sizes as needed. Let me know what you think! https://www.youtube.com/watch?v=fzDu1Uggkx0&feature=youtu.be"
+    },
+    {
+      "streakID": "c7413290-92d4-4ac6-aabe-f753c7b7c18a",
+      "userID": "185521491075530752",
+      "messageID": "536525655873945610",
+      "channelName": "programming",
+      "date": "2019-01-20T12:41:24.542Z",
+      "content": "balanced the game, added in the leaderboards button to the main menu so the player can see who's in what position without playing the game"
+    },
+    {
+      "streakID": "9c55b0a2-33d4-4c05-b452-3416f74096fe",
+      "userID": "160924459723653130",
+      "messageID": "536571002025410563",
+      "channelName": "gameplay",
+      "date": "2019-01-20T15:41:35.933Z",
+      "content": "got the basics of cooking done, an item can now have a raw form and a cooked form. still need to implement it being near a fire"
+    },
+    {
+      "streakID": "1b949234-8fa9-455d-ad29-ef9d191b64d4",
+      "userID": "216416471767580673",
+      "messageID": "536730142756831242",
+      "channelName": "art",
+      "date": "2019-01-21T02:13:58.018Z",
+      "content": "fixed some minor rendering issues from the skeletal animation software to unity https://snag.gy/xcVvTN.jpg"
+    },
+    {
+      "streakID": "76a2a071-e1e4-4c4e-a4ba-2b4d54bd37c1",
+      "userID": "144297856566689801",
+      "messageID": "536812591591456788",
+      "channelName": "web-dev",
+      "date": "2019-01-21T07:41:35.350Z"
+    },
+    {
+      "streakID": "9ab5d2a4-5998-44cf-a683-0605816456e7",
+      "userID": "160924459723653130",
+      "messageID": "536824724311769090",
+      "channelName": "gameplay",
+      "date": "2019-01-21T08:29:48.074Z",
+      "content": "you can now burn food (25% chance) and fires now eventually die out and turn to ash"
+    },
+    {
+      "streakID": "a3b71e33-e91b-47a6-9c05-b43fdb994364",
+      "userID": "185521491075530752",
+      "messageID": "537020063014715393",
+      "channelName": "programming",
+      "date": "2019-01-21T21:26:00.421Z",
+      "content": "worked on balancing some of the gameplay mechanics and added new item movement"
+    },
+    {
+      "streakID": "db1d47b6-0454-4f8e-aebf-f63f5e33a346",
+      "userID": "202614201452068866",
+      "messageID": "537113835203461136",
+      "channelName": "programming",
+      "date": "2019-01-22T03:38:37.541Z",
+      "content": "finished up character creation with animated sprites and working with my new asset compression/decompression logic"
+    },
+    {
+      "streakID": "b2992566-3ec5-4617-92cc-83dfe6d9ab60",
+      "userID": "160924459723653130",
+      "messageID": "537164834551234571",
+      "channelName": "gameplay",
+      "date": "2019-01-22T07:01:16.679Z",
+      "content": "taking a little time to add searching tall grass for seeds. undecided what feature i want to work on next but ill probably leave this farming stuff for now"
+    },
+    {
+      "streakID": "177fe6ac-a51d-4783-b656-fb4bfce97a90",
+      "userID": "185521491075530752",
+      "messageID": "537200314483212298",
+      "channelName": "programming",
+      "date": "2019-01-22T09:22:15.697Z",
+      "content": "optimizing the game, fixing some bugs and testing all the main features"
     }
   ],
   "channels": [

@@ -183,7 +183,19 @@ messageTimeLeft = msg => {
 messageStats = msg => {
   const users = db.getStatCount('users')
   const streaks = db.getStatCount('streaks')
-  msg.reply(`so far ${users} users have used DevStreak and there have been ${streaks} streak updates`)
+
+  const highscores = db.getTopAllTimeStreaks()
+  let topStreaks = []
+
+  highscores.forEach(highscore => {
+    const user = client.users.find(u => u.id === highscore.userID)
+    topStreaks.push(`Top streak in *${highscore.channelName}* is ${user.username} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
+  })
+
+  msg.reply(`so far ${users} users have used DevStreak and there have been ${streaks} streak updates\n` +
+    `👑 Here are the best streaks of all time:\n` +
+    `${topStreaks.join('\n')}`
+  )
 }
 
 messageHelp = msg => {
