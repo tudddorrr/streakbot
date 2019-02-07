@@ -10,15 +10,15 @@ const giphy = require('./services/giphy')
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 
-  schedule.scheduleJob('00 00 00 00 00', () => {
+  schedule.scheduleJob('00 00 00 * * *', () => {
     broadcastNewDay()
   })
 
-  schedule.scheduleJob('00 18 00 00 00', () => {
+  schedule.scheduleJob('00 00 18 * * *', () => {
     broadcastWarning(6)
   })
 
-  schedule.scheduleJob('00 22 00 00 00', () => {
+  schedule.scheduleJob('00 00 22 * * *', () => {
     broadcastWarning(2)
   })
 })
@@ -66,6 +66,9 @@ client.on('message', msg => {
   } else if(msg.content.toLowerCase() === '!showstreaks') {
     // message all streaks in a channel
     messageAllStreaksForChannel(msg.channel)
+  } else if(msg.content.toLowerCase() === '!togglementions') {
+     // toggle notifications
+     db.toggleMentions(msg)
   }
 })
 
@@ -142,7 +145,8 @@ messageTopStreaks = () => {
   let topStreaks = []
 
   highscores.forEach(highscore => {
-    const user = client.users.find(u => u.id === highscore.userID)
+    let user = client.users.find(u => u.id === highscore.userID)
+    if(!db.getMentionSettingForUser(highscore.userID)) user = user.username
     topStreaks.push(`Top streak in *${highscore.channelName}* is ${user} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
   })
 
@@ -214,7 +218,8 @@ messageHelp = msg => {
     '**Global**\n' +
     '*!timeleft* - show how long is left until the streak cut-off time\n' + 
     '*!stats* - show a few useful stats\n' +
-    '*!toggledm* - toggle direct messages for when your streak ends')
+    '*!toggledm* - toggle direct messages for when your streak ends\n' + 
+    '*!togglementions* - toggle the bot mentioning you in announcements')
 }
 
 messageAllStreaksForChannel = channel => {

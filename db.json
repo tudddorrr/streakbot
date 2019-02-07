@@ -5,8 +5,8 @@
       "streaks": [
         {
           "channelName": "gameplay",
-          "streakLevel": 8,
-          "bestStreak": 8
+          "streakLevel": 24,
+          "bestStreak": 24
         },
         {
           "channelName": "art",
@@ -24,7 +24,8 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": false
     },
     {
       "userID": "224330005268791296",
@@ -36,18 +37,24 @@
         },
         {
           "channelName": "art",
-          "streakLevel": 0,
+          "streakLevel": 2,
           "bestStreak": 5
+        },
+        {
+          "channelName": "production",
+          "streakLevel": 0,
+          "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": false,
+      "mentionsEnabled": false
     },
     {
       "userID": "144297856566689801",
       "streaks": [
         {
           "channelName": "web-dev",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 6
         },
         {
@@ -56,7 +63,8 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "161152653982695424",
@@ -72,15 +80,16 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "143874647572611073",
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 0,
-          "bestStreak": 1
+          "streakLevel": 4,
+          "bestStreak": 4
         },
         {
           "channelName": "art",
@@ -93,7 +102,8 @@
           "bestStreak": 5
         }
       ],
-      "notificationsEnabled": false
+      "messagesEnabled": false,
+      "mentionsEnabled": true
     },
     {
       "userID": "216507978897948672",
@@ -104,7 +114,8 @@
           "bestStreak": 2
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "216416471767580673",
@@ -133,9 +144,15 @@
           "channelName": "programming",
           "streakLevel": 0,
           "bestStreak": 1
+        },
+        {
+          "channelName": "learning",
+          "streakLevel": 0,
+          "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "164161795353739265",
@@ -146,7 +163,8 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "104711168601415680",
@@ -162,7 +180,8 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "97465154714734592",
@@ -173,7 +192,8 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "143369412970283008",
@@ -184,15 +204,16 @@
           "bestStreak": 3
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "202614201452068866",
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 1,
-          "bestStreak": 3
+          "streakLevel": 0,
+          "bestStreak": 4
         },
         {
           "channelName": "gameplay",
@@ -205,7 +226,8 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "175381683560906752",
@@ -221,7 +243,8 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "103211274153758720",
@@ -232,7 +255,8 @@
           "bestStreak": 3
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "158726045032382464",
@@ -243,7 +267,8 @@
           "bestStreak": 2
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "226044900355866624",
@@ -254,18 +279,20 @@
           "bestStreak": 1
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "185521491075530752",
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 7,
-          "bestStreak": 7
+          "streakLevel": 0,
+          "bestStreak": 9
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     },
     {
       "userID": "193516247592337409",
@@ -273,10 +300,35 @@
         {
           "channelName": "programming",
           "streakLevel": 0,
-          "bestStreak": 1
+          "bestStreak": 2
         }
       ],
-      "notificationsEnabled": true
+      "messagesEnabled": true,
+      "mentionsEnabled": true
+    },
+    {
+      "userID": "266163013571051520",
+      "streaks": [
+        {
+          "channelName": "production",
+          "streakLevel": 5,
+          "bestStreak": 6
+        }
+      ],
+      "messagesEnabled": true,
+      "mentionsEnabled": true
+    },
+    {
+      "userID": "302528452685332483",
+      "streaks": [
+        {
+          "channelName": "programming",
+          "streakLevel": 8,
+          "bestStreak": 8
+        }
+      ],
+      "messagesEnabled": true,
+      "mentionsEnabled": true
     }
   ],
   "streaks": [
@@ -1189,6 +1241,509 @@
       "channelName": "programming",
       "date": "2019-01-22T09:22:15.697Z",
       "content": "optimizing the game, fixing some bugs and testing all the main features"
+    },
+    {
+      "streakID": "03589838-d36e-42a8-8085-641c8957e161",
+      "userID": "193516247592337409",
+      "messageID": "537477639729053727",
+      "channelName": "programming",
+      "date": "2019-01-23T03:44:15.221Z",
+      "content": "got a primitive parser set up which produces an abstract syntax tree and then prints it (with some unfortunate formatting error but w/e) https://i.imgur.com/MMbtAqi.png"
+    },
+    {
+      "streakID": "5eb200ab-f01c-4040-923c-6051d60da366",
+      "userID": "202614201452068866",
+      "messageID": "537485808148545546",
+      "channelName": "programming",
+      "date": "2019-01-23T04:16:42.707Z",
+      "content": "Got loading into game server working. Working on actually setting up the character in the game server and sending full information to the client."
+    },
+    {
+      "streakID": "1ae545b0-9f98-4d9d-998d-e04aabcaa07e",
+      "userID": "185521491075530752",
+      "messageID": "537623330992422922",
+      "channelName": "programming",
+      "date": "2019-01-23T13:23:10.926Z",
+      "content": "added in a popup for the player when they first open the game to enter a custom username which will be used in the leaderboard"
+    },
+    {
+      "streakID": "f6b5db23-f922-4fd8-b5a7-c52c77aa8b4d",
+      "userID": "160924459723653130",
+      "messageID": "537734865664081933",
+      "channelName": "gameplay",
+      "date": "2019-01-23T20:46:22.715Z",
+      "content": "in my infinite procrastination i've added the ability to search bushes for berries"
+    },
+    {
+      "streakID": "d902b768-bda7-4956-991b-962279e20ff1",
+      "userID": "202614201452068866",
+      "messageID": "537838604089819137",
+      "channelName": "programming",
+      "date": "2019-01-24T03:38:35.871Z",
+      "content": "Finished logic to send character information to the client and start logic to render the map the player is on."
+    },
+    {
+      "streakID": "c55d4f1f-a9f2-4da0-9ec4-6fbaf5031756",
+      "userID": "193516247592337409",
+      "messageID": "537844439562059787",
+      "channelName": "programming",
+      "date": "2019-01-24T04:01:47.082Z",
+      "content": "got a very semi-functional primitive language going now https://i.imgur.com/WZcTF64.png"
+    },
+    {
+      "streakID": "4f9bad93-5826-4cba-a41e-37601d8e60fb",
+      "userID": "160924459723653130",
+      "messageID": "537909980343435284",
+      "channelName": "gameplay",
+      "date": "2019-01-24T08:22:13.219Z",
+      "content": "nothing too interesting this morning. just been working on networking so that only the master client can destroy networked objects (as per the pattern in the framework we use). doing globalgamejam starting tomorrow so will be focusing on that woopwoop"
+    },
+    {
+      "streakID": "fed60061-6b9f-40bc-a282-804341c580d3",
+      "userID": "185521491075530752",
+      "messageID": "538020308746108948",
+      "channelName": "programming",
+      "date": "2019-01-24T15:40:37.600Z",
+      "content": "worked on more on optimizing the backend code and fixed some bugs"
+    },
+    {
+      "streakID": "d644f19b-3b9f-473a-907d-1d4454823c75",
+      "userID": "175381683560906752",
+      "messageID": "538067437996736512",
+      "channelName": "learning",
+      "date": "2019-01-24T18:47:54.048Z",
+      "content": "started learning angular"
+    },
+    {
+      "streakID": "5386ea62-f524-41c5-8557-484728a0facd",
+      "userID": "104711168601415680",
+      "messageID": "538068140517621776",
+      "channelName": "programming",
+      "date": "2019-01-24T18:50:41.666Z",
+      "content": "so a few days ago I asked if anybody knew of any self-hosted cloud IDE and took a look for myself and didn't really find anything, so I've been making my own during my downtime at work. It's using Vue and Ace lib for code editing which lets me just focus on the server logic and interfaces.\n\nFor today, I got tabbing and sending files back and forth between the client/server (using something like git diff) working. I need to figure a way to sneak it out seeing as I can't use USBs and can't log into anything, tho 🤔"
+    },
+    {
+      "streakID": "1d445294-5819-4b0a-b125-4d1145260e5b",
+      "userID": "202614201452068866",
+      "messageID": "538211881383624724",
+      "channelName": "programming",
+      "date": "2019-01-25T04:21:52.141Z",
+      "content": "Started working on map editor for game because too lazy to build a separate editor and have to duplicate movement controls"
+    },
+    {
+      "streakID": "2bce7a46-4c26-4a52-8333-03cf6d473038",
+      "userID": "216416471767580673",
+      "messageID": "538480033841414169",
+      "channelName": "learning",
+      "date": "2019-01-25T22:07:24.584Z",
+      "content": "been doing lots of stuff lately (and not streaking it like an idiot lol) but recently I've been learning some new concepts for C# that I've not really used before. Such as: https://docs.microsoft.com/en-us/dotnet/csharp/pattern-matching#using-pattern-matching-switch-statements"
+    },
+    {
+      "streakID": "4c8e54d6-b682-4546-8fd5-73eeee380d15",
+      "userID": "160924459723653130",
+      "messageID": "538561190763429908",
+      "channelName": "gameplay",
+      "date": "2019-01-26T03:29:53.881Z",
+      "content": "off to a slow start today. came up with an idea fast but didnt get much gameplay done cause it turns out phaser 3 is trash"
+    },
+    {
+      "streakID": "740355f0-8e9b-4d64-a757-aeb366a1a2f7",
+      "userID": "160924459723653130",
+      "messageID": "538831676751478784",
+      "channelName": "gameplay",
+      "date": "2019-01-26T21:24:42.778Z",
+      "content": "still kicking we're actually getting places now https://www.youtube.com/watch?v=K07VQMylbNk&feature=youtu.be"
+    },
+    {
+      "streakID": "c55935ec-3c64-4375-9b72-0daa0299a97c",
+      "userID": "202614201452068866",
+      "messageID": "538929306114719764",
+      "channelName": "programming",
+      "date": "2019-01-27T03:52:39.419Z",
+      "content": " I'M GOING STREAKING!!! Currently working on map editor to build game world.. going to be a bit before anything really to visually show. https://gph.is/1ikhWmo"
+    },
+    {
+      "streakID": "aaf5b27a-0590-4913-b126-51db1a1d3b09",
+      "userID": "266163013571051520",
+      "messageID": "538937165783236609",
+      "channelName": "production",
+      "date": "2019-01-27T04:23:53.352Z",
+      "content": "Began modeling Isogrid cylindrical shell panel for 3D printed pressure vessel"
+    },
+    {
+      "streakID": "19de8326-14fa-4863-95df-58bb1a8f4c5b",
+      "userID": "160924459723653130",
+      "messageID": "539146711076175920",
+      "channelName": "gameplay",
+      "date": "2019-01-27T18:16:32.859Z",
+      "content": "finished off the game as best we could today. we got pretty much all the gameplay done except for raytracing pretty much just due to lack of functionality and/or bugs in phaser. never using phaser again after this, the old community run 2.x version was so much better."
+    },
+    {
+      "streakID": "b4ca47c8-773a-45a3-a552-b72a1e1d87c7",
+      "userID": "266163013571051520",
+      "messageID": "539270573054754857",
+      "channelName": "production",
+      "date": "2019-01-28T02:28:43.860Z",
+      "content": "finished lattice structure of the iso grid with the right angles to allow for perfect connections between repeated parts. I’m not at my computer right now but I’ll post a screenshot later"
+    },
+    {
+      "streakID": "d861071a-ef6b-4541-9511-10fdd44945c8",
+      "userID": "160924459723653130",
+      "messageID": "539530097263116309",
+      "channelName": "gameplay",
+      "date": "2019-01-28T19:39:59.878Z",
+      "content": "im trying to work on AI and movement and this was the only way i could figure out how to test them changing direction if they collide: https://www.youtube.com/watch?v=dEhY_c87W_Y&feature=youtu.be"
+    },
+    {
+      "streakID": "a3071318-7bca-4390-9e4d-75fee9bc3eb6",
+      "userID": "266163013571051520",
+      "messageID": "539570787951050753",
+      "channelName": "production",
+      "date": "2019-01-28T22:21:40.655Z",
+      "content": "Added in step joints between vertical and horizontal components that will not alter the exterior shape of the vessel. Since I didn't attach a ss last time I'll post a few here now."
+    },
+    {
+      "streakID": "d398b56c-bd0c-4d03-b7d5-4195135bb321",
+      "userID": "202614201452068866",
+      "messageID": "539598107730509825",
+      "channelName": "programming",
+      "date": "2019-01-29T00:10:14.210Z",
+      "content": "creating export logic for game regions to store information safely and efficiently on client side"
+    },
+    {
+      "streakID": "6d95fc2d-e93a-494e-87a1-b61720c67ed0",
+      "userID": "224330005268791296",
+      "messageID": "539923641652084737",
+      "channelName": "art",
+      "date": "2019-01-29T21:43:47.758Z",
+      "content": "support small businesses"
+    },
+    {
+      "streakID": "83df6ab1-499e-43e1-9ba0-037128e7e42b",
+      "userID": "160924459723653130",
+      "messageID": "539927330563424258",
+      "channelName": "gameplay",
+      "date": "2019-01-29T21:58:27.082Z",
+      "content": "got animals networked and moving around a bit better"
+    },
+    {
+      "streakID": "6b171a32-f707-4d1d-a7e0-7e61d1d06c45",
+      "userID": "266163013571051520",
+      "messageID": "539941178750271488",
+      "channelName": "production",
+      "date": "2019-01-29T22:53:28.662Z",
+      "content": "Been a busy day working on a few reports that are due soon, but I  began the end cap models and did the rough calculations for the lattice structure locations"
+    },
+    {
+      "streakID": "fb04201b-5408-4e00-bafe-36bdfc7ad09c",
+      "userID": "202614201452068866",
+      "messageID": "540020381772283914",
+      "channelName": "programming",
+      "date": "2019-01-30T04:08:12.128Z",
+      "content": "Working loading map info into the client and generate graphics"
+    },
+    {
+      "streakID": "01208ebb-059a-4675-8b9b-bb7320243411",
+      "userID": "160924459723653130",
+      "messageID": "540268885740486669",
+      "channelName": "gameplay",
+      "date": "2019-01-30T20:35:40.315Z",
+      "content": "nothing too exciting. did a little playtest with slowpoke, found some bugs, fixed them. now working on some more technical debt"
+    },
+    {
+      "streakID": "da0c5ebe-4b69-44c9-8354-991276b5bf80",
+      "userID": "266163013571051520",
+      "messageID": "540309219140698113",
+      "channelName": "production",
+      "date": "2019-01-30T23:15:56.392Z",
+      "content": "A lot of familiarizing and troubleshooting done today for our printer system, not many great prints to show off but definitely learned a lot of things and what to look out for!"
+    },
+    {
+      "streakID": "22406eb6-1abb-440c-9b7d-2d8b6c708b79",
+      "userID": "202614201452068866",
+      "messageID": "540613712168615947",
+      "channelName": "gameplay",
+      "date": "2019-01-31T19:25:53.250Z",
+      "content": "Created list of Minable ores and Smithing metals"
+    },
+    {
+      "streakID": "2c9189a3-8716-4084-9ce0-fb0cdc74e842",
+      "userID": "224330005268791296",
+      "messageID": "540626892105973761",
+      "channelName": "art",
+      "date": "2019-01-31T20:18:15.583Z",
+      "content": "issa tree. since i actually need some goddamn tiles to get started here and work has barely anything for me to do"
+    },
+    {
+      "streakID": "064b1ddb-9dc5-406a-b784-dba0c1b8f84c",
+      "userID": "160924459723653130",
+      "messageID": "540632398719877123",
+      "channelName": "gameplay",
+      "date": "2019-01-31T20:40:08.527Z",
+      "content": "fixing up the right click menu to not go off screen"
+    },
+    {
+      "streakID": "78c38657-df34-4b3a-8fb8-609166b411e7",
+      "userID": "266163013571051520",
+      "messageID": "540663911393787904",
+      "channelName": "production",
+      "date": "2019-01-31T22:45:21.551Z",
+      "content": "Not too much physical work done today as I've been exhausted from the lack of sleep, but I typed up procedures for all the components of the hybrid manufacturing process and began reviewing and revising them already."
+    },
+    {
+      "streakID": "4378cc79-8d18-492f-9f4e-e6bc8e559a96",
+      "userID": "302528452685332483",
+      "messageID": "540721558201696268",
+      "channelName": "programming",
+      "date": "2019-02-01T02:34:25.680Z",
+      "content": "Continued a few hours of a Udemy 2D C# Unity course to make 13 games."
+    },
+    {
+      "streakID": "a930c4f7-9b6c-4381-aae8-17f8dd29ffab",
+      "userID": "160924459723653130",
+      "messageID": "540811929078464512",
+      "channelName": "gameplay",
+      "date": "2019-02-01T08:33:31.712Z",
+      "content": "trees now have a chance of dropping leaves and pinecones, pinecones will be used to stoke fires and leaves will be used in medicines and building"
+    },
+    {
+      "streakID": "4fc37c2e-58da-4bf4-84a5-684f58730aa4",
+      "userID": "302528452685332483",
+      "messageID": "541072997415649294",
+      "channelName": "programming",
+      "date": "2019-02-02T01:50:55.260Z",
+      "content": "public void stick_fight_procedural_physics_animations();"
+    },
+    {
+      "streakID": "eb0e737a-f459-4322-b955-6c7e10ef18d4",
+      "userID": "224330005268791296",
+      "messageID": "541095286836297729",
+      "channelName": "art",
+      "date": "2019-02-02T03:19:29.529Z",
+      "content": "wip of a corner cafe"
+    },
+    {
+      "streakID": "001785c5-ae09-4845-a69d-e6aa9f38f593",
+      "userID": "160924459723653130",
+      "messageID": "541279422767038466",
+      "channelName": "gameplay",
+      "date": "2019-02-02T15:31:10.964Z",
+      "content": "you can now increase the lifetime of fires by feeding them pinecones"
+    },
+    {
+      "streakID": "254094c6-1bd4-45e9-8b7b-f84fe7155dbf",
+      "userID": "302528452685332483",
+      "messageID": "541359434283352104",
+      "channelName": "programming",
+      "date": "2019-02-02T20:49:07.133Z",
+      "content": "continuing the attempt at re-creating procedural physics based 2d animation for characters.\n\nIf you wanted to make a procedural physics based stick fight character/animation with different body parts attached with a hinge how would you go about ignoring the interaction between the gameobjects of the ragdoll parent? Would you create a \"player1\" tag and have all of the body parts ignore eachother or create a layer per player and have them ignore the layer?\n```\nI cant get \n    private void OnCollisionEnter2D(Collision2D collision)\n    {\n        if (collision.gameObject.tag == \"Bird1\")\n        {\n            Debug.Log (\"check\");\n            Physics2D.IgnoreCollision(Collision2D.collider, collider);\n        }\n    }\n```\nTo work. All of the body parts are attached to another gameobject parent, attempting to re-create \"stick fight the game\" animations.\nThe script is on the bird torso."
+    },
+    {
+      "streakID": "3206f158-e208-4706-8be4-4862d36fce37",
+      "userID": "104711168601415680",
+      "messageID": "541381550537834518",
+      "channelName": "programming",
+      "date": "2019-02-02T22:17:00.065Z",
+      "content": "fixed my world handling and got maps rendering with new chunking system"
+    },
+    {
+      "streakID": "6f43cc59-0a0c-4eda-b077-42b8abfca004",
+      "userID": "202614201452068866",
+      "messageID": "541660913514577943",
+      "channelName": "programming",
+      "date": "2019-02-03T16:47:05.410Z",
+      "content": "Working on dynamic map loading. When i'm do with my map loading logic.. this is how it all should work. This is an example of 16 maps all \"seemless\" together. The gray is offloaded, green is loaded, red is the player's \"view\", and purple dot is the player."
+    },
+    {
+      "streakID": "9128854f-71c8-4079-8857-1b119b64dcfd",
+      "userID": "302528452685332483",
+      "messageID": "541664032667729933",
+      "channelName": "programming",
+      "date": "2019-02-03T16:59:29.146Z",
+      "content": "added xbox controller mapping; simple physics based push movement and firing of projectiles."
+    },
+    {
+      "streakID": "a3f1d972-9803-43e7-9867-c00b0ed61e0f",
+      "userID": "160924459723653130",
+      "messageID": "541719545333940226",
+      "channelName": "gameplay",
+      "date": "2019-02-03T20:40:04.634Z",
+      "content": "you can now chop up tree stumps, underneath you'll fine roots. root can be combined with leaves to make weak medicine (small chance of curing diseases), combine that with some grass and you get stronger medicine"
+    },
+    {
+      "streakID": "6f164049-f3eb-4117-91e1-5e515fd8c094",
+      "userID": "266163013571051520",
+      "messageID": "541804462650556416",
+      "channelName": "production",
+      "date": "2019-02-04T02:17:30.178Z",
+      "content": "I'm counting this because I had been putting it off forever and it is very important for continuing my work. Finalized and issued project progress report detailing all changes and insight that has been gained since my last update late 2018. 😄"
+    },
+    {
+      "streakID": "1fc2d397-9f3e-49f5-b5a8-6dd411ec9ce4",
+      "userID": "224330005268791296",
+      "messageID": "541815004954099732",
+      "channelName": "production",
+      "date": "2019-02-04T02:59:23.649Z",
+      "content": "by all logic and measurements, this should not fit. this should not work as well as it does, and Yet,"
+    },
+    {
+      "streakID": "a8ddb259-2b45-4f95-800f-5debf1786114",
+      "userID": "143874647572611073",
+      "messageID": "542095418398605342",
+      "channelName": "programming",
+      "date": "2019-02-04T21:33:39.436Z"
+    },
+    {
+      "streakID": "7e195da7-b44d-4a25-aa61-e5852041bc7f",
+      "userID": "160924459723653130",
+      "messageID": "542121276907716625",
+      "channelName": "gameplay",
+      "date": "2019-02-04T23:16:24.575Z",
+      "content": "alright bear with this video. spent a lot of time setting everything up but now im at the stage where im setting up prefabs for each time of seed/plant, here's one just growing quick: https://www.youtube.com/watch?v=RNGKDw5tJwQ&feature=youtu.be"
+    },
+    {
+      "streakID": "0d9c0fd9-7a35-43b7-bb49-ad346848abbc",
+      "userID": "302528452685332483",
+      "messageID": "542178489810288660",
+      "channelName": "programming",
+      "date": "2019-02-05T03:03:45.190Z",
+      "content": "Working on fine-tuning controller movement and look directions; instantiating projectiles, raycasting to enemies, death, animations, and cleaning up variables."
+    },
+    {
+      "streakID": "c5e8af9c-098c-4fb3-892b-124d8d67c4c3",
+      "userID": "266163013571051520",
+      "messageID": "542182046089478145",
+      "channelName": "production",
+      "date": "2019-02-05T03:17:53.060Z",
+      "content": "Finalized two versions of calculations for all the dimensions of the lattice support structure of the end caps to the vessel design. I would post a picture but its about 6 pages of straight calculations and diagrams. Only took like all day to get done correctly!"
+    },
+    {
+      "streakID": "9ec93ebf-0bae-4e36-bd15-d544a1b6644c",
+      "userID": "143874647572611073",
+      "messageID": "542319154548703232",
+      "channelName": "programming",
+      "date": "2019-02-05T12:22:42.269Z",
+      "content": "I had.. a lot of help lol. BUT knockback setup behind the scenes. Once I figure out how movement is handled I should be able to create the bounce back effect. Currently Knockback is true the state changes to KNOCKBACK, which also sets the stagger status.. pretty nifty."
+    },
+    {
+      "streakID": "55f22f63-2cab-452b-b5fa-3276bd725a4a",
+      "userID": "104711168601415680",
+      "messageID": "542421340691496961",
+      "channelName": "programming",
+      "date": "2019-02-05T19:08:45.409Z",
+      "content": "so today I got my scripting engine running and started defining my \"standard library\" of sorts https://pastebin.com/7iPbSHAM"
+    },
+    {
+      "streakID": "c105868c-571a-4efe-8bb1-8f3b60725d89",
+      "userID": "160924459723653130",
+      "messageID": "542467604678443010",
+      "channelName": "gameplay",
+      "date": "2019-02-05T22:12:35.554Z",
+      "content": "went through and converted all the dirt to prefabs so now we can associate dirt patches with plants (so that we can check if that dirt has been fertilised later on). for now though you can now right-click seeds in your inventory to plant them if you're on a bit of dirt https://www.youtube.com/watch?v=Uu8kT5XGclQ&feature=youtu.be"
+    },
+    {
+      "streakID": "e3482e89-af31-4fe6-8eef-8cda7ef57f29",
+      "userID": "185521491075530752",
+      "messageID": "542481491720929290",
+      "channelName": "programming",
+      "date": "2019-02-05T23:07:46.470Z",
+      "content": "been working on my save system for my graded game for college, currently saves the position, rotation, date and time of when it was saved, how far through the dialogue the player was and what level they were currently on"
+    },
+    {
+      "streakID": "a674ac03-ff2c-4656-a48a-f401fb3acee8",
+      "userID": "302528452685332483",
+      "messageID": "542504806384795678",
+      "channelName": "programming",
+      "date": "2019-02-06T00:40:25.115Z",
+      "content": "Made a quick and dirty 4 hour Frogger at work during the icy road downtime. Starting to get the hand of IEnumerators and Raycasting now."
+    },
+    {
+      "streakID": "8a5c62e1-2bf7-4144-8f39-8994bf40969a",
+      "userID": "266163013571051520",
+      "messageID": "542522368514457611",
+      "channelName": "production",
+      "date": "2019-02-06T01:50:12.311Z",
+      "content": "Did some more testing today with the printer head only to find out that an internal component is broken and it may need to be sent back to the supplier... which puts us even more behind. If it is designed to operate this way, we have to seriously reconsider all of our design choices. Also learned that regardless of the outcome above, my 6 pages of calculations need to be thrown out due to a new major change in the project scope...."
+    },
+    {
+      "streakID": "cfcf962a-5649-4a75-9a74-249d39e0f10a",
+      "userID": "143874647572611073",
+      "messageID": "542666129194352640",
+      "channelName": "programming",
+      "date": "2019-02-06T11:21:27.472Z",
+      "content": "Didnt have a lot of time yesterday.. but I setup a new clicker game project. I've got the basic click the game screen get points setup. I'm going to work on a timer today, which will add points every 5 seconds or so.. maybe I should play one briefly so I can make sure I'm doing  this right. I'm planning on adding upgrades to buy with the points to increase the amount of points you get while clicking. Then maybe I'll tidy it up with a GUI, and call it good for now. Just trying to make something basic. I really type a lot into these.. soz"
+    },
+    {
+      "streakID": "db568c37-3e0a-45da-ba9d-3ddc98fd3877",
+      "userID": "224330005268791296",
+      "messageID": "542807485556457494",
+      "channelName": "art",
+      "date": "2019-02-06T20:43:09.469Z",
+      "content": "the completed. cafe"
+    },
+    {
+      "streakID": "7d0b7a89-0e10-4c27-95be-2e2f98dd530a",
+      "userID": "160924459723653130",
+      "messageID": "542823220966064190",
+      "channelName": "gameplay",
+      "date": "2019-02-06T21:45:41.145Z",
+      "content": "spent some time improving the networking on the plants so they sync up better for all players and you can now pick them for their fruit/veg which are all in the game now"
+    },
+    {
+      "streakID": "5b6b834d-cc81-4ef8-94d8-a61aa7d597bc",
+      "userID": "266163013571051520",
+      "messageID": "542826419730776075",
+      "channelName": "production",
+      "date": "2019-02-06T21:58:23.710Z",
+      "content": "troubleshooted the printer head with and recorded all testing data for the CEO of the company to assist with their diagnostics. Formulated back up plan if the printer needs to be sent back to due to a bent inner auger as we suspect is the cause."
+    },
+    {
+      "streakID": "32b56d55-d323-4996-b846-10ee92bf4a56",
+      "userID": "302528452685332483",
+      "messageID": "542849121694908436",
+      "channelName": "programming",
+      "date": "2019-02-06T23:28:36.295Z",
+      "content": "Instantiated random cars for the frogger clone and created randomized car assets"
+    },
+    {
+      "streakID": "af9f3ba9-e1d3-4299-9c56-39afba554c7e",
+      "userID": "143874647572611073",
+      "messageID": "543027606430285834",
+      "channelName": "programming",
+      "date": "2019-02-07T11:17:50.365Z",
+      "content": "Added first upgrade, the others shouldn't be too rough.. Can officially add miners which keeps count, and then adds passive resource gain buff. Created a button instead of a pic box for manual clicking."
+    },
+    {
+      "streakID": "a3bf3c9c-1b5a-4a8f-8e54-b310311e364f",
+      "userID": "224330005268791296",
+      "messageID": "543138554885177350",
+      "channelName": "art",
+      "date": "2019-02-07T18:38:42.575Z",
+      "content": "yknow....... procrastinating and whatnot"
+    },
+    {
+      "streakID": "0a3f117c-757f-40c8-9ea9-e291be5338c2",
+      "userID": "160924459723653130",
+      "messageID": "543175437015187477",
+      "channelName": "gameplay",
+      "date": "2019-02-07T21:05:15.999Z",
+      "content": "you can now find worms in dirt. one last thing to do on farming which is fertilising dirt with ash"
+    },
+    {
+      "streakID": "d42df145-1e34-4d26-a8e3-456bba74696a",
+      "userID": "266163013571051520",
+      "messageID": "543179083782029373",
+      "channelName": "production",
+      "date": "2019-02-07T21:19:45.391Z",
+      "content": "Shipped the printer back to the company... since they are still not sure what is wrong, we are moving forward with our back up plan. Also took photos of the system for documentation purposes and for our manual."
+    },
+    {
+      "streakID": "56c55f34-0192-4710-a685-913b9145180b",
+      "userID": "302528452685332483",
+      "messageID": "543279032163368989",
+      "channelName": "programming",
+      "date": "2019-02-08T03:56:54.925Z",
+      "content": "added intelligent spawning system, refactored a bit of code."
     }
   ],
   "channels": [

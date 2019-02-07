@@ -38,7 +38,8 @@ exports.addStreak = msg => {
       .push({
         userID: msg.author.id,
         streaks: [],
-        notificationsEnabled: true
+        messagesEnabled: true,
+        mentionsEnabled: true
       })
       .write()
   }
@@ -146,7 +147,7 @@ exports.checkStreaks = clientUsers => {
         console.log(`${user.userID}'s ${userStreak.channelName} streak ended`)
 
         // send a message to them about it
-        if(user.notificationsEnabled) {
+        if(user.messagesEnabled) {
           clientUsers.find(u => u.id === user.userID).send(`Unfortunately you missed a day and your streak for ${userStreak.channelName} has ended. Use !streak in the ${userStreak.channelName} channel to start a new one!`)
         }
       }
@@ -187,18 +188,45 @@ exports.toggleDMs = msg => {
     .find({userID: msg.author.id})
 
   let userValue = user.value()
-  userValue.notificationsEnabled = !userValue.notificationsEnabled
+  userValue.messagesEnabled = !userValue.messagesEnabled
 
   user.assign(userValue)
     .write()
 
-  console.log(`${userValue.userID}'s notifications are now set to ${userValue.notificationsEnabled}`)
+  console.log(`${userValue.userID}'s notifications are now set to ${userValue.messagesEnabled}`)
 
-  if(userValue.notificationsEnabled) {
+  if(userValue.messagesEnabled) {
     msg.reply(`I will now message you if your streak ends. Use !toggledm to disable these messages`)
   } else {
     msg.reply(`I will no longer message you if your streak ends. Use !toggledm to re-enable these messages`)
   }
+}
+
+exports.toggleMentions = msg => {
+  let user = db.get('users')
+    .find({userID: msg.author.id})
+
+  let userValue = user.value()
+  userValue.mentionsEnabled = !userValue.mentionsEnabled
+
+  user.assign(userValue)
+    .write()
+
+  console.log(`${userValue.userID}'s mentions are now set to ${userValue.mentionsEnabled}`)
+
+  if(userValue.mentionsEnabled) {
+    msg.reply(`I will now mention you if your streak is a highscore. Use !togglementions to disable these messages`)
+  } else {
+    msg.reply(`I will no longer message you if your streak is a highscore. Use !togglementions to re-enable these messages`)
+  }
+}
+
+exports.getMentionSettingForUser = userID => {
+  let user = db.get('users')
+  .find({userID})
+  .value()
+
+  return user.mentionsEnabled
 }
 
 exports.getAllStreaksForChannel = channelName => {
