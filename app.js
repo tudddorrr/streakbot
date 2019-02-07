@@ -5,20 +5,21 @@ const db = require('./db')
 const schedule = require('node-schedule')
 const startOfTomorrow = require('date-fns/start_of_tomorrow')
 const differenceInHours = require('date-fns/difference_in_hours')
+const giphy = require('./services/giphy')
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 
-  schedule.scheduleJob('00 00 * * *', () => {
+  schedule.scheduleJob('00 00 00 00 00', () => {
     broadcastNewDay()
   })
 
-  schedule.scheduleJob('00 18 * * *', () => {
-    broadcastWarning(6, 'https://media.giphy.com/media/3ornjXizVZDbngmjRK/giphy.gif')
+  schedule.scheduleJob('00 18 00 00 00', () => {
+    broadcastWarning(6)
   })
 
-  schedule.scheduleJob('00 22 * * *', () => {
-    broadcastWarning(2, 'https://media.giphy.com/media/xUOxeXt41UOYRusw4E/giphy.gif')
+  schedule.scheduleJob('00 22 00 00 00', () => {
+    broadcastWarning(2)
   })
 })
 
@@ -76,33 +77,39 @@ client.on('guildMemberAdd', member => {
 })
 
 client.login(process.env.BOT_SECRET)
+exports.client = client
 
 broadcastNewDay = () => {
   console.log(`It's a new day!`)
-
   const channel = client.channels.find(c => c.name === "announcements")
-  channel.send('Today is a brand new day! Make sure to keep up all your active streaks!', {
-     files: [{
-        attachment: 'https://media.giphy.com/media/1z63Y5OuNMT1m/giphy.gif',
-        name: 'giphy.gif'
-     }]
+
+  giphy.getMedia('morning', media => {
+    channel.send('Today is a brand new day! Make sure to keep up all your active streaks!', {
+       files: [{
+          attachment: media,
+          name: 'giphy.gif'
+       }]
+    })
+  
+    db.checkStreaks(client.users)
+  
+    setTimeout(() => {
+      messageTopStreaks()
+    }, 5000)
   })
-
-  db.checkStreaks(client.users)
-
-  setTimeout(() => {
-    messageTopStreaks()
-  }, 5000)
 }
 
-broadcastWarning = (hoursRemaining, gif) => {
+broadcastWarning = hoursRemaining => {
   console.log(`Broadcasting ${hoursRemaining} hours remaining`)
   const channel = client.channels.find(c => c.name === "announcements")
-  channel.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streaks!`, {
-     files: [{
-        attachment: gif,
-        name: 'giphy.gif'
-     }]
+
+  giphy.getMedia('countdown', media => {
+    channel.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streaks!`, {
+      files: [{
+          attachment: media,
+          name: 'giphy.gif'
+      }]
+    })
   })
 }
 
