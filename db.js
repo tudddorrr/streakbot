@@ -143,13 +143,14 @@ exports.checkStreaks = clientUsers => {
       })
 
       if(!foundStreakFromYesterday && userStreak.streakLevel > 0) {
-        userStreak.streakLevel = 0
         console.log(`${user.userID}'s ${userStreak.channelName} streak ended`)
 
         // send a message to them about it
         if(user.messagesEnabled) {
-          clientUsers.find(u => u.id === user.userID).send(`Unfortunately you missed a day and your streak for ${userStreak.channelName} has ended. Use !streak in the ${userStreak.channelName} channel to start a new one!`)
+          clientUsers.find(u => u.id === user.userID).send(`Unfortunately you missed a day and your ${userStreak.streakLevel} day ${userStreak.channelName} streak has ended. Use !streak in the ${userStreak.channelName} channel to start a new one!`)
         }
+
+        userStreak.streakLevel = 0
       }
     })
   })
