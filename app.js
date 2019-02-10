@@ -150,7 +150,7 @@ messageTopStreaks = () => {
     topStreaks.push(`Top streak in *${highscore.channelName}* is ${user} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
   })
 
-  channel.send(topStreaks.join('\n'))
+  channel.send(topStreaks.join('\n') + '\n Tip: you can turn off mentions using !togglementions')
 }
 
 messageCurrentStreakForChannel = msg => {
