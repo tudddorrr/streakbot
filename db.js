@@ -131,7 +131,7 @@ exports.getTopStreaks = () => {
   return highscores
 }
 
-exports.checkStreaks = (clientUsers, guild) => {
+exports.checkStreaks = clientUsers => {
   const users = db.get('users').value()
   const streaks = db.get('streaks').value()
 
@@ -159,13 +159,6 @@ exports.checkStreaks = (clientUsers, guild) => {
   db.get('users')
     .assign(users)
     .write()
-
-  users.forEach(user => {
-    if(exports.getMyStreaks(user.userID).length === 0) {
-      const guildMember = guild.members.find(u => u.id === user.userID)
-      guildMember.removeRole(constants.ActiveStreakerRoleID, 'No active streaks')
-    }
-  })
 }
 
 exports.hasStreakedToday = (userID, channelName) => {
@@ -300,8 +293,14 @@ exports.getTopAllTimeStreaks = () => {
 exports.getAllActiveStreaks = () => {
   let result = []
   for(let channel of exports.getChannels()) {
-    const streaksForChannel = exports.getAllStreaksForChannel(channel)
-    if(streaksForChannel.length > 0) result.push(streaksForChannel)
+    if(channel !== 'testland') {
+      const streaksForChannel = exports.getAllStreaksForChannel(channel)
+      if(streaksForChannel.length > 0) result.push(streaksForChannel)
+    }
   }
   return result
+}
+
+exports.getUsers = () => {
+  return db.get('users').value()
 }

@@ -66,7 +66,7 @@ client.on('message', msg => {
      db.toggleMentions(msg)
   } else if(msg.content.toLowerCase() === '!showactivestreaks') {
     // message all active streaks
-    messageAllActiveStreaks()
+    messageAllActiveStreaks(msg)
   }
 })
 
@@ -107,10 +107,18 @@ broadcastNewDay = () => {
     })
   
     const guild = client.guilds.get(constants.DevStreakGuildID)
-    db.checkStreaks(client.users, guild)
+    db.checkStreaks(client.users)
+
+    for(let user of db.getUsers()) {
+      if(db.getMyStreaks(user.userID).length === 0) {
+        const guildMember = guild.members.find(u => u.id === user.userID)
+        if(guildMember) guildMember.removeRole(constants.ActiveStreakerRoleID, 'No active streaks')
+      }
+    }
   
     setTimeout(() => {
-      messageTopStreaks()
+      broadcastTopStreaks()
+      broadcastAllActiveStreaks()
       assignTopStreakRoles()
     }, 5000)
   })
@@ -149,7 +157,7 @@ isValidStreakMessage = msg => {
   return true
 }
 
-messageTopStreaks = () => {
+broadcastTopStreaks = () => {
   const highscores = db.getTopStreaks()
   if(highscores.length === 0) return
 
@@ -158,13 +166,13 @@ messageTopStreaks = () => {
 
   let topStreaks = []
 
-  highscores.forEach(highscore => {
+  for(let highscore of highscores) {
     let user = client.users.find(u => u.id === highscore.userID)
     if(!db.getMentionSettingForUser(highscore.userID)) user = user.username
     topStreaks.push(`Top streak in *${highscore.channelName}* is ${user} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
-  })
+  }
 
-  channel.send(topStreaks.join('\n') + '\n Tip: you can turn off mentions using !togglementions')
+  channel.send(topStreaks.join('\n') + '\nTip: you can turn off mentions using !togglementions')
 }
 
 messageCurrentStreakForChannel = msg => {
@@ -182,12 +190,12 @@ messageCurrentStreakForChannel = msg => {
 messageAllMyStreaks = msg => {
   console.log(`${msg.author.username} requested their streaks via DM`)
   const streaks = db.getMyStreaks(msg.author.id)
-  streaks.forEach(streak => {
+  for(let streak of streaks) {
     const hasStreakedToday = db.hasStreakedToday(msg.author.id, streak.channelName)
     let postedString = 'but you haven\'t increased your streak yet today 😟'
     if(hasStreakedToday) postedString = 'and you\'ve increased your streak today 👍'
     msg.reply(`Your ${streak.channelName} streak is currently ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} ${postedString}`)
-  })
+  }
 
   if(streaks.length > 0) {
     msg.reply('Keep it up 💪')
@@ -212,10 +220,10 @@ messageStats = msg => {
   const highscores = db.getTopAllTimeStreaks()
   let topStreaks = []
 
-  highscores.forEach(highscore => {
+  for(let highscore of highscores) {
     const user = client.users.find(u => u.id === highscore.userID)
     topStreaks.push(`Top streak in *${highscore.channelName}* is ${user.username} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
-  })
+  }
 
   msg.reply(`so far ${users} users have used DevStreak and there have been ${streaks} streak updates\n` +
     `👑 Here are the best streaks of all time:\n` +
@@ -233,7 +241,8 @@ messageHelp = msg => {
     '*!timeleft* - show how long is left until the streak cut-off time\n' + 
     '*!stats* - show a few useful stats\n' +
     '*!toggledm* - toggle direct messages for when your streak ends\n' + 
-    '*!togglementions* - toggle the bot mentioning you in announcements')
+    '*!togglementions* - toggle the bot mentioning you in announcements\n' +
+    '*!showactivestreaks* - show all active streaks for all channels')
 }
 
 messageAllStreaksForChannel = channel => {
@@ -264,14 +273,11 @@ messageAllStreaksForChannel = channel => {
     }).join('\n'))
 }
 
-messageAllActiveStreaks = () => {
+buildActiveStreaksMessage = () => {
   const streaks = db.getAllActiveStreaks()
   if(streaks.length === 0) return
-
-  const channel = client.channels.find(c => c.name === 'testland')
-
-  channel.send(`🔥 Here are all the active streaks:\n` + 
-  streaks.map(channelStreaks => {
+  
+  return streaks.map(channelStreaks => {
     let sortedChannelStreaks = channelStreaks.sort((a, b) => {
       if(a.streakLevel === b.streakLevel) {
         const userA = client.users.find(u => u.id === a.userID).username
@@ -287,7 +293,16 @@ messageAllActiveStreaks = () => {
       userStreaks.push(`*${user}* with ${channelStreak.streakLevel} ${channelStreak.streakLevel === 1 ? 'day' : 'days'} in ${channelStreak.channelName}`)
     }
     return userStreaks.join(', ')
-  }).join('\n'))
+  }).join('\n')
+}
+
+messageAllActiveStreaks = msg => {
+  msg.reply(`here are all the active streaks:\n` + buildActiveStreaksMessage())
+}
+
+broadcastAllActiveStreaks = () => {
+  const channel = client.channels.find(c => c.name === "announcements")
+  channel.send(`🔥 Here are all the active streaks:\n` + buildActiveStreaksMessage())
 }
 
 assignTopStreakRoles = () => {
@@ -300,8 +315,8 @@ assignTopStreakRoles = () => {
   })
 
   // assign role to top streakers
-  highscores.forEach(highscore => {
+  for(let highscore of highscores) {
     let user = client.guilds.get(constants.DevStreakGuildID).members.find(u => u.id === highscore.userID)
     user.addRole(constants.TopStreakerRoleID, 'Has a top streak at the end of the day')
-  })
+  }
 }
