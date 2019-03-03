@@ -9,6 +9,8 @@ const uuid = require('uuid/v4')
 const isYesterday = require('date-fns/is_yesterday')
 const isToday = require('date-fns/is_today')
 
+const constants = require('./constants')
+
 // user - userID, streaks [{channelName, streakLevel}]
 // streaks - streakID, userID, channelName, date, content
 
@@ -129,7 +131,7 @@ exports.getTopStreaks = () => {
   return highscores
 }
 
-exports.checkStreaks = clientUsers => {
+exports.checkStreaks = (clientUsers, guild) => {
   const users = db.get('users').value()
   const streaks = db.get('streaks').value()
 
@@ -149,7 +151,6 @@ exports.checkStreaks = clientUsers => {
         if(user.messagesEnabled) {
           clientUsers.find(u => u.id === user.userID).send(`Unfortunately you missed a day and your ${userStreak.streakLevel} day ${userStreak.channelName} streak has ended. Use !streak in the ${userStreak.channelName} channel to start a new one!`)
         }
-
         userStreak.streakLevel = 0
       }
     })
@@ -158,6 +159,13 @@ exports.checkStreaks = clientUsers => {
   db.get('users')
     .assign(users)
     .write()
+
+  users.forEach(user => {
+    if(exports.getMyStreaks(user.userID).length === 0) {
+      const guildMember = guild.members.find(u => u.id === user.userID)
+      guildMember.removeRole(constants.ActiveStreakerRoleID, 'No active streaks')
+    }
+  })
 }
 
 exports.hasStreakedToday = (userID, channelName) => {
@@ -239,6 +247,7 @@ exports.getAllStreaksForChannel = channelName => {
       if(streak.channelName === channelName && streak.streakLevel > 0) {
         result.push({
           userID: user.userID,
+          channelName: channelName,
           streakLevel: streak.streakLevel
         })
       }
@@ -286,4 +295,13 @@ exports.getTopAllTimeStreaks = () => {
   })
 
   return highscores
+}
+
+exports.getAllActiveStreaks = () => {
+  let result = []
+  for(let channel of exports.getChannels()) {
+    const streaksForChannel = exports.getAllStreaksForChannel(channel)
+    if(streaksForChannel.length > 0) result.push(streaksForChannel)
+  }
+  return result
 }

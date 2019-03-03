@@ -7,6 +7,8 @@ const startOfTomorrow = require('date-fns/start_of_tomorrow')
 const differenceInHours = require('date-fns/difference_in_hours')
 const giphy = require('./services/giphy')
 
+const constants = require('./constants')
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 
@@ -30,14 +32,7 @@ client.on('error', error => {
 client.on('message', msg => {
   if (msg.content.startsWith('!streak')) {
     // streak
-    if(isValidStreakMessage(msg)) {
-      db.addStreak(msg)
-
-      let streak = db.getStreakForChannel(msg.author.id, msg.channel.name)
-      if(!streak) streak = 1
-      msg.reply(`nice one! Your ${msg.channel.name} streak is now ${streak} ${streak === 1 ? 'day' : 'days'}!`)
-      msg.react('🔥')
-    }
+    handleStreak(msg)
   } else if(msg.content.startsWith('!mystreak')) {
     // checking streak
     if(msg.channel.name) {
@@ -69,6 +64,9 @@ client.on('message', msg => {
   } else if(msg.content.toLowerCase() === '!togglementions') {
      // toggle notifications
      db.toggleMentions(msg)
+  } else if(msg.content.toLowerCase() === '!showactivestreaks') {
+    // message all active streaks
+    messageAllActiveStreaks()
   }
 })
 
@@ -82,6 +80,20 @@ client.on('guildMemberAdd', member => {
 client.login(process.env.BOT_SECRET)
 exports.client = client
 
+handleStreak = msg => {
+  if(isValidStreakMessage(msg)) {
+    db.addStreak(msg)
+
+    const streak = db.getStreakForChannel(msg.author.id, msg.channel.name)
+    if(streak === 1) {
+      const user = client.guilds.get(constants.DevStreakGuildID).members.find(u => u.id === msg.author.id)
+      user.addRole(constants.ActiveStreakerRoleID, 'Has a top streak at the end of the day')
+    }
+    msg.reply(`nice one! Your ${msg.channel.name} streak is now ${streak} ${streak === 1 ? 'day' : 'days'}!`)
+    msg.react('🔥')
+  }
+}
+
 broadcastNewDay = () => {
   console.log(`It's a new day!`)
   const channel = client.channels.find(c => c.name === "announcements")
@@ -94,10 +106,12 @@ broadcastNewDay = () => {
        }]
     })
   
-    db.checkStreaks(client.users)
+    const guild = client.guilds.get(constants.DevStreakGuildID)
+    db.checkStreaks(client.users, guild)
   
     setTimeout(() => {
       messageTopStreaks()
+      assignTopStreakRoles()
     }, 5000)
   })
 }
@@ -248,4 +262,46 @@ messageAllStreaksForChannel = channel => {
       const user = client.users.find(u => u.id === streak.userID).username
       return `*${user}* with ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'}`
     }).join('\n'))
+}
+
+messageAllActiveStreaks = () => {
+  const streaks = db.getAllActiveStreaks()
+  if(streaks.length === 0) return
+
+  const channel = client.channels.find(c => c.name === 'testland')
+
+  channel.send(`🔥 Here are all the active streaks:\n` + 
+  streaks.map(channelStreaks => {
+    let sortedChannelStreaks = channelStreaks.sort((a, b) => {
+      if(a.streakLevel === b.streakLevel) {
+        const userA = client.users.find(u => u.id === a.userID).username
+        const userB = client.users.find(u => u.id === b.userID).username
+        return userA.localeCompare(userB)
+      }
+      return b.streakLevel - a.streakLevel
+    })
+
+    let userStreaks = []
+    for(let channelStreak of sortedChannelStreaks) {
+      const user = client.users.find(u => u.id === channelStreak.userID).username
+      userStreaks.push(`*${user}* with ${channelStreak.streakLevel} ${channelStreak.streakLevel === 1 ? 'day' : 'days'} in ${channelStreak.channelName}`)
+    }
+    return userStreaks.join(', ')
+  }).join('\n'))
+}
+
+assignTopStreakRoles = () => {
+  const highscores = db.getTopStreaks()
+  if(highscores.length === 0) return
+
+  // remove role from everyone
+  client.guilds.get(constants.DevStreakGuildID).members.forEach(user => {
+    user.removeRole(constants.TopStreakerRoleID)
+  })
+
+  // assign role to top streakers
+  highscores.forEach(highscore => {
+    let user = client.guilds.get(constants.DevStreakGuildID).members.find(u => u.id === highscore.userID)
+    user.addRole(constants.TopStreakerRoleID, 'Has a top streak at the end of the day')
+  })
 }
