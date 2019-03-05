@@ -225,7 +225,9 @@ messageStats = msg => {
     topStreaks.push(`Top streak in *${highscore.channelName}* is ${user.username} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
   }
 
-  msg.reply(`so far ${users} users have used DevStreak and there have been ${streaks} streak updates\n` +
+  const firstStreakDate = db.getFirstStreakDate()
+
+  msg.reply(`so far ${users} users have used DevStreak and there have been ${streaks} streak updates dating back to ${firstStreakDate} \n` +
     `👑 Here are the best streaks of all time:\n` +
     `${topStreaks.join('\n')}`
   )

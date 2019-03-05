@@ -8,6 +8,7 @@ const uuid = require('uuid/v4')
 
 const isYesterday = require('date-fns/is_yesterday')
 const isToday = require('date-fns/is_today')
+const format = require('date-fns/format')
 
 const constants = require('./constants')
 
@@ -312,4 +313,9 @@ exports.userHasHighscore = userID => {
   return Boolean(highscores.find(highscore => {
     return highscore.userID === userID
   }))
+}
+
+exports.getFirstStreakDate = () => {
+  const streaks = db.get('streaks').sortBy('date').value()
+  return format(streaks[0].date, 'do MMM YYYY')
 }
