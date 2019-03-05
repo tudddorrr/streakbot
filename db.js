@@ -304,3 +304,12 @@ exports.getAllActiveStreaks = () => {
 exports.getUsers = () => {
   return db.get('users').value()
 }
+
+exports.userHasHighscore = userID => {
+  const highscores = exports.getTopStreaks()
+  if(highscores.length === 0) return false
+
+  return Boolean(highscores.find(highscore => {
+    return highscore.userID === userID
+  }))
+}
