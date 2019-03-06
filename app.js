@@ -312,11 +312,11 @@ assignTopStreakRoles = () => {
   if(highscores.length === 0) return
 
   // assign/remove top streak role
-  for(let user of client.guilds.get(constants.DevStreakGuildID).members) {
+  client.guilds.get(constants.DevStreakGuildID).members.forEach(user => {
     user.removeRole(constants.TopStreakerRoleID).then(() => {
-      if(db.userHasHighscore(user.userID)) {
+      if(db.userHasHighscore(user.id)) {
         user.addRole(constants.TopStreakerRoleID, 'Has a top streak at the end of the day')
       }
     })
-  }
+  })
 }

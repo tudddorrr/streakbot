@@ -5,7 +5,7 @@
       "streaks": [
         {
           "channelName": "gameplay",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 24
         },
         {
@@ -15,7 +15,7 @@
         },
         {
           "channelName": "testland",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 1
         },
         {
@@ -37,7 +37,7 @@
         },
         {
           "channelName": "art",
-          "streakLevel": 2,
+          "streakLevel": 0,
           "bestStreak": 5
         },
         {
@@ -171,8 +171,8 @@
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 20,
-          "bestStreak": 20
+          "streakLevel": 22,
+          "bestStreak": 22
         },
         {
           "channelName": "web-dev",
@@ -181,7 +181,7 @@
         },
         {
           "channelName": "testland",
-          "streakLevel": 1,
+          "streakLevel": 0,
           "bestStreak": 1
         }
       ],
@@ -292,7 +292,7 @@
       "streaks": [
         {
           "channelName": "programming",
-          "streakLevel": 2,
+          "streakLevel": 4,
           "bestStreak": 9
         }
       ],
@@ -2501,6 +2501,46 @@
       "channelName": "testland",
       "date": "2019-03-03T23:17:04.992Z",
       "content": "I didn't do anything here but maybe something shouldn't be working..."
+    },
+    {
+      "streakID": "8cdce3ec-cd8d-4816-a371-7ccf9478cfdc",
+      "userID": "185521491075530752",
+      "messageID": "552213742889336889",
+      "channelName": "programming",
+      "date": "2019-03-04T19:40:15.990Z",
+      "content": "started making pong with c++ and SFML and got the basic paddle, ball and the computer paddle done. Next is to fix some bugs with the ball and ai paddle"
+    },
+    {
+      "streakID": "657dd15f-da6d-4456-9d6d-d6bbc3370db3",
+      "userID": "104711168601415680",
+      "messageID": "552216832610664758",
+      "channelName": "programming",
+      "date": "2019-03-04T19:52:32.705Z",
+      "content": "implemented coroutines into my scripting to replace my current solution (naive asynchronous which was causing havoc with synchronisation and determinism)"
+    },
+    {
+      "streakID": "315895ac-aec9-452c-b880-1b503f699960",
+      "userID": "160924459723653130",
+      "messageID": "552245885506158614",
+      "channelName": "gameplay",
+      "date": "2019-03-04T21:47:59.427Z",
+      "content": "not too exciting but got the ole health UI back in and the blood and temperature bars"
+    },
+    {
+      "streakID": "ea7f6617-7c81-4e09-b1c2-997b02affbfa",
+      "userID": "185521491075530752",
+      "messageID": "552530368755138581",
+      "channelName": "programming",
+      "date": "2019-03-05T16:38:25.503Z",
+      "content": "finished my first game for my college course in Unity today, started learning more about C++ with pointers"
+    },
+    {
+      "streakID": "91646293-9d90-4a0e-86a3-8a9394a0dd4a",
+      "userID": "104711168601415680",
+      "messageID": "552610982531170304",
+      "channelName": "programming",
+      "date": "2019-03-05T21:58:45.273Z",
+      "content": "noticed my coroutine crap wasn't actually working, and so tried to fix it. Jerry rigging JavaScript to do that was not fun so I flung it out and replaced my scripting with Lua scripting. It now works."
     }
   ],
   "channels": [
