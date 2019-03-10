@@ -5,9 +5,9 @@ const db = require('./db')
 const schedule = require('node-schedule')
 const startOfTomorrow = require('date-fns/start_of_tomorrow')
 const differenceInHours = require('date-fns/difference_in_hours')
-const giphy = require('./services/giphy')
-
 const constants = require('./constants')
+const giphy = require('./services/giphy')
+const server = require('./services/server')
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
@@ -78,7 +78,6 @@ client.on('guildMemberAdd', member => {
 })
 
 client.login(process.env.BOT_SECRET)
-exports.client = client
 
 handleStreak = msg => {
   if(isValidStreakMessage(msg)) {
