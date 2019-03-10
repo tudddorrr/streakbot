@@ -10,8 +10,6 @@ const isYesterday = require('date-fns/is_yesterday')
 const isToday = require('date-fns/is_today')
 const format = require('date-fns/format')
 
-const constants = require('./constants')
-
 // user - userID, streaks [{channelName, streakLevel}]
 // streaks - streakID, userID, channelName, date, content
 
@@ -174,12 +172,16 @@ exports.isValidChannel = channelName => {
   return db.get('channels').value().indexOf(channelName) !== -1
 }
 
-exports.getMyStreaks = userID => {
+exports.getUserStreaks = userID => {
   return db.get('users')
     .find({userID})
     .get('streaks')
-    .filter(streak => streak.streakLevel > 0)
     .value()
+}
+
+exports.getUserActiveStreaks = userID => {
+  return exports.getUserStreaks(userID)
+    .filter(streak => streak.streakLevel > 0)
 }
 
 exports.getStatCount = table => {
@@ -232,7 +234,7 @@ exports.getMentionSettingForUser = userID => {
   return user.mentionsEnabled
 }
 
-exports.getAllStreaksForChannel = channelName => {
+exports.getStreaksForChannel = channelName => {
   let result = []
   let users = db.get('users').value()
 
@@ -291,11 +293,11 @@ exports.getTopAllTimeStreaks = () => {
   return highscores
 }
 
-exports.getAllActiveStreaks = () => {
+exports.getActiveStreaks = () => {
   let result = []
   for(let channel of exports.getChannels()) {
     if(channel !== 'testland') {
-      const streaksForChannel = exports.getAllStreaksForChannel(channel)
+      const streaksForChannel = exports.getStreaksForChannel(channel)
       if(streaksForChannel.length > 0) result.push(streaksForChannel)
     }
   }

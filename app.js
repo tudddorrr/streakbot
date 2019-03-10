@@ -7,7 +7,6 @@ const startOfTomorrow = require('date-fns/start_of_tomorrow')
 const differenceInHours = require('date-fns/difference_in_hours')
 const constants = require('./constants')
 const giphy = require('./services/giphy')
-const server = require('./services/server')
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
@@ -77,7 +76,10 @@ client.on('guildMemberAdd', member => {
     'In order to start or continue a streak, simply send a message starting with !streak in a specific channel along with a description of what you did\nYou can also type !help if you ever forget any commands')
 })
 
-client.login(process.env.BOT_SECRET)
+client.login(process.env.BOT_SECRET).then(() => {
+  // start the rest server
+  require('./services/server')
+})
 
 handleStreak = msg => {
   if(isValidStreakMessage(msg)) {
@@ -109,7 +111,7 @@ broadcastNewDay = () => {
     db.checkStreaks(client.users)
 
     for(let user of db.getUsers()) {
-      if(db.getMyStreaks(user.userID).length === 0) {
+      if(db.getUserActiveStreaks(user.userID).length === 0) {
         const guildMember = guild.members.find(u => u.id === user.userID)
         if(guildMember) guildMember.removeRole(constants.ActiveStreakerRoleID, 'No active streaks')
       }
@@ -188,7 +190,7 @@ messageCurrentStreakForChannel = msg => {
 
 messageAllMyStreaks = msg => {
   console.log(`${msg.author.username} requested their streaks via DM`)
-  const streaks = db.getMyStreaks(msg.author.id)
+  const streaks = db.getUserActiveStreaks(msg.author.id)
   for(let streak of streaks) {
     const hasStreakedToday = db.hasStreakedToday(msg.author.id, streak.channelName)
     let postedString = 'but you haven\'t increased your streak yet today 😟'
@@ -252,7 +254,7 @@ messageAllStreaksForChannel = channel => {
     return
   }
 
-  let streaks = db.getAllStreaksForChannel(channel.name)
+  let streaks = db.getStreaksForChannel(channel.name)
   if(streaks.length === 0) {
     channel.send('There are currently no streaks in this channel 😞. Why not change that?')
     return
@@ -275,7 +277,7 @@ messageAllStreaksForChannel = channel => {
 }
 
 buildActiveStreaksMessage = () => {
-  const streaks = db.getAllActiveStreaks()
+  const streaks = db.getActiveStreaks()
   if(streaks.length === 0) return
   
   return streaks.map(channelStreaks => {

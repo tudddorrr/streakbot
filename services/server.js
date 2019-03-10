@@ -4,8 +4,44 @@ const Router = require('koa-router')
 const app = new Koa()
 const router = new Router()
 
-router.get('/', async (ctx, next) => {
-  ctx.body = "hi"
+const db = require('../db')
+
+router.get('/stats', async (ctx, next) => {
+  ctx.body = {
+    users: db.getStatCount('users'),
+    streaks: db.getStatCount('streaks'),
+    firstStreak: db.getFirstStreakDate()
+  }
+  next()
+})
+
+router.get('/streaks/top-active', async (ctx, next) => {
+  ctx.body = db.getTopStreaks()
+  next()
+})
+
+router.get('/streaks/top-all-time', async (ctx, next) => {
+  ctx.body = db.getTopAllTimeStreaks()
+  next()
+})
+
+router.get('/streaks/active', async (ctx, next) => {
+  ctx.body = db.getActiveStreaks()
+  next()
+})
+
+router.get('/users', async (ctx, next) => {
+  ctx.body = db.getUsers()
+  next()
+})
+
+router.get('/users/:id/streaks', async (ctx, next) => {
+  ctx.body = db.getUserStreaks(ctx.params.id)
+  next()
+})
+
+router.get('/users/:id/active-streaks', async (ctx, next) => {
+  ctx.body = db.getUserActiveStreaks(ctx.params.id)
   next()
 })
 
