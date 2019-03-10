@@ -5,22 +5,24 @@ const db = require('./db')
 const schedule = require('node-schedule')
 const startOfTomorrow = require('date-fns/start_of_tomorrow')
 const differenceInHours = require('date-fns/difference_in_hours')
-const constants = require('./constants')
-const giphy = require('./services/giphy')
+const bot = require('./services/discord').init(client)
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 
+  // start the rest server
+  require('./services/server')
+
   schedule.scheduleJob('00 00 00 * * *', () => {
-    broadcastNewDay()
+    bot.broadcastNewDay()
   })
 
   schedule.scheduleJob('00 00 18 * * *', () => {
-    broadcastWarning(6)
+    bot.broadcastWarning(6)
   })
 
   schedule.scheduleJob('00 00 22 * * *', () => {
-    broadcastWarning(2)
+    bot.broadcastWarning(2)
   })
 })
 
@@ -76,67 +78,19 @@ client.on('guildMemberAdd', member => {
     'In order to start or continue a streak, simply send a message starting with !streak in a specific channel along with a description of what you did\nYou can also type !help if you ever forget any commands')
 })
 
-client.login(process.env.BOT_SECRET).then(() => {
-  // start the rest server
-  require('./services/server')
-})
+client.login(process.env.BOT_SECRET)
 
 handleStreak = msg => {
   if(isValidStreakMessage(msg)) {
     db.addStreak(msg)
 
-    const streak = db.getStreakForChannel(msg.author.id, msg.channel.name)
+    const streak = db.getUserStreakForChannel(msg.author.id, msg.channel.name)
     if(streak === 1) {
-      const user = client.guilds.get(constants.DevStreakGuildID).members.find(u => u.id === msg.author.id)
-      user.addRole(constants.ActiveStreakerRoleID, 'Has a top streak at the end of the day')
+      bot.assignActiveStreakRole(msg.author.id)
     }
     msg.reply(`nice one! Your ${msg.channel.name} streak is now ${streak} ${streak === 1 ? 'day' : 'days'}!`)
     msg.react('🔥')
   }
-}
-
-broadcastNewDay = () => {
-  console.log(`It's a new day!`)
-  const channel = client.channels.find(c => c.name === "announcements")
-
-  giphy.getMedia('morning', media => {
-    channel.send('Today is a brand new day! Make sure to keep up all your active streaks!', {
-       files: [{
-          attachment: media,
-          name: 'giphy.gif'
-       }]
-    })
-  
-    const guild = client.guilds.get(constants.DevStreakGuildID)
-    db.checkStreaks(client.users)
-
-    for(let user of db.getUsers()) {
-      if(db.getUserActiveStreaks(user.userID).length === 0) {
-        const guildMember = guild.members.find(u => u.id === user.userID)
-        if(guildMember) guildMember.removeRole(constants.ActiveStreakerRoleID, 'No active streaks')
-      }
-    }
-  
-    setTimeout(() => {
-      broadcastTopStreaks()
-      broadcastAllActiveStreaks()
-      assignTopStreakRoles()
-    }, 5000)
-  })
-}
-
-broadcastWarning = hoursRemaining => {
-  console.log(`Broadcasting ${hoursRemaining} hours remaining`)
-  const channel = client.channels.find(c => c.name === "announcements")
-
-  giphy.getMedia('countdown', media => {
-    channel.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streaks!`, {
-      files: [{
-          attachment: media,
-          name: 'giphy.gif'
-      }]
-    })
-  })
 }
 
 isValidStreakMessage = msg => {
@@ -158,26 +112,8 @@ isValidStreakMessage = msg => {
   return true
 }
 
-broadcastTopStreaks = () => {
-  const highscores = db.getTopStreaks()
-  if(highscores.length === 0) return
-
-  const channel = client.channels.find(c => c.name === 'announcements')
-  channel.send('🏆 Here are the current highest streaks:')
-
-  let topStreaks = []
-
-  for(let highscore of highscores) {
-    let user = client.users.find(u => u.id === highscore.userID)
-    if(!db.getMentionSettingForUser(highscore.userID)) user = user.username
-    topStreaks.push(`Top streak in *${highscore.channelName}* is ${user} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
-  }
-
-  channel.send(topStreaks.join('\n') + '\nTip: you can turn off mentions using !togglementions')
-}
-
 messageCurrentStreakForChannel = msg => {
-  const streak = db.getStreakForChannel(msg.author.id, msg.channel.name)
+  const streak = db.getUserStreakForChannel(msg.author.id, msg.channel.name)
   if(!streak) {
     msg.reply(`you currently don't have a streak running for this channel`)
   } else {
@@ -207,7 +143,7 @@ messageAllMyStreaks = msg => {
 
 messageTimeLeft = msg => {
   const diff = differenceInHours(startOfTomorrow(), new Date())
-  if(diff === 1) {
+  if(diff <= 1) {
     msg.reply(`there is under an hour left to continue a streak ⏳`)
   } else {
     msg.reply(`there are ${diff} hours left to continue a streak ⏰`)
@@ -254,7 +190,7 @@ messageAllStreaksForChannel = channel => {
     return
   }
 
-  let streaks = db.getStreaksForChannel(channel.name)
+  let streaks = db.getActiveStreaksForChannel(channel.name)
   if(streaks.length === 0) {
     channel.send('There are currently no streaks in this channel 😞. Why not change that?')
     return
@@ -276,48 +212,6 @@ messageAllStreaksForChannel = channel => {
     }).join('\n'))
 }
 
-buildActiveStreaksMessage = () => {
-  const streaks = db.getActiveStreaks()
-  if(streaks.length === 0) return
-  
-  return streaks.map(channelStreaks => {
-    let sortedChannelStreaks = channelStreaks.sort((a, b) => {
-      if(a.streakLevel === b.streakLevel) {
-        const userA = client.users.find(u => u.id === a.userID).username
-        const userB = client.users.find(u => u.id === b.userID).username
-        return userA.localeCompare(userB)
-      }
-      return b.streakLevel - a.streakLevel
-    })
-
-    let userStreaks = []
-    for(let channelStreak of sortedChannelStreaks) {
-      const user = client.users.find(u => u.id === channelStreak.userID).username
-      userStreaks.push(`*${user}* with ${channelStreak.streakLevel} ${channelStreak.streakLevel === 1 ? 'day' : 'days'} in ${channelStreak.channelName}`)
-    }
-    return userStreaks.join(', ')
-  }).join('\n')
-}
-
 messageAllActiveStreaks = msg => {
-  msg.reply(`here are all the active streaks:\n` + buildActiveStreaksMessage())
-}
-
-broadcastAllActiveStreaks = () => {
-  const channel = client.channels.find(c => c.name === "announcements")
-  channel.send(`🔥 Here are all the active streaks:\n` + buildActiveStreaksMessage())
-}
-
-assignTopStreakRoles = () => {
-  const highscores = db.getTopStreaks()
-  if(highscores.length === 0) return
-
-  // assign/remove top streak role
-  client.guilds.get(constants.DevStreakGuildID).members.forEach(user => {
-    user.removeRole(constants.TopStreakerRoleID).then(() => {
-      if(db.userHasHighscore(user.id)) {
-        user.addRole(constants.TopStreakerRoleID, 'Has a top streak at the end of the day')
-      }
-    })
-  })
+  msg.reply(`here are all the active streaks:\n` + bot.buildActiveStreaksMessage())
 }

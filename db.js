@@ -84,7 +84,7 @@ exports.addStreak = msg => {
   }
 }
 
-exports.getStreakForChannel = (userID, channelName) => {
+exports.getUserStreakForChannel = (userID, channelName) => {
   let streak = db.get('users')
     .find({userID})
     .get('streaks')
@@ -234,9 +234,9 @@ exports.getMentionSettingForUser = userID => {
   return user.mentionsEnabled
 }
 
-exports.getStreaksForChannel = channelName => {
+exports.getActiveStreaksForChannel = channelName => {
   let result = []
-  let users = db.get('users').value()
+  let users = exports.getUsers()
 
   users.forEach(user => {
     user.streaks.forEach(streak => {
@@ -297,7 +297,7 @@ exports.getActiveStreaks = () => {
   let result = []
   for(let channel of exports.getChannels()) {
     if(channel !== 'testland') {
-      const streaksForChannel = exports.getStreaksForChannel(channel)
+      const streaksForChannel = exports.getActiveStreaksForChannel(channel)
       if(streaksForChannel.length > 0) result.push(streaksForChannel)
     }
   }
@@ -320,4 +320,8 @@ exports.userHasHighscore = userID => {
 exports.getFirstStreakDate = () => {
   const streaks = db.get('streaks').sortBy('date').value()
   return format(streaks[0].date, 'do MMM YYYY')
+}
+
+exports.getStreaks = () => {
+  return db.get('streaks').value()
 }
