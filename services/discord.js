@@ -23,7 +23,7 @@ assignTopStreakRoles = () => {
 
 exports.broadcastNewDay = () => {
   console.log(`It's a new day!`)
-  const channel = client.channels.find(c => c.name === "announcements")
+  const channel = client.channels.find(c => c.name === 'announcements')
 
   giphy.getMedia('morning', media => {
     channel.send('Today is a brand new day! Make sure to keep up all your active streaks!', {
@@ -53,7 +53,7 @@ exports.broadcastNewDay = () => {
 
 exports.broadcastWarning = hoursRemaining => {
   console.log(`Broadcasting ${hoursRemaining} hours remaining`)
-  const channel = client.channels.find(c => c.name === "announcements")
+  const channel = client.channels.find(c => c.name === 'announcements')
 
   giphy.getMedia('countdown', media => {
     channel.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streaks!`, {
@@ -123,10 +123,14 @@ exports.getUsername = userID => {
 }
 
 exports.findMessage = async (channelName, messageID) => {
-  console.log(channelName, messageID)
   for (let channel of client.guilds.get(constants.DevStreakGuildID).channels.array()) {
     if(channel.name === channelName) {
-      const message = await channel.fetchMessage(messageID)
+      const message = await channel.fetchMessage(messageID).catch(error => {
+        console.log(`Couldn't find message ID ${messageID}`)
+        return null
+      })
+      if(!message) return null
+
       return {
         messageID,
         content: message.content,

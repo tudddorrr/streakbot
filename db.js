@@ -71,7 +71,7 @@ exports.addStreak = msg => {
     })
     .write()
 
-    console.log(`${msg.author.id} continued a streak in ${msg.channel.name} to ${streak.value().streakLevel}`)
+    console.log(`${msg.author.username} continued a streak in ${msg.channel.name} to ${streak.value().streakLevel}`)
   } else {
     userStreaks.push({
       channelName: msg.channel.name,
@@ -80,7 +80,7 @@ exports.addStreak = msg => {
     })
     .write()
 
-    console.log(`${msg.author.id} started a streak in ${msg.channel.name}`)
+    console.log(`${msg.author.username} started a streak in ${msg.channel.name}`)
   }
 }
 

@@ -5,7 +5,9 @@ const db = require('./db')
 const schedule = require('node-schedule')
 const startOfTomorrow = require('date-fns/start_of_tomorrow')
 const differenceInHours = require('date-fns/difference_in_hours')
-const bot = require('./services/discord').init(client)
+const bot = require('./services/discord')
+
+bot.init(client)
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
@@ -159,7 +161,9 @@ messageStats = msg => {
 
   for(let highscore of highscores) {
     const user = client.users.find(u => u.id === highscore.userID)
-    topStreaks.push(`Top streak in *${highscore.channelName}* is ${user.username} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
+    if(user) {
+      topStreaks.push(`Top streak in *${highscore.channelName}* is ${user.username} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
+    }
   }
 
   const firstStreakDate = db.getFirstStreakDate()

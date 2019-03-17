@@ -74,7 +74,8 @@ router.get('/users/:id/username', async (ctx, next) => {
 })
 
 router.get('/updates', async (ctx, next) => {
-  const streaks = db.getStreaks()
+  let streaks = db.getStreaks()
+  streaks = streaks.reverse()
   const updates = []
 
   if(!ctx.query.start || !ctx.query.count) {
@@ -105,5 +106,5 @@ app
     console.log('Reply:', JSON.stringify(ctx.body))
   })
 
-app.listen(3000)
+app.listen(3000, '0.0.0.0')
 console.log('Server listening on port 3000')
