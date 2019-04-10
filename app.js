@@ -91,7 +91,7 @@ handleStreak = msg => {
 
     const streak = db.getUserStreakForChannel(msg.author.id, msg.channel.name)
     if(streak === 1) {
-      bot.assignActiveStreakRole(msg.author.id)
+      bot.assignActiveStreakRole(msg.guild, msg.author.id)
     }
     msg.reply(`nice one! Your ${msg.channel.name} streak is now ${streak} ${streak === 1 ? 'day' : 'days'}!`)
     msg.react('🔥')

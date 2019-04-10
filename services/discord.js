@@ -126,12 +126,11 @@ exports.buildActiveStreaksMessage = () => {
   }).join('\n')
 }
 
-exports.assignActiveStreakRole = userID => {
-  const devStreakGuild = client.guilds.get(constants.DevStreakGuildID)
-  if (devStreakGuild) {
-    const user = devStreakGuild.members.find(u => u.id === userID)
-    user.addRole(constants.ActiveStreakerRoleID, 'Has a top streak at the end of the day')
-  }
+exports.assignActiveStreakRole = (guild, userID) => {
+  if (guild && guild.available) {
+    const user = guild.members.find(u => u.id === userID)
+    user.addRole(db.getRole(guild.id, 'active'), 'Has a top streak at the end of the day')
+  }  
 }
 
 exports.getUsername = userID => {
