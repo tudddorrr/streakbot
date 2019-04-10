@@ -188,7 +188,9 @@ messageHelp = msg => {
     '*!stats* - show a few useful stats\n' +
     '*!toggledm* - toggle direct messages for when your streak ends\n' + 
     '*!togglementions* - toggle the bot mentioning you in announcements\n' +
-    '*!showactivestreaks* - show all active streaks for all channels')
+    '*!showactivestreaks* - show all active streaks for all channels\n' +
+    '**Admin**\n' +
+    '*!setrole* - set which role is the active streaks role or the top streaker role')
 }
 
 messageAllStreaksForChannel = channel => {
@@ -240,9 +242,9 @@ getRole = (guild, rolestr) => {
     })
 }
 
-const ROLE_MANAGEMENT_NOT_ENOUGH_PERMISSIONS = 'lorem ipsum1'
-const ROLE_MANAGEMENT_FORMATTING = 'lorem ipsum2'
 const VALID_ROLE_SETTINGS = ['active', 'top']
+const ROLE_MANAGEMENT_NOT_ENOUGH_PERMISSIONS = 'You must be an admin to use this command.' 
+const ROLE_MANAGEMENT_FORMATTING = `Please use the command like this: \`!setrole [${VALID_ROLE_SETTINGS.join('/')}] [role name/id]\``
 
 /* A command that allows those with sufficient permissions to change what the active
  * and top streaker role is.
