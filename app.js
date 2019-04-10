@@ -6,6 +6,7 @@ const schedule = require('node-schedule')
 const startOfTomorrow = require('date-fns/start_of_tomorrow')
 const differenceInHours = require('date-fns/difference_in_hours')
 const bot = require('./services/discord')
+const roles = require('./services/roles')
 
 bot.init(client)
 
@@ -72,7 +73,7 @@ client.on('message', msg => {
     messageAllActiveStreaks(msg)
   } else if (msg.content.startsWith('!setrole')) {
     // set the roles for active and top streaker
-    handleRoles(msg) 
+    roles.handleRoles(msg) 
   }
 })
 
@@ -90,9 +91,7 @@ handleStreak = msg => {
     db.addStreak(msg)
 
     const streak = db.getUserStreakForChannel(msg.author.id, msg.guild.id, msg.channel.name)
-    if(streak === 1) {
-      bot.assignActiveStreakRole(msg.guild, msg.author.id)
-    }
+    bot.assignActiveStreakRole(msg.guild, msg.author.id)
     msg.reply(`nice one! Your ${msg.channel.name} streak is now ${streak} ${streak === 1 ? 'day' : 'days'}!`)
     msg.react('🔥')
   }
@@ -136,7 +135,7 @@ messageAllMyStreaks = msg => {
     const hasStreakedToday = db.hasStreakedToday(msg.guild.id, msg.author.id, streak.channelName)
     let postedString = 'but you haven\'t increased your streak yet today 😟'
     if(hasStreakedToday) postedString = 'and you\'ve increased your streak today 👍'
-    msg.reply(`Your ${streak.guildID}-${streak.channelName} streak is currently ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} ${postedString}`)
+    msg.reply(`Your ${streak.channelName} streak is currently ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} ${postedString}`)
   }
 
   if(streaks.length > 0) {
@@ -223,56 +222,4 @@ messageAllStreaksForChannel = channel => {
 
 messageAllActiveStreaks = msg => {
   msg.reply(`here are all the active streaks:\n` + bot.buildActiveStreaksMessage(msg.guild.id))
-}
-
-canManageRoles = member => {
-  return member.permissions.bitfield & 0x00000008
-}
-
-getRole = (guild, rolestr) => {
-  if (!guild.available) {
-    return undefined
-  }
-
-  return guild.roles
-    .array()
-    .find(role => {
-      return role.id === rolestr ||
-        role.name.normalize() === rolestr
-    })
-}
-
-const VALID_ROLE_SETTINGS = ['active', 'top']
-const ROLE_MANAGEMENT_NOT_ENOUGH_PERMISSIONS = 'You must be an admin to use this command.' 
-const ROLE_MANAGEMENT_FORMATTING = `Please use the command like this: \`!setrole [${VALID_ROLE_SETTINGS.join('/')}] [role name/id]\``
-
-/* A command that allows those with sufficient permissions to change what the active
- * and top streaker role is.
- */ 
-handleRoles = msg => {
-  if (!canManageRoles(msg.member)) {
-    msg.reply(ROLE_MANAGEMENT_NOT_ENOUGH_PERMISSIONS)
-    return
-  } 
-
-  const args = msg.content.split(' ')
-  if (args.length < 3) {
-    msg.reply(ROLE_MANAGEMENT_FORMATTING)
-    return
-  }
-  if (VALID_ROLE_SETTINGS.indexOf(args[1]) === -1) {
-    msg.reply(ROLE_MANAGEMENT_FORMATTING)
-    return
-  } 
-  
-  const rolestr = args.slice(2).join(' ')
-  const role = getRole(msg.member.guild, rolestr)
-
-  if (!role) {
-    msg.reply('Couldn\'t find a role with that name/id')
-    return
-  }
-
-  db.addRole(role.id, msg.guild.id, args[1])
-  console.log(`${msg.author.name} set ${args[1]} role in ${msg.guild.name} to role ${role.name}`)
 }

@@ -1,6 +1,6 @@
 const db = require('../db')
+const roles = require('./roles')
 const giphy = require('./giphy')
-const constants = require('../constants')
 let client = null
 
 exports.init = discordClient => {
@@ -101,13 +101,14 @@ broadcastTopStreaks = () => {
 }
 
 broadcastAllActiveStreaks = () => {
-  client.guilds.foreach(guild => {
+  client.guilds.forEach(guild => {
     const channel = guild.channels.find(c => c.name === "announcements")
-    channel.send(`🔥 Here are all the active streaks:\n` + exports.buildActiveStreaksMessage(guild.id))  
+    if (channel) {
+      channel.send(`🔥 Here are all the active streaks:\n` + exports.buildActiveStreaksMessage(guild.id))  
+    }
   })
 }
 
-// TODO Fix calls for this
 exports.buildActiveStreaksMessage = (guildID) => {
   const streaks = db.getActiveStreaks(guildID)
   if(streaks.length === 0) return
@@ -134,7 +135,10 @@ exports.buildActiveStreaksMessage = (guildID) => {
 exports.assignActiveStreakRole = (guild, userID) => {
   if (guild && guild.available) {
     const user = guild.members.find(u => u.id === userID)
-    user.addRole(db.getRole(guild.id, 'active'), 'Has a top streak at the end of the day')
+    const role = db.getRole(guild.id, 'active')
+    if (role) {
+      user.addRole(role, 'Has a top streak at the end of the day')
+    }
   }  
 }
 
@@ -144,8 +148,8 @@ exports.getUsername = userID => {
   return null
 }
 
-exports.findMessage = async (channelName, messageID) => {
-  for (let channel of client.guilds.get(constants.DevStreakGuildID).channels.array()) {
+exports.findMessage = async (guildID, channelName, messageID) => {
+  for (let channel of client.guilds.get(guildID).channels.array()) {
     if(channel.name === channelName) {
       const message = await channel.fetchMessage(messageID).catch(error => {
         console.log(`Couldn't find message ID ${messageID}`)

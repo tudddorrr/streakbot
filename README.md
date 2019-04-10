@@ -14,7 +14,7 @@ Follow [this guide](https://discordjs.guide/preparations/adding-your-bot-to-serv
 
 ### Server configuration
 In order to use the bot properly in your own server there are 3 steps that you do:
-1. Have channels in your server named: `art,design,gameplay,music,level-design,production,writing,testland`. Include any or all of these channels, these are the channels people can build up a streak in. Currently this is hardcoded and you cannot have streak channels with other names. This is mandatory for a working bot.
+1. Have channels in your server named: `art,design,gameplay,music,level-design,production,writing,testland`. Include any or all of these channels, these are the channels people can build up a streak in. Currently this is hardcoded and you cannot have streak channels with other names without changing the code. It's defined in db.json as the variable `db.defaults`. This is mandatory for a working bot.
 2. Have a channel named `announcements`, this is the channel the bot will make announcements in. This is also hardcoded and the name cannot be changed. This is optional.
 3. Specify an active streak role and top streak role. You can do this with the `!setrole` command. (usage: `!setrole [top/active] [rolename/id]`) 
 

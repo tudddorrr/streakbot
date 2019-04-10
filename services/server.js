@@ -86,15 +86,16 @@ router.get('/:guildID/updates', async (ctx, next) => {
   }
 
   for(let i = ctx.query.start; i < ctx.query.count; i++) {
+    if (i >= streaks.length) { break }
     const streak = streaks[i]
-    updates.push(await bot.findMessage(streak.channelName, streak.messageID))
+    updates.push(await bot.findMessage(ctx.params.guildID, streak.channelName, streak.messageID))
   }
   ctx.body = updates
   next()
 })
 
-router.get('/updates/:channelName/:messageID', async (ctx, next) => {
-  ctx.body = await bot.findMessage(ctx.params.channelName, ctx.params.messageID)
+router.get('/:guildID/updates/:channelName/:messageID', async (ctx, next) => {
+  ctx.body = await bot.findMessage(ctx.params.guildID, ctx.params.channelName, ctx.params.messageID)
   next()
 })
 

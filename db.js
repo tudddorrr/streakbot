@@ -133,7 +133,7 @@ exports.getTopStreaks = (guildID) => {
   return highscores
 }
 
-// Consider adding guildid to tell the user which guild
+// Consider adding guildID to tell the user which guild
 exports.checkStreaks = (clientUsers) => {
   const users = db.get('users').value()
   const streaks = db.get('streaks').value()
@@ -246,14 +246,12 @@ exports.getActiveStreaksForChannel = (guildID, channelName) => {
   let users = exports.getUsers()
 
   users.forEach(user => {
-    user.streaks.filter(streak => streak.guildID === guildID).forEach(streak => {
-      if(streak.channelName === channelName && streak.streakLevel > 0) {
-        result.push({
-          userID: user.userID,
-          channelName: channelName,
-          streakLevel: streak.streakLevel
-        })
-      }
+    user.streaks.filter(streak => streak.guildID === guildID && streak.channelName === channelName && streak.streakLevel > 0).forEach(streak => {
+      result.push({
+        userID: user.userID,
+        channelName: channelName,
+        streakLevel: streak.streakLevel
+      })
     })
   })
 
@@ -315,7 +313,6 @@ exports.getUsers = () => {
   return db.get('users').value()
 }
 
-// TODO fix calls to this function
 exports.userHasHighscore = (guildID, userID) => {
   const highscores = exports.getTopStreaks(guildID)
   if(highscores.length === 0) return false
@@ -334,28 +331,45 @@ exports.getStreaks = () => {
   return db.get('streaks').value()
 }
 
-exports.addRole = (roleid, guildid, type) => {
+/**
+ * Add a role type definition to the database.
+ * @param roleID the id of the role to be added
+ * @param guildID id of the guild in which the role is to be defined
+ * @param type which type of role is to be added
+ */
+exports.addRole = (roleID, guildID, type) => {
   if (!db.get('configs').value()) {
     db.set('configs', []).write()
   }
-
-  if (!db.get('configs').find({guild: guildid}).value()) {
-    db.get('configs').push({guild: guildid, top: "", active: ""}).write()
+  
+  if (!db.get('configs').find({guild: guildID}).value()) {
+    db.get('configs').push({guild: guildID, top: "", active: ""}).write()
   }
-
+  
   db.get('configs')
-    .find({guild: guildid})
-    .assign({[type]: roleid})
+    .find({guild: guildID})
+    .assign({[type]: roleID})
     .write()
 }
 
-exports.removeRole = (guildid, type) => {
-  exports.addRole("", guildid, type)
+/**
+ * Clear the definition of a role type from a guild.
+ * @param guildID which guild we're clearing it from.
+ * @param type which type of role should be cleared.
+ */
+exports.removeRole = (guildID, type) => {
+  exports.addRole("", guildID, type)
 }
-
-exports.getRole = (guildid, which) => {
+  
+/**
+ * Get the id of a role type from a server.
+ * @param guildID Which server to look for the role in.
+ * @param which Which type of role we're looking for.
+ * @returns The roleID if it exists, undefined otherwise.
+ */
+exports.getRole = (guildID, which) => {
   return db.get('configs')
-    .find({guild: guildid})
+    .find({guild: guildID})
     .get(which)
     .value()
 }
