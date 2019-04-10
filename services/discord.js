@@ -12,13 +12,16 @@ assignTopStreakRoles = () => {
   if(highscores.length === 0) return
 
   // assign/remove top streak role
-  client.guilds.get(constants.DevStreakGuildID).members.forEach(user => {
-    user.removeRole(constants.TopStreakerRoleID).then(() => {
-      if(db.userHasHighscore(user.id)) {
-        user.addRole(constants.TopStreakerRoleID, 'Has a top streak at the end of the day')
-      }
-    })
-  })
+  const guild = client.guilds.get(constants.DevStreakGuildID)
+  if (guild) {
+    guild.members.forEach(user => {
+      user.removeRole(constants.TopStreakerRoleID).then(() => {
+        if(db.userHasHighscore(user.id)) {
+          user.addRole(constants.TopStreakerRoleID, 'Has a top streak at the end of the day')
+        }
+      })
+    })  
+  }
 }
 
 exports.broadcastNewDay = () => {
@@ -34,15 +37,17 @@ exports.broadcastNewDay = () => {
     })
   
     const guild = client.guilds.get(constants.DevStreakGuildID)
-    db.checkStreaks(client.users)
 
-    for(let user of db.getUsers()) {
-      if(db.getUserActiveStreaks(user.userID).length === 0) {
-        const guildMember = guild.members.find(u => u.id === user.userID)
-        if(guildMember) guildMember.removeRole(constants.ActiveStreakerRoleID, 'No active streaks')
+    if (guild) {
+      db.checkStreaks(client.users)
+
+      for(let user of db.getUsers()) {
+        if(db.getUserActiveStreaks(user.userID).length === 0) {
+          const guildMember = guild.members.find(u => u.id === user.userID)
+          if(guildMember) guildMember.removeRole(constants.ActiveStreakerRoleID, 'No active streaks')
+        }
       }
     }
-  
     setTimeout(() => {
       broadcastTopStreaks()
       broadcastAllActiveStreaks()
@@ -112,8 +117,11 @@ exports.buildActiveStreaksMessage = () => {
 }
 
 exports.assignActiveStreakRole = userID => {
-  const user = client.guilds.get(constants.DevStreakGuildID).members.find(u => u.id === userID)
-  user.addRole(constants.ActiveStreakerRoleID, 'Has a top streak at the end of the day')
+  const devStreakGuild = client.guilds.get(constants.DevStreakGuildID)
+  if (devStreakGuild) {
+    const user = devStreakGuild.members.find(u => u.id === userID)
+    user.addRole(constants.ActiveStreakerRoleID, 'Has a top streak at the end of the day')
+  }
 }
 
 exports.getUsername = userID => {
