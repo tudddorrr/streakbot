@@ -70,6 +70,9 @@ client.on('message', msg => {
   } else if(msg.content.toLowerCase() === '!showactivestreaks') {
     // message all active streaks
     messageAllActiveStreaks(msg)
+  } else if (msg.content.startsWith('!setrole')) {
+    // set the roles for active and top streaker
+    handleRoles(msg) 
   }
 })
 
@@ -218,4 +221,56 @@ messageAllStreaksForChannel = channel => {
 
 messageAllActiveStreaks = msg => {
   msg.reply(`here are all the active streaks:\n` + bot.buildActiveStreaksMessage())
+}
+
+canManageRoles = member => {
+  return member.permissions.bitfield & 0x00000008
+}
+
+getRole = (guild, rolestr) => {
+  if (!guild.available) {
+    return undefined
+  }
+
+  return guild.roles
+    .array()
+    .find(role => {
+      return role.id === rolestr ||
+        role.name.normalize() === rolestr
+    })
+}
+
+const ROLE_MANAGEMENT_NOT_ENOUGH_PERMISSIONS = 'lorem ipsum1'
+const ROLE_MANAGEMENT_FORMATTING = 'lorem ipsum2'
+const VALID_ROLE_SETTINGS = ['active', 'top']
+
+/* A command that allows those with sufficient permissions to change what the active
+ * and top streaker role is.
+ */ 
+handleRoles = msg => {
+  if (!canManageRoles(msg.member)) {
+    msg.reply(ROLE_MANAGEMENT_NOT_ENOUGH_PERMISSIONS)
+    return
+  } 
+
+  const args = msg.content.split(' ')
+  if (args.length < 3) {
+    msg.reply(ROLE_MANAGEMENT_FORMATTING)
+    return
+  }
+  if (VALID_ROLE_SETTINGS.indexOf(args[1]) === -1) {
+    msg.reply(ROLE_MANAGEMENT_FORMATTING)
+    return
+  } 
+  
+  const rolestr = args.slice(2).join(' ')
+  const role = getRole(msg.member.guild, rolestr)
+
+  if (!role) {
+    msg.reply('Couldn\'t find a role with that name/id')
+    return
+  }
+
+  db.addRole(role.id, msg.guild.id, args[1])
+  console.log(`${msg.author.name} set ${args[1]} role in ${msg.guild.name} to role ${role.name}`)
 }

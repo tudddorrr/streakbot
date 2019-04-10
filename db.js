@@ -329,3 +329,29 @@ exports.getFirstStreakDate = () => {
 exports.getStreaks = () => {
   return db.get('streaks').value()
 }
+
+exports.addRole = (roleid, guildid, type) => {
+  if (!db.get('configs').value()) {
+    db.set('configs', []).write()
+  }
+
+  if (!db.get('configs').find({guild: guildid}).value()) {
+    db.get('configs').push({guild: guildid, top: "", active: ""}).write()
+  }
+
+  db.get('configs')
+    .find({guild: guildid})
+    .assign({[type]: roleid})
+    .write()
+}
+
+exports.removeRole = (guildid, type) => {
+  exports.addRole("", guildid, type)
+}
+
+exports.getRole = (guildid, which) => {
+  return db.get('configs')
+    .find({guild: guildid})
+    .get(which)
+    .value()
+}

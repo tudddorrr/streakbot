@@ -12,16 +12,36 @@ assignTopStreakRoles = () => {
   if(highscores.length === 0) return
 
   // assign/remove top streak role
-  const guild = client.guilds.get(constants.DevStreakGuildID)
-  if (guild) {
-    guild.members.forEach(user => {
-      user.removeRole(constants.TopStreakerRoleID).then(() => {
-        if(db.userHasHighscore(user.id)) {
-          user.addRole(constants.TopStreakerRoleID, 'Has a top streak at the end of the day')
+  client.guilds.forEach(guild => {
+    if (guild && guild.available) {
+      guild.members.forEach(user => {
+        const roleid = db.getRole(guild.id, 'top')
+        if (!roleid) { return }
+        user.removeRole(roleid).then(() => {
+          if(db.userHasHighscore(user.id)) {
+            user.addRole(roleid, 'Has a top streak at the end of the day')
+          }
+        })
+      })  
+    }
+  })
+}
+
+removeActiveStreakRoles = () => {
+  client.guilds.forEach(guild => {
+    if (guild && guild.available) {
+      db.checkStreaks(client.users)
+  
+      for(let user of db.getUsers()) {
+        if(db.getUserActiveStreaks(user.userID).length === 0) {
+          const guildMember = guild.members.find(u => u.id === user.userID)
+          const roleid = db.getRole(guild.id, 'top')
+          if (!roleid) { return }
+          if(guildMember) guildMember.removeRole(roleid, 'No active streaks')
         }
-      })
-    })  
-  }
+      }
+    }  
+  })
 }
 
 exports.broadcastNewDay = () => {
@@ -36,18 +56,8 @@ exports.broadcastNewDay = () => {
        }]
     })
   
-    const guild = client.guilds.get(constants.DevStreakGuildID)
+    removeActiveStreakRoles()
 
-    if (guild) {
-      db.checkStreaks(client.users)
-
-      for(let user of db.getUsers()) {
-        if(db.getUserActiveStreaks(user.userID).length === 0) {
-          const guildMember = guild.members.find(u => u.id === user.userID)
-          if(guildMember) guildMember.removeRole(constants.ActiveStreakerRoleID, 'No active streaks')
-        }
-      }
-    }
     setTimeout(() => {
       broadcastTopStreaks()
       broadcastAllActiveStreaks()
