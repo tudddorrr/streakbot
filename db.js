@@ -180,8 +180,12 @@ exports.getUserStreaks = userID => {
 }
 
 exports.getUserActiveStreaks = userID => {
-  return exports.getUserStreaks(userID)
-    .filter(streak => streak.streakLevel > 0)
+  const streaks = exports.getUserStreaks(userID)
+  if(streaks) {
+    return streaks.filter(streak => streak.streakLevel > 0)
+  } else {
+    return []
+  }
 }
 
 exports.getStatCount = table => {
