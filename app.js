@@ -89,7 +89,7 @@ handleStreak = msg => {
   if(isValidStreakMessage(msg)) {
     db.addStreak(msg)
 
-    const streak = db.getUserStreakForChannel(msg.author.id, msg.channel.name)
+    const streak = db.getUserStreakForChannel(msg.author.id, msg.guild.id, msg.channel.name)
     if(streak === 1) {
       bot.assignActiveStreakRole(msg.guild, msg.author.id)
     }
@@ -104,7 +104,7 @@ isValidStreakMessage = msg => {
     return false
   }
 
-  if(db.hasStreakedToday(msg.author.id, msg.channel.name)) {
+  if(db.hasStreakedToday(msg.guild.id, msg.author.id, msg.channel.name)) {
     msg.reply('you\'ve already made progress in this streak today!')
     return false
   }
@@ -118,11 +118,11 @@ isValidStreakMessage = msg => {
 }
 
 messageCurrentStreakForChannel = msg => {
-  const streak = db.getUserStreakForChannel(msg.author.id, msg.channel.name)
+  const streak = db.getUserStreakForChannel(msg.author.id, msg.guild.id, msg.channel.name)
   if(!streak) {
     msg.reply(`you currently don't have a streak running for this channel`)
   } else {
-    const hasStreakedToday = db.hasStreakedToday(msg.author.id, msg.channel.name)
+    const hasStreakedToday = db.hasStreakedToday(msg.guild.id, msg.author.id, msg.channel.name)
     let postedString = 'but you haven\'t increased your streak yet today 😟'
     if(hasStreakedToday) postedString = 'and you\'ve increased your streak today 👍'
     msg.reply(`your ${msg.channel.name} streak is currently ${streak} ${streak === 1 ? 'day' : 'days'} ${postedString}\nKeep it up 💪`)
@@ -133,10 +133,10 @@ messageAllMyStreaks = msg => {
   console.log(`${msg.author.username} requested their streaks via DM`)
   const streaks = db.getUserActiveStreaks(msg.author.id)
   for(let streak of streaks) {
-    const hasStreakedToday = db.hasStreakedToday(msg.author.id, streak.channelName)
+    const hasStreakedToday = db.hasStreakedToday(msg.guild.id, msg.author.id, streak.channelName)
     let postedString = 'but you haven\'t increased your streak yet today 😟'
     if(hasStreakedToday) postedString = 'and you\'ve increased your streak today 👍'
-    msg.reply(`Your ${streak.channelName} streak is currently ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} ${postedString}`)
+    msg.reply(`Your ${streak.guildID}-${streak.channelName} streak is currently ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} ${postedString}`)
   }
 
   if(streaks.length > 0) {
@@ -169,7 +169,7 @@ messageStats = msg => {
     }
   }
 
-  const firstStreakDate = db.getFirstStreakDate()
+  const firstStreakDate = db.getFirstStreakDate(msg.guild.id)
 
   msg.reply(`so far ${users} users have used DevStreak and there have been ${streaks} streak updates dating back to ${firstStreakDate} \n` +
     `👑 Here are the best streaks of all time:\n` +
@@ -199,7 +199,7 @@ messageAllStreaksForChannel = channel => {
     return
   }
 
-  let streaks = db.getActiveStreaksForChannel(channel.name)
+  let streaks = db.getActiveStreaksForChannel(channel.guild.id, channel.name)
   if(streaks.length === 0) {
     channel.send('There are currently no streaks in this channel 😞. Why not change that?')
     return
@@ -222,7 +222,7 @@ messageAllStreaksForChannel = channel => {
 }
 
 messageAllActiveStreaks = msg => {
-  msg.reply(`here are all the active streaks:\n` + bot.buildActiveStreaksMessage())
+  msg.reply(`here are all the active streaks:\n` + bot.buildActiveStreaksMessage(msg.guild.id))
 }
 
 canManageRoles = member => {

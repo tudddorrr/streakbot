@@ -7,11 +7,12 @@ const router = new Router()
 const db = require('../db')
 const bot = require('./discord')
 
-router.get('/stats', async (ctx, next) => {
+// Consider making this get all the stats and not just for one guild id
+router.get('/:guildID/stats', async (ctx, next) => {
   ctx.body = {
     users: db.getStatCount('users'),
     streaks: db.getStatCount('streaks'),
-    firstStreak: db.getFirstStreakDate()
+    firstStreak: db.getFirstStreakDate(ctx.params.guildID)
   }
   next()
 })
@@ -21,18 +22,18 @@ router.get('/channels', async (ctx, next) => {
   next()
 })
 
-router.get('/streaks', async (ctx, next) => {
-  ctx.body = db.getStreaks()
+router.get('/:guildID/streaks', async (ctx, next) => {
+  ctx.body = db.getStreaks(ctx.params.guildID)
   next()
 })
 
-router.get('/streaks/:channelName', async (ctx, next) => {
-  ctx.body = db.getActiveStreaksForChannel(ctx.params.channelName)
+router.get('/:guildID/streaks/:channelName', async (ctx, next) => {
+  ctx.body = db.getActiveStreaksForChannel(ctx.params.guildID, ctx.params.channelName)
   next()
 })
 
-router.get('/streaks/top-active', async (ctx, next) => {
-  ctx.body = db.getTopStreaks()
+router.get('/:guildID/streaks/top-active', async (ctx, next) => {
+  ctx.body = db.getTopStreaks(ctx.params.guildID)
   next()
 })
 
@@ -41,8 +42,8 @@ router.get('/streaks/top-all-time', async (ctx, next) => {
   next()
 })
 
-router.get('/streaks/active', async (ctx, next) => {
-  ctx.body = db.getActiveStreaks()
+router.get('/:guildID/streaks/active', async (ctx, next) => {
+  ctx.body = db.getActiveStreaks(ctx.params.guildID)
   next()
 })
 
@@ -73,8 +74,8 @@ router.get('/users/:id/username', async (ctx, next) => {
   next()
 })
 
-router.get('/updates', async (ctx, next) => {
-  let streaks = db.getStreaks()
+router.get('/:guildID/updates', async (ctx, next) => {
+  let streaks = db.getStreaks(ctx.params.guildID)
   streaks = streaks.reverse()
   const updates = []
 

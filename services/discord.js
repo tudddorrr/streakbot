@@ -8,17 +8,17 @@ exports.init = discordClient => {
 }
 
 assignTopStreakRoles = () => {
-  const highscores = db.getTopStreaks()
-  if(highscores.length === 0) return
-
   // assign/remove top streak role
   client.guilds.forEach(guild => {
+    const highscores = db.getTopStreaks(guild.id)
+    if(highscores.length === 0) return
+
     if (guild && guild.available) {
       guild.members.forEach(user => {
         const roleid = db.getRole(guild.id, 'top')
         if (!roleid) { return }
         user.removeRole(roleid).then(() => {
-          if(db.userHasHighscore(user.id)) {
+          if(db.userHasHighscore(guild.id, user.id)) {
             user.addRole(roleid, 'Has a top streak at the end of the day')
           }
         })
@@ -33,7 +33,7 @@ removeActiveStreakRoles = () => {
       db.checkStreaks(client.users)
   
       for(let user of db.getUsers()) {
-        if(db.getUserActiveStreaks(user.userID).length === 0) {
+        if(db.getUserActiveStreaks(user.userID).filter(streak => {streak.guildID === guild.id}).length === 0) {
           const guildMember = guild.members.find(u => u.id === user.userID)
           const roleid = db.getRole(guild.id, 'top')
           if (!roleid) { return }
@@ -81,30 +81,35 @@ exports.broadcastWarning = hoursRemaining => {
 }
 
 broadcastTopStreaks = () => {
-  const highscores = db.getTopStreaks()
-  if(highscores.length === 0) return
-
-  const channel = client.channels.find(c => c.name === 'announcements')
-  channel.send('🏆 Here are the current highest streaks:')
-
-  let topStreaks = []
-
-  for(let highscore of highscores) {
-    let user = client.users.find(u => u.id === highscore.userID)
-    if(!db.getMentionSettingForUser(highscore.userID)) user = user.username
-    topStreaks.push(`Top streak in *${highscore.channelName}* is ${user} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
-  }
-
-  channel.send(topStreaks.join('\n') + '\nTip: you can turn off mentions using !togglementions')
+  client.guilds.forEach(guild => {
+    const highscores = db.getTopStreaks(guild.id)
+    if(highscores.length === 0) return
+  
+    const channel = client.channels.find(c => c.name === 'announcements')
+    channel.send('🏆 Here are the current highest streaks:')
+  
+    let topStreaks = []
+  
+    for(let highscore of highscores) {
+      let user = client.users.find(u => u.id === highscore.userID)
+      if(!db.getMentionSettingForUser(highscore.userID)) user = user.username
+      topStreaks.push(`Top streak in *${highscore.channelName}* is ${user} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
+    }
+  
+    channel.send(topStreaks.join('\n') + '\nTip: you can turn off mentions using !togglementions')  
+  })
 }
 
 broadcastAllActiveStreaks = () => {
-  const channel = client.channels.find(c => c.name === "announcements")
-  channel.send(`🔥 Here are all the active streaks:\n` + exports.buildActiveStreaksMessage())
+  client.guilds.foreach(guild => {
+    const channel = guild.channels.find(c => c.name === "announcements")
+    channel.send(`🔥 Here are all the active streaks:\n` + exports.buildActiveStreaksMessage(guild.id))  
+  })
 }
 
-exports.buildActiveStreaksMessage = () => {
-  const streaks = db.getActiveStreaks()
+// TODO Fix calls for this
+exports.buildActiveStreaksMessage = (guildID) => {
+  const streaks = db.getActiveStreaks(guildID)
   if(streaks.length === 0) return
   
   return streaks.map(channelStreaks => {
