@@ -52,6 +52,7 @@ exports.addStreak = msg => {
       streakID,
       userID: msg.author.id,
       messageID: msg.id,
+      guildID: msg.guild.id,
       channelName: msg.channel.name,
       date: new Date(),
       content: msg.content.split('!streak ')[1]
@@ -65,6 +66,7 @@ exports.addStreak = msg => {
   const streak = userStreaks.find({channelName: msg.channel.name})
   if(streak.value()) {
     streak.assign({
+      guildID: msg.guild.id,
       channelName: streak.value().channelName,
       streakLevel: streak.value().streakLevel + 1,
       bestStreak: Math.max(streak.value().streakLevel+1, streak.value().bestStreak)
@@ -74,6 +76,7 @@ exports.addStreak = msg => {
     console.log(`${msg.author.username} continued a streak in ${msg.channel.name} to ${streak.value().streakLevel}`)
   } else {
     userStreaks.push({
+      guildID: msg.guild.id,
       channelName: msg.channel.name,
       streakLevel: 1,
       bestStreak: 1
@@ -84,17 +87,17 @@ exports.addStreak = msg => {
   }
 }
 
-exports.getUserStreakForChannel = (userID, channelName) => {
+exports.getUserStreakForChannel = (userID, guildID, channelName) => {
   let streak = db.get('users')
     .find({userID})
     .get('streaks')
-    .find({channelName})
+    .find({guildID, channelName})
     .value()
 
   return streak ? streak.streakLevel : null
 }
 
-exports.getTopStreaks = () => {  
+exports.getTopStreaks = (guildID) => {  
   let highscores = db.get('channels').value()
   highscores = highscores.map(highscore => {
     return {
@@ -106,7 +109,7 @@ exports.getTopStreaks = () => {
 
   const users = db.get('users').value()
   users.forEach(user => {
-    user.streaks.forEach(streak => {
+    user.streaks.filter(streak => streak.guildID === guildID).forEach(streak => {
       highscores.forEach(highscore => {
         if(streak.channelName == highscore.channelName && streak.streakLevel > highscore.streakLevel) {
           highscore.userID = user.userID
@@ -130,7 +133,8 @@ exports.getTopStreaks = () => {
   return highscores
 }
 
-exports.checkStreaks = clientUsers => {
+// Consider adding guildID to tell the user which guild
+exports.checkStreaks = (clientUsers) => {
   const users = db.get('users').value()
   const streaks = db.get('streaks').value()
 
@@ -160,11 +164,10 @@ exports.checkStreaks = clientUsers => {
     .write()
 }
 
-exports.hasStreakedToday = (userID, channelName) => {
+exports.hasStreakedToday = (guildID, userID, channelName) => {
   const streaks = db.get('streaks').value()
-
   return streaks.some(streak => {
-    return streak.userID === userID && streak.channelName === channelName && isToday(streak.date)
+    return streak.guildID === guildID && streak.userID === userID && streak.channelName === channelName && isToday(streak.date)
   })
 }
 
@@ -181,7 +184,7 @@ exports.getUserStreaks = userID => {
 
 exports.getUserActiveStreaks = userID => {
   const streaks = exports.getUserStreaks(userID)
-  if(streaks) {
+  if (streaks) {
     return streaks.filter(streak => streak.streakLevel > 0)
   } else {
     return []
@@ -238,19 +241,17 @@ exports.getMentionSettingForUser = userID => {
   return user.mentionsEnabled
 }
 
-exports.getActiveStreaksForChannel = channelName => {
+exports.getActiveStreaksForChannel = (guildID, channelName) => {
   let result = []
   let users = exports.getUsers()
 
   users.forEach(user => {
-    user.streaks.forEach(streak => {
-      if(streak.channelName === channelName && streak.streakLevel > 0) {
-        result.push({
-          userID: user.userID,
-          channelName: channelName,
-          streakLevel: streak.streakLevel
-        })
-      }
+    user.streaks.filter(streak => streak.guildID === guildID && streak.channelName === channelName && streak.streakLevel > 0).forEach(streak => {
+      result.push({
+        userID: user.userID,
+        channelName: channelName,
+        streakLevel: streak.streakLevel
+      })
     })
   })
 
@@ -297,11 +298,11 @@ exports.getTopAllTimeStreaks = () => {
   return highscores
 }
 
-exports.getActiveStreaks = () => {
+exports.getActiveStreaks = (guildID) => {
   let result = []
   for(let channel of exports.getChannels()) {
     if(channel !== 'testland') {
-      const streaksForChannel = exports.getActiveStreaksForChannel(channel)
+      const streaksForChannel = exports.getActiveStreaksForChannel(guildID, channel)
       if(streaksForChannel.length > 0) result.push(streaksForChannel)
     }
   }
@@ -312,8 +313,8 @@ exports.getUsers = () => {
   return db.get('users').value()
 }
 
-exports.userHasHighscore = userID => {
-  const highscores = exports.getTopStreaks()
+exports.userHasHighscore = (guildID, userID) => {
+  const highscores = exports.getTopStreaks(guildID)
   if(highscores.length === 0) return false
 
   return Boolean(highscores.find(highscore => {
@@ -321,11 +322,54 @@ exports.userHasHighscore = userID => {
   }))
 }
 
-exports.getFirstStreakDate = () => {
-  const streaks = db.get('streaks').sortBy('date').value()
+exports.getFirstStreakDate = (guildID) => {
+  const streaks = db.get('streaks').filter(streak => streak.guildID === guildID).sortBy('date').value()
   return format(streaks[0].date, 'do MMM YYYY')
 }
 
 exports.getStreaks = () => {
   return db.get('streaks').value()
+}
+
+/**
+ * Add a role type definition to the database.
+ * @param roleID the id of the role to be added
+ * @param guildID id of the guild in which the role is to be defined
+ * @param type which type of role is to be added
+ */
+exports.addRole = (roleID, guildID, type) => {
+  if (!db.get('configs').value()) {
+    db.set('configs', []).write()
+  }
+  
+  if (!db.get('configs').find({guild: guildID}).value()) {
+    db.get('configs').push({guild: guildID, top: "", active: ""}).write()
+  }
+  
+  db.get('configs')
+    .find({guild: guildID})
+    .assign({[type]: roleID})
+    .write()
+}
+
+/**
+ * Clear the definition of a role type from a guild.
+ * @param guildID which guild we're clearing it from.
+ * @param type which type of role should be cleared.
+ */
+exports.removeRole = (guildID, type) => {
+  exports.addRole("", guildID, type)
+}
+  
+/**
+ * Get the id of a role type from a server.
+ * @param guildID Which server to look for the role in.
+ * @param which Which type of role we're looking for.
+ * @returns The roleID if it exists, undefined otherwise.
+ */
+exports.getRole = (guildID, which) => {
+  return db.get('configs')
+    .find({guild: guildID})
+    .get(which)
+    .value()
 }
