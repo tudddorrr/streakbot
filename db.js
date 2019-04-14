@@ -249,7 +249,8 @@ exports.getActiveStreaksForChannel = (guildID, channelName) => {
 
 exports.getChannels = guildID => {
   const channels = db.get('channels').value()
-  return channels.find(gc => gc.guildID === guildID).channelNames || []
+  const guildChannels = channels.find(gc => gc.guildID === guildID)
+  return guildChannels ? guildChannels.channelNames : []
 }
 
 exports.getTopAllTimeStreaks = guildID => {  

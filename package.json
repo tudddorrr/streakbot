@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js --ignore db.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migratev2": "node utils/migratev2.js > utils/dbv2.json"
   },
   "author": "Tudor Sandulescu",
   "license": "ISC",
