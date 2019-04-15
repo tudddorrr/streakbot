@@ -35,8 +35,8 @@ getRole = (guild, rolestr) => {
 }
 
 const VALID_ROLE_SETTINGS = ['active', 'top']
-const ROLE_MANAGEMENT_NOT_ENOUGH_PERMISSIONS = 'You must be an admin to use this command.' 
-const ROLE_MANAGEMENT_FORMATTING = `Please use the command like this: \`!setrole [${VALID_ROLE_SETTINGS.join('/')}] [role name/id]\``
+const ROLE_MANAGEMENT_NOT_ENOUGH_PERMISSIONS = 'you must be an admin to use this command.' 
+const ROLE_MANAGEMENT_FORMATTING = `please use the command like this: \`!setrole [${VALID_ROLE_SETTINGS.join('/')}] [role name/id]\`.`
 
 /** 
  * A command that allows those with sufficient permissions to change what the active

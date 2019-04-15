@@ -1,5 +1,4 @@
 const db = require('../db')
-const roles = require('./roles')
 const giphy = require('./giphy')
 let client = null
 
@@ -126,7 +125,7 @@ exports.buildActiveStreaksMessage = (guildID) => {
     let userStreaks = []
     for(let channelStreak of sortedChannelStreaks) {
       const user = client.users.find(u => u.id === channelStreak.userID).username
-      userStreaks.push(`*${user}* with ${channelStreak.streakLevel} ${channelStreak.streakLevel === 1 ? 'day' : 'days'} in ${channelStreak.channelName}`)
+      userStreaks.push(`**${user}** with ${channelStreak.streakLevel} ${channelStreak.streakLevel === 1 ? 'day' : 'days'} in *${channelStreak.channelName}*`)
     }
     return userStreaks.join(', ')
   }).join('\n')

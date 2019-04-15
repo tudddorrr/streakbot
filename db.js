@@ -10,22 +10,11 @@ const isYesterday = require('date-fns/is_yesterday')
 const isToday = require('date-fns/is_today')
 const format = require('date-fns/format')
 
-// user - userID, streaks [{channelName, streakLevel}]
-// streaks - streakID, userID, channelName, date, content
-
 db.defaults({
     users: [], 
     streaks: [],
-    channels: [
-      'art',
-      'design',
-      'gameplay',
-      'music',
-      'level-design',
-      'production',
-      'writing',
-      'testland'
-    ]
+    channels: [],
+    configs: []
   })
   .write()
 
@@ -97,8 +86,8 @@ exports.getUserStreakForChannel = (userID, guildID, channelName) => {
   return streak ? streak.streakLevel : null
 }
 
-exports.getTopStreaks = (guildID) => {  
-  let highscores = db.get('channels').value()
+exports.getTopStreaks = guildID => {  
+  let highscores = exports.getChannels(guildID)
   highscores = highscores.map(highscore => {
     return {
       channelName: highscore,
@@ -171,8 +160,8 @@ exports.hasStreakedToday = (guildID, userID, channelName) => {
   })
 }
 
-exports.isValidChannel = channelName => {
-  return db.get('channels').value().indexOf(channelName) !== -1
+exports.isValidChannel = (guildID, channelName) => {
+  return exports.getChannels(guildID).indexOf(channelName) !== -1
 }
 
 exports.getUserStreaks = userID => {
@@ -258,12 +247,14 @@ exports.getActiveStreaksForChannel = (guildID, channelName) => {
   return result
 }
 
-exports.getChannels = () => {
-  return db.get('channels').value()
+exports.getChannels = guildID => {
+  const channels = db.get('channels').value()
+  const guildChannels = channels.find(gc => gc.guildID === guildID)
+  return guildChannels ? guildChannels.channelNames : []
 }
 
-exports.getTopAllTimeStreaks = () => {  
-  let highscores = db.get('channels').value()
+exports.getTopAllTimeStreaks = guildID => {  
+  let highscores = exports.getChannels(guildID)
   highscores = highscores.map(highscore => {
     return {
       channelName: highscore,
@@ -298,9 +289,9 @@ exports.getTopAllTimeStreaks = () => {
   return highscores
 }
 
-exports.getActiveStreaks = (guildID) => {
+exports.getActiveStreaks = guildID => {
   let result = []
-  for(let channel of exports.getChannels()) {
+  for(let channel of exports.getChannels(guildID)) {
     if(channel !== 'testland') {
       const streaksForChannel = exports.getActiveStreaksForChannel(guildID, channel)
       if(streaksForChannel.length > 0) result.push(streaksForChannel)
@@ -342,12 +333,12 @@ exports.addRole = (roleID, guildID, type) => {
     db.set('configs', []).write()
   }
   
-  if (!db.get('configs').find({guild: guildID}).value()) {
-    db.get('configs').push({guild: guildID, top: "", active: ""}).write()
+  if (!db.get('configs').find({guildID}).value()) {
+    db.get('configs').push({guildID, top: "", active: ""}).write()
   }
   
   db.get('configs')
-    .find({guild: guildID})
+    .find({guildID})
     .assign({[type]: roleID})
     .write()
 }
@@ -360,7 +351,7 @@ exports.addRole = (roleID, guildID, type) => {
 exports.removeRole = (guildID, type) => {
   exports.addRole("", guildID, type)
 }
-  
+
 /**
  * Get the id of a role type from a server.
  * @param guildID Which server to look for the role in.
@@ -369,7 +360,18 @@ exports.removeRole = (guildID, type) => {
  */
 exports.getRole = (guildID, which) => {
   return db.get('configs')
-    .find({guild: guildID})
+    .find({guildID})
     .get(which)
     .value()
+}
+  
+exports.addChannels = (channels, guildID) => {
+  if (!db.get('channels').find({guildID}).value()) {
+    db.get('channels').push({guildID, channelNames: []}).write()
+  }
+
+  db.get('channels')
+    .find({guildID})
+    .assign({channelNames: channels})
+    .write()
 }

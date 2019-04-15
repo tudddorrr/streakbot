@@ -7,6 +7,7 @@ const startOfTomorrow = require('date-fns/start_of_tomorrow')
 const differenceInHours = require('date-fns/difference_in_hours')
 const bot = require('./services/discord')
 const roles = require('./services/roles')
+const channels = require('./services/channels')
 
 bot.init(client)
 
@@ -74,6 +75,9 @@ client.on('message', msg => {
   } else if (msg.content.startsWith('!setrole')) {
     // set the roles for active and top streaker
     roles.handleRoles(msg) 
+  } else if (msg.content.startsWith('!setchannels')) {
+    // set channels that users can build streaks in
+    channels.handleChannels(msg)
   }
 })
 
@@ -98,7 +102,7 @@ handleStreak = msg => {
 }
 
 isValidStreakMessage = msg => {
-  if(!db.isValidChannel(msg.channel.name)) {
+  if(!db.isValidChannel(msg.guild.id, msg.channel.name)) {
     msg.reply('you can\'t make any progress in this channel!')
     return false
   }
@@ -158,13 +162,13 @@ messageStats = msg => {
   const users = db.getStatCount('users')
   const streaks = db.getStatCount('streaks')
 
-  const highscores = db.getTopAllTimeStreaks()
+  const highscores = db.getTopAllTimeStreaks(msg.guild.id)
   let topStreaks = []
 
   for(let highscore of highscores) {
     const user = client.users.find(u => u.id === highscore.userID)
     if(user) {
-      topStreaks.push(`Top streak in *${highscore.channelName}* is ${user.username} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
+      topStreaks.push(`Top streak in *${highscore.channelName}* is **${user.username}** with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
     }
   }
 
@@ -189,11 +193,12 @@ messageHelp = msg => {
     '*!togglementions* - toggle the bot mentioning you in announcements\n' +
     '*!showactivestreaks* - show all active streaks for all channels\n' +
     '**Admin**\n' +
-    '*!setrole* - set which role is the active streaks role or the top streaker role')
+    '*!setrole* - set which role is the active streaks role or the top streaker role\n' +
+    '*!setchannels* - set which channels streaks can be built up in')
 }
 
 messageAllStreaksForChannel = channel => {
-  if(!db.isValidChannel(channel.name)) {
+  if(!db.isValidChannel(channel.guild.id, channel.name)) {
     channel.send('You can\'t make any progress in this channel!')
     return
   }
@@ -213,10 +218,10 @@ messageAllStreaksForChannel = channel => {
     return b.streakLevel - a.streakLevel
   })
 
-  channel.send(`Here are all the active streaks in ${channel.name}:\n` + 
+  channel.send(`Here are all the active streaks in *${channel.name}*:\n` + 
     streaks.map(streak => {
       const user = client.users.find(u => u.id === streak.userID).username
-      return `*${user}* with ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'}`
+      return `**${user}** with ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'}`
     }).join('\n'))
 }
 
