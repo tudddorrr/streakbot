@@ -197,10 +197,18 @@ exports.toggleDMs = msg => {
   console.log(`${userValue.userID}'s notifications are now set to ${userValue.messagesEnabled}`)
 
   if(userValue.messagesEnabled) {
-    msg.reply(`I will now message you if your streak ends. Use !toggledm to disable these messages`)
+    msg.reply(`I will now message you about your streaks ending and time warnings. Use !toggledm to disable these messages`)
   } else {
-    msg.reply(`I will no longer message you if your streak ends. Use !toggledm to re-enable these messages`)
+    msg.reply(`I will no longer message you about your streaks ending or time warnings. Use !toggledm to re-enable these messages`)
   }
+}
+
+exports.getDMSettingForUser = userID => {
+  let user = db.get('users')
+  .find({userID})
+  .value()
+
+  return user.messagesEnabled
 }
 
 exports.toggleMentions = msg => {
