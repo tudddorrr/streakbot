@@ -34,9 +34,11 @@ removeActiveStreakRoles = () => {
       for(let user of db.getUsers()) {
         if(db.getUserActiveStreaks(user.userID).filter(streak => {streak.guildID === guild.id}).length === 0) {
           const guildMember = guild.members.find(u => u.id === user.userID)
-          const roleid = db.getRole(guild.id, 'top')
-          if (!roleid) { return }
-          if(guildMember) guildMember.removeRole(roleid, 'No active streaks')
+          for(role of [db.getRole(guild.id, 'active'), db.getRole(guild.id, 'top')]) {
+            if(role && guildMember) {
+              guildMember.removeRole(role, 'No active streaks')
+            }
+          }
         }
       }
     }  
