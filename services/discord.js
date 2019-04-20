@@ -77,6 +77,22 @@ exports.broadcastWarning = hoursRemaining => {
           name: 'giphy.gif'
       }]
     })
+
+    // send the users a warning
+    client.guilds.forEach(guild => {
+      if (guild && guild.available) {
+        guild.members.forEach(user => {
+          if(db.getUserActiveStreaks(user.id).length > 0 && db.getDMSettingForUser(user.id)) {
+            user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command !toggledm.`, {
+              files: [{
+                  attachment: media,
+                  name: 'giphy.gif'
+              }]
+            })
+          }
+        })  
+      }
+    })
   })
 }
 
