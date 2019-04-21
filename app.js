@@ -37,7 +37,11 @@ client.on('error', error => {
 client.on('message', msg => {
   if (msg.content.startsWith('!streak')) {
     // streak
-    handleStreak(msg)
+    if(msg.channel.name) {
+      handleStreak(msg)
+    } else {
+      msg.reply('You can\'t start a streak here, it has to be in a channel!')
+    }
   } else if(msg.content.startsWith('!mystreak')) {
     // checking streak
     if(msg.channel.name) {
