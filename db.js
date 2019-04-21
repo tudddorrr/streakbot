@@ -156,7 +156,7 @@ exports.checkStreaks = (clientUsers) => {
 exports.hasStreakedToday = (guildID, userID, channelName) => {
   const streaks = db.get('streaks').value()
   return streaks.some(streak => {
-    return streak.guildID === guildID && streak.userID === userID && streak.channelName === channelName && isToday(streak.date)
+    return (guildID ? streak.guildID === guildID : true) && streak.userID === userID && streak.channelName === channelName && isToday(streak.date)
   })
 }
 

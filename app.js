@@ -136,7 +136,7 @@ messageAllMyStreaks = msg => {
   console.log(`${msg.author.username} requested their streaks via DM`)
   const streaks = db.getUserActiveStreaks(msg.author.id)
   for(let streak of streaks) {
-    const hasStreakedToday = db.hasStreakedToday(msg.guild.id, msg.author.id, streak.channelName)
+    const hasStreakedToday = db.hasStreakedToday(null, msg.author.id, streak.channelName)
     let postedString = 'but you haven\'t increased your streak yet today 😟'
     if(hasStreakedToday) postedString = 'and you\'ve increased your streak today 👍'
     msg.reply(`Your ${streak.channelName} streak is currently ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} ${postedString}`)
