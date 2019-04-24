@@ -119,7 +119,7 @@ broadcastTopStreaks = () => {
 broadcastAllActiveStreaks = () => {
   client.guilds.forEach(guild => {
     const channel = guild.channels.find(c => c.name === "announcements")
-    if (channel) {
+    if (channel && exports.buildActiveStreaksMessage(guild.id)) {
       channel.send(`🔥 Here are all the active streaks:\n` + exports.buildActiveStreaksMessage(guild.id))  
     }
   })
