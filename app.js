@@ -163,6 +163,11 @@ messageTimeLeft = msg => {
 }
 
 messageStats = msg => {
+  if(!msg.guild) {
+    msg.reply(`You can't do that here, you can only run that command in a server.`)
+    return
+  }
+
   const users = db.getStatCount('users')
   const streaks = db.getStatCount('streaks')
 
@@ -202,7 +207,10 @@ messageHelp = msg => {
 }
 
 messageAllStreaksForChannel = channel => {
-  if(!channel.guild) return
+  if(!channel.guild) {
+    channel.send(`You can't do that here, you can only run that command in a channel.`)
+    return
+  }
 
   if(!db.isValidChannel(channel.guild.id, channel.name)) {
     channel.send('You can\'t make any progress in this channel!')
@@ -232,5 +240,9 @@ messageAllStreaksForChannel = channel => {
 }
 
 messageAllActiveStreaks = msg => {
+  if(!msg.guild) {
+    msg.reply(`You can't do that here, you can only run that command in a server.`)
+    return
+  }
   msg.reply(`here are all the active streaks:\n` + bot.buildActiveStreaksMessage(msg.guild.id))
 }
