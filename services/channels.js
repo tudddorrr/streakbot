@@ -12,8 +12,14 @@ const CHANNEL_MANAGEMENT_NOT_ENOUGH_PERMISSIONS = 'you must be an admin to use t
 const CHANNEL_MANAGEMENT_FORMATTING = `please use the command like this: \`!setchannels channel1, channel2, channel3, etc\`.`
 const CHANNEL_MANAGEMENT_SUCCESS = `your streak channels have been successfully updated!`
 const CHANNEL_MANAGEMENT_ERROR = `one or more channels you specified do not exist. Your streak channels were not updated.`
+const CHANNEL_MANAGEMENT_DM = `You can't do that here, you can only do this in a server.`
 
 exports.handleChannels = msg => {
+  if (!msg.member) {
+    msg.reply(CHANNEL_MANAGEMENT_DM)
+    return
+  }
+
   if (!canManageChannels(msg.member)) {
     msg.reply(CHANNEL_MANAGEMENT_NOT_ENOUGH_PERMISSIONS)
     return
