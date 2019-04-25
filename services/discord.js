@@ -16,11 +16,11 @@ assignTopStreakRoles = () => {
       guild.members.forEach(user => {
         const roleid = db.getRole(guild.id, 'top')
         if (!roleid) { return }
-        user.removeRole(roleid).then(() => {
-          if(db.userHasHighscore(guild.id, user.id)) {
-            user.addRole(roleid, 'Has a top streak at the end of the day')
-          }
-        })
+        if(db.userHasHighscore(guild.id, user.id)) {
+          user.addRole(roleid, 'Has a top streak at the end of the day')
+        } else {
+          user.removeRole(roleid, 'No longer has a top streak')
+        }
       })  
     }
   })
@@ -55,9 +55,9 @@ exports.broadcastNewDay = () => {
           name: 'giphy.gif'
        }]
     })
-  
-    removeActiveStreakRoles()
 
+    removeActiveStreakRoles()
+  
     setTimeout(() => {
       broadcastTopStreaks()
       broadcastAllActiveStreaks()

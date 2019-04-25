@@ -202,6 +202,8 @@ messageHelp = msg => {
 }
 
 messageAllStreaksForChannel = channel => {
+  if(!channel.guild) return
+
   if(!db.isValidChannel(channel.guild.id, channel.name)) {
     channel.send('You can\'t make any progress in this channel!')
     return
