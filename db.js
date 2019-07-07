@@ -197,9 +197,9 @@ exports.toggleDMs = msg => {
   console.log(`${userValue.userID}'s notifications are now set to ${userValue.messagesEnabled}`)
 
   if(userValue.messagesEnabled) {
-    msg.reply(`I will now message you about your streaks ending and time warnings. Use !toggledm to disable these messages`)
+    msg.reply('I will now message you about your streaks ending and time warnings. Use `!toggledm` to disable these messages')
   } else {
-    msg.reply(`I will no longer message you about your streaks ending or time warnings. Use !toggledm to re-enable these messages`)
+    msg.reply('I will no longer message you about your streaks ending or time warnings. Use `!toggledm` to re-enable these messages')
   }
 }
 
@@ -224,9 +224,9 @@ exports.toggleMentions = msg => {
   console.log(`${userValue.userID}'s mentions are now set to ${userValue.mentionsEnabled}`)
 
   if(userValue.mentionsEnabled) {
-    msg.reply(`I will now mention you if your streak is a highscore. Use !togglementions to disable these messages`)
+    msg.reply('I will now mention you if your streak is a highscore. Use `!togglementions` to disable these messages')
   } else {
-    msg.reply(`I will no longer message you if your streak is a highscore. Use !togglementions to re-enable these messages`)
+    msg.reply('I will no longer message you if your streak is a highscore. Use `!togglementions` to re-enable these messages')
   }
 }
 
@@ -321,8 +321,9 @@ exports.userHasHighscore = (guildID, userID) => {
   }))
 }
 
-exports.getFirstStreakDate = (guildID) => {
+exports.getFirstStreakDate = guildID => {
   const streaks = db.get('streaks').filter(streak => streak.guildID === guildID).sortBy('date').value()
+  if(streaks.length === 0) return null;
   return format(streaks[0].date, 'do MMM YYYY')
 }
 

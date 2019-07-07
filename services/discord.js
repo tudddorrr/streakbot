@@ -83,7 +83,7 @@ exports.broadcastWarning = hoursRemaining => {
       if (guild && guild.available) {
         guild.members.forEach(user => {
           if(db.getUserActiveStreaks(user.id).length > 0 && db.getDMSettingForUser(user.id)) {
-            user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command !toggledm.`, {
+            user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command \`!toggledm\`.`, {
               files: [{
                   attachment: media,
                   name: 'giphy.gif'
@@ -112,7 +112,7 @@ broadcastTopStreaks = () => {
       topStreaks.push(`Top streak in *${highscore.channelName}* is ${user} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
     }
   
-    channel.send(topStreaks.join('\n') + '\nTip: you can turn off mentions using !togglementions')  
+    channel.send(topStreaks.join('\n') + '\nTip: you can turn off mentions using `!togglementions`')  
   })
 }
 
@@ -125,7 +125,7 @@ broadcastAllActiveStreaks = () => {
   })
 }
 
-exports.buildActiveStreaksMessage = (guildID) => {
+exports.buildActiveStreaksMessage = guildID => {
   const streaks = db.getActiveStreaks(guildID)
   if(streaks.length === 0) return
   
