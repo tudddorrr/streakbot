@@ -12,6 +12,8 @@ Giving out the bot's login secret is dangerous so you'll need to make your own b
 
 Follow [this guide](https://discordjs.guide/preparations/adding-your-bot-to-servers.html#bot-invite-links) to learn how to add a bot to your own server.
 
+**Make sure your bot is given admin permissions! Or at the very least, the ability to create channels.**
+
 ### Server configuration
 In order to use the bot properly in your own server there are 3 steps that you do:
 1. Use the `!setchannels` command to define the channels (comma separated) that users can build streaks in. This commands overwrites any previously set channels
