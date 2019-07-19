@@ -9,9 +9,6 @@ exports.init = discordClient => {
 assignTopStreakRoles = () => {
   // assign/remove top streak role
   client.guilds.forEach(guild => {
-    const highscores = db.getTopStreaks(guild.id)
-    if(highscores.length === 0) return
-
     if (guild && guild.available) {
       guild.members.forEach(user => {
         const roleid = db.getRole(guild.id, 'top')
