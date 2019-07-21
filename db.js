@@ -10,6 +10,8 @@ const isYesterday = require('date-fns/is_yesterday')
 const isToday = require('date-fns/is_today')
 const format = require('date-fns/format')
 
+const topics = require('./utils/topics')
+
 db.defaults({
     users: [], 
     streaks: [],
@@ -35,6 +37,7 @@ exports.addStreak = msg => {
   }
 
   const streakID = uuid()
+  const topic = topics.getTopicOrChannel(msg)
 
   db.get('streaks')
     .push({
@@ -42,7 +45,7 @@ exports.addStreak = msg => {
       userID: msg.author.id,
       messageID: msg.id,
       guildID: msg.guild.id,
-      channelName: msg.channel.name,
+      topic,
       date: new Date(),
       content: msg.content.split('!streak ')[1]
     })
@@ -52,78 +55,70 @@ exports.addStreak = msg => {
     .find({ userID: msg.author.id })
     .get('streaks')
   
-  const streak = userStreaks.find({channelName: msg.channel.name})
+  const streak = userStreaks.find({topic})
   if(streak.value()) {
     streak.assign({
       guildID: msg.guild.id,
-      channelName: streak.value().channelName,
+      topic: streak.value().topic,
       streakLevel: streak.value().streakLevel + 1,
       bestStreak: Math.max(streak.value().streakLevel+1, streak.value().bestStreak)
     })
     .write()
 
-    console.log(`${msg.author.username} continued a streak in ${msg.channel.name} to ${streak.value().streakLevel}`)
+    console.log(`${msg.author.username} continued a streak for ${topic} to ${streak.value().streakLevel}`)
   } else {
     userStreaks.push({
       guildID: msg.guild.id,
-      channelName: msg.channel.name,
+      topic,
       streakLevel: 1,
       bestStreak: 1
     })
     .write()
 
-    console.log(`${msg.author.username} started a streak in ${msg.channel.name}`)
+    console.log(`${msg.author.username} started a streak for ${topic}`)
   }
 }
 
-exports.getUserStreakForChannel = (userID, guildID, channelName) => {
+exports.getUserStreak = (userID, guildID, msg) => {
+  const topic = topics.getTopicOrChannel(msg)
   let streak = db.get('users')
     .find({userID})
     .get('streaks')
-    .find({guildID, channelName})
+    .find({guildID, topic})
     .value()
 
-  return streak ? streak.streakLevel : null
+  return streak || null
 }
 
 exports.getTopStreaks = guildID => {  
-  let highscores = exports.getChannels(guildID)
-  highscores = highscores.map(highscore => {
-    return {
-      channelName: highscore,
-      userID: '',
-      streakLevel: 0
-    }
-  })
+  let highscores = []
 
   const users = db.get('users').value()
   users.forEach(user => {
-    user.streaks.filter(streak => streak.guildID === guildID).forEach(streak => {
-      highscores.forEach(highscore => {
-        if(streak.channelName == highscore.channelName && streak.streakLevel > highscore.streakLevel) {
-          highscore.userID = user.userID
-          highscore.streakLevel = streak.streakLevel
-        }
-      })
-    })
+    highscores.push(...user.streaks.filter(streak => streak.guildID === guildID && streak.streakLevel > 0).map(streak => {
+      return {
+        ...streak,
+        userID: user.userID
+      }
+    }))
   })
-
-  // null out any channels with no streaks
-  highscores = highscores.map(highscore => {
-    return highscore.streakLevel > 0 ? highscore : null
-  })
-  highscores = highscores.filter(highscore => highscore !== null && highscore.channelName !== 'testland')
   
   // sort them by highest
   highscores.sort((a, b) => {
     return b.streakLevel - a.streakLevel
   })
 
+  highscores = highscores.filter(score => {
+    const anotherScore = highscores.find(s => s.userID !== score.userID && s.topic === score.topic)
+    if(!anotherScore) return true
+    return anotherScore.streakLevel >= score.streakLevel
+  })
+
   return highscores
 }
 
 // Consider adding guildID to tell the user which guild
-exports.checkStreaks = (clientUsers) => {
+exports.checkStreaks = clientUsers => {
   const users = db.get('users').value()
   const streaks = db.get('streaks').value()
 
@@ -131,17 +126,17 @@ exports.checkStreaks = (clientUsers) => {
     user.streaks.forEach(userStreak => {
       let foundStreakFromYesterday = false
       streaks.forEach(streak => {
-        if(streak.userID === user.userID && streak.channelName === userStreak.channelName && isYesterday(streak.date)) {
+        if(streak.userID === user.userID && streak.topic === userStreak.topic && isYesterday(streak.date)) {
           foundStreakFromYesterday = true
         }
       })
 
       if(!foundStreakFromYesterday && userStreak.streakLevel > 0) {
-        console.log(`${user.userID}'s ${userStreak.channelName} streak ended`)
+        console.log(`${user.userID}'s ${userStreak.topic} streak ended`)
 
         // send a message to them about it
         if(user.messagesEnabled) {
-          clientUsers.find(u => u.id === user.userID).send(`Unfortunately you missed a day and your ${userStreak.streakLevel} day ${userStreak.channelName} streak has ended. Use !streak in the ${userStreak.channelName} channel to start a new one!`)
+          clientUsers.find(u => u.id === user.userID).send(`Unfortunately you missed a day and your ${userStreak.streakLevel} day ${userStreak.topic} streak has ended. Use !streak ${userStreak.topic} to start a new one!`)
         }
         userStreak.streakLevel = 0
       }
@@ -153,10 +148,14 @@ exports.checkStreaks = (clientUsers) => {
     .write()
 }
 
-exports.hasStreakedToday = (guildID, userID, channelName) => {
+exports.hasStreakedToday = (guildID, userID, msg) => {
   const streaks = db.get('streaks').value()
+  const topic = topics.getTopicOrChannel(msg)
   return streaks.some(streak => {
-    return (guildID ? streak.guildID === guildID : true) && streak.userID === userID && streak.channelName === channelName && isToday(streak.date)
+    if(streak.guildID === guildID && streak.userID === userID) {
+      return streak.topic === topic && isToday(streak.date)
+    }
+    return false
   })
 }
 
@@ -235,7 +234,8 @@ exports.getMentionSettingForUser = userID => {
   .find({userID})
   .value()
 
-  return user.mentionsEnabled
+
+  return user ? user.mentionsEnabled : false
 }
 
 exports.getActiveStreaksForChannel = (guildID, channelName) => {
@@ -243,7 +243,7 @@ exports.getActiveStreaksForChannel = (guildID, channelName) => {
   let users = exports.getUsers()
 
   users.forEach(user => {
-    user.streaks.filter(streak => streak.guildID === guildID && streak.channelName === channelName && streak.streakLevel > 0).forEach(streak => {
+    user.streaks.filter(streak => streak.guildID === guildID && streak.topic === `#${channelName}` && streak.streakLevel > 0).forEach(streak => {
       result.push({
         userID: user.userID,
         channelName: channelName,
@@ -262,36 +262,21 @@ exports.getChannels = guildID => {
 }
 
 exports.getTopAllTimeStreaks = guildID => {  
-  let highscores = exports.getChannels(guildID)
-  highscores = highscores.map(highscore => {
-    return {
-      channelName: highscore,
-      userID: '',
-      streakLevel: 0
-    }
-  })
+  let highscores = []
 
   const users = db.get('users').value()
   users.forEach(user => {
-    user.streaks.forEach(streak => {
-      highscores.forEach(highscore => {
-        if(streak.channelName == highscore.channelName && streak.bestStreak > highscore.streakLevel) {
-          highscore.userID = user.userID
-          highscore.streakLevel = streak.bestStreak
-        }
-      })
-    })
+    highscores.push(...user.streaks.filter(streak => streak.guildID === guildID).map(streak => {
+      return {
+        ...streak,
+        userID: user.userID
+      }
+    }))
   })
-
-  // null out any channels with no streaks
-  highscores = highscores.map(highscore => {
-    return highscore.streakLevel > 0 ? highscore : null
-  })
-  highscores = highscores.filter(highscore => highscore !== null && highscore.channelName !== 'testland')
   
   // sort them by highest
   highscores.sort((a, b) => {
-    return b.streakLevel - a.streakLevel
+    return b.bestStreak - a.bestStreak
   })
 
   return highscores
@@ -299,12 +284,18 @@ exports.getTopAllTimeStreaks = guildID => {
 
 exports.getActiveStreaks = guildID => {
   let result = []
-  for(let channel of exports.getChannels(guildID)) {
-    if(channel !== 'testland') {
-      const streaksForChannel = exports.getActiveStreaksForChannel(guildID, channel)
-      if(streaksForChannel.length > 0) result.push(streaksForChannel)
-    }
-  }
+  let users = exports.getUsers()
+
+  users.forEach(user => {
+    user.streaks.filter(streak => streak.guildID === guildID && streak.streakLevel > 0).forEach(streak => {
+      result.push({
+        userID: user.userID,
+        topic: streak.topic,
+        streakLevel: streak.streakLevel
+      })
+    })
+  })
+
   return result
 }
 
