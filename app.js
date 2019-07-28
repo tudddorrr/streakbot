@@ -120,6 +120,11 @@ handleStreak = msg => {
 }
 
 isValidStreakMessage = msg => {
+  if(!msg.content.contains(' ')) {
+    msg.reply('you can start a streak by using !streak [#topic (optional)] [what you did]`. You need to supply a small description of the work in your message for it to count')
+    return false
+  }
+
   if(!db.isValidChannel(msg.guild.id, msg.channel.name)) {
     msg.reply('you can\'t make any progress in this channel!')
     return false
