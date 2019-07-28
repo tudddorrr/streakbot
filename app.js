@@ -198,10 +198,12 @@ messageStats = msg => {
     return
   }
 
-  msg.reply(`so far ${users} users have used StreakBot and there have been ${streaks} streak updates dating back to ${firstStreakDate} \n` +
-    `👑 Here are the best streaks of all time:\n` +
-    `${topStreaks.join('\n')}`
-  )
+  msg.reply(`so far ${users} users have used StreakBot and there have been ${streaks} streak updates dating back to ${firstStreakDate}`)
+
+  // msg.reply(`so far ${users} users have used StreakBot and there have been ${streaks} streak updates dating back to ${firstStreakDate} \n` +
+  //   `👑 Here are the best streaks of all time:\n` +
+  //   `${topStreaks.join('\n')}`
+  // )
 }
 
 messageHelp = msg => {
