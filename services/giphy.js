@@ -1,6 +1,12 @@
 const request = require('request');
 
 exports.getMedia = (query, callback) => {
+  if(!process.env.GIPHY_KEY) {
+    console.log('Skipping media, no giphy key')
+    callback(null)
+    return
+  }
+
   const parameters = {
     url: 'https://api.giphy.com/v1/gifs/search',
     qs: {

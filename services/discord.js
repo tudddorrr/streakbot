@@ -47,10 +47,10 @@ exports.broadcastNewDay = () => {
 
   giphy.getMedia('morning', media => {
     channel.send('Today is a brand new day! Make sure to keep up all your active streaks!', {
-       files: [{
+       files: media ? [{
           attachment: media,
           name: 'giphy.gif'
-       }]
+       }] : null
     })
 
     removeActiveStreakRoles()
@@ -69,10 +69,10 @@ exports.broadcastWarning = hoursRemaining => {
 
   giphy.getMedia('countdown', media => {
     channel.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streaks!`, {
-      files: [{
+      files: media ? [{
           attachment: media,
           name: 'giphy.gif'
-      }]
+      }] : null
     })
 
     // send the users a warning
@@ -81,10 +81,10 @@ exports.broadcastWarning = hoursRemaining => {
         guild.members.forEach(user => {
           if(db.getUserActiveStreaks(user.id).length > 0 && db.getDMSettingForUser(user.id)) {
             user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command \`!toggledm\`.`, {
-              files: [{
+              files: media ? [{
                   attachment: media,
                   name: 'giphy.gif'
-              }]
+              }] : null
             })
           }
         })  
@@ -106,10 +106,10 @@ broadcastTopStreaks = () => {
     for(let highscore of highscores) {
       let user = client.users.find(u => u.id === highscore.userID)
       if(!db.getMentionSettingForUser(highscore.userID)) user = user.username
-      topStreaks.push(`Top streak in *${highscore.channelName}* is ${user} with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
+      topStreaks.push(`${user} for *${highscore.topic}* with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
     }
   
-    channel.send(topStreaks.join('\n') + '\nTip: you can turn off mentions using `!togglementions`')  
+    channel.send(topStreaks.join('\n'))  
   })
 }
 
@@ -117,7 +117,7 @@ broadcastAllActiveStreaks = () => {
   client.guilds.forEach(guild => {
     const channel = guild.channels.find(c => c.name === "announcements")
     if (channel && exports.buildActiveStreaksMessage(guild.id)) {
-      channel.send(`🔥 Here are all the active streaks:\n` + exports.buildActiveStreaksMessage(guild.id))  
+      channel.send(`🔥 Here are all the active streaks:\n` + exports.buildActiveStreaksMessage(guild.id) + '\n\nTip: you can turn off mentions using `!togglementions`')  
     }
   })
 }
@@ -125,23 +125,27 @@ broadcastAllActiveStreaks = () => {
 exports.buildActiveStreaksMessage = guildID => {
   const streaks = db.getActiveStreaks(guildID)
   if(streaks.length === 0) return
-  
-  return streaks.map(channelStreaks => {
-    let sortedChannelStreaks = channelStreaks.sort((a, b) => {
-      if(a.streakLevel === b.streakLevel) {
-        const userA = client.users.find(u => u.id === a.userID).username
-        const userB = client.users.find(u => u.id === b.userID).username
-        return userA.localeCompare(userB)
-      }
-      return b.streakLevel - a.streakLevel
-    })
 
-    let userStreaks = []
-    for(let channelStreak of sortedChannelStreaks) {
-      const user = client.users.find(u => u.id === channelStreak.userID).username
-      userStreaks.push(`**${user}** with ${channelStreak.streakLevel} ${channelStreak.streakLevel === 1 ? 'day' : 'days'} in *${channelStreak.channelName}*`)
+  let userStreaks = {}
+  
+  streaks.sort((a, b) => {
+    if(a.streakLevel === b.streakLevel) {
+      const userA = client.users.find(u => u.id === a.userID).username
+      const userB = client.users.find(u => u.id === b.userID).username
+      return userA.localeCompare(userB)
     }
-    return userStreaks.join(', ')
+    return b.streakLevel - a.streakLevel
+  }).forEach(streak => {
+    const user = client.users.find(u => u.id === streak.userID).username
+    if(!userStreaks[streak.userID]) {
+      userStreaks[streak.userID] = [`**${user}** with ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} for *${streak.topic}*`]
+    } else {
+      userStreaks[streak.userID].push(`${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} for *${streak.topic}*`)
+    }
+  })
+
+  return Object.keys(userStreaks).map(userStreak => {
+    return userStreaks[userStreak].join(", ")
   }).join('\n')
 }
 
