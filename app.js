@@ -188,9 +188,13 @@ messageStats = msg => {
   for(let highscore of highscores) {
     const user = client.users.find(u => u.id === highscore.userID)
     if(user) {
-      topStreaks.push(`Top streak for *${highscore.topic}* is **${user.username}** with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
+      topStreaks.push(`**${user.username}** for *${highscore.topic}* with ${highscore.bestStreak} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
     }
   }
+
+  topStreaks = topStreaks.map((streak, index) => {
+    return `${index+1}. ${streak}`
+  })
 
   const firstStreakDate = db.getFirstStreakDate(msg.guild.id)
   if(!firstStreakDate) {
@@ -198,12 +202,10 @@ messageStats = msg => {
     return
   }
 
-  msg.reply(`so far ${users} users have used StreakBot and there have been ${streaks} streak updates dating back to ${firstStreakDate}`)
-
-  // msg.reply(`so far ${users} users have used StreakBot and there have been ${streaks} streak updates dating back to ${firstStreakDate} \n` +
-  //   `👑 Here are the best streaks of all time:\n` +
-  //   `${topStreaks.join('\n')}`
-  // )
+  msg.reply(`so far ${users} users have used StreakBot and there have been ${streaks} streak updates dating back to ${firstStreakDate} \n` +
+    `👑 Here are the top 10 best streaks of all time:\n` +
+    `${topStreaks.slice(0, 9).join('\n')}`
+  )
 }
 
 messageHelp = msg => {

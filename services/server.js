@@ -37,8 +37,8 @@ router.get('/:guildID/streaks/top-active', async (ctx, next) => {
   next()
 })
 
-router.get('/streaks/top-all-time', async (ctx, next) => {
-  ctx.body = db.getTopAllTimeStreaks()
+router.get('/:guildID/streaks/top-all-time', async (ctx, next) => {
+  ctx.body = db.getTopAllTimeStreaks(ctx.params.guildID)
   next()
 })
 

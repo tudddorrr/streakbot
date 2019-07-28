@@ -275,11 +275,9 @@ exports.getTopAllTimeStreaks = guildID => {
   })
   
   // sort them by highest
-  highscores.sort((a, b) => {
+  return highscores.sort((a, b) => {
     return b.bestStreak - a.bestStreak
-  })
-
-  return highscores
+  }).filter(score => score.bestStreak > 0)
 }
 
 exports.getActiveStreaks = guildID => {
