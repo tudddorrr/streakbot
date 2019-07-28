@@ -239,7 +239,7 @@ messageAllStreaksForChannel = msg => {
 
   let streaks = db.getActiveStreaksForChannel(channel.guild.id, channel.name)
   if(streaks.length === 0) {
-    msg.reply('there are currently no streaks in this channel 😞. Why not change that?')
+    msg.reply(`there are currently no streaks in this for #${channel.name} 😞. Why not change that?`)
     return
   }
 
