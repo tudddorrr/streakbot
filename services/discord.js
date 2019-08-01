@@ -105,7 +105,7 @@ broadcastTopStreaks = () => {
   
     for(let highscore of highscores) {
       let user = client.users.find(u => u.id === highscore.userID)
-      if(!db.getMentionSettingForUser(highscore.userID)) user = user.username
+      if(!db.getMentionSettingForUser(highscore.userID)) user = `**${user.username}**`
       topStreaks.push(`${user} for *${highscore.topic}* with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
     }
   
