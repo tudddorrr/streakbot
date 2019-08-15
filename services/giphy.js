@@ -1,6 +1,6 @@
 const request = require('request');
 
-exports.getMedia = (query, callback) => {
+exports.getMedia = query => {
   if(!process.env.GIPHY_KEY) {
     console.log('Skipping media, no giphy key')
     callback(null)
@@ -19,12 +19,18 @@ exports.getMedia = (query, callback) => {
 
   console.log('Getting media...')
 
-  request.get(parameters, (err, res, body) => {
-    body = JSON.parse(body)
-    let rand = getRandomInt(body.data.length)
-    let media = body.data[rand].images.fixed_height.url
+  return new Promise((resolve, reject) => {
+    request.get(parameters, (err, res, body) => {
+      if(err) {
+        reject(err)
+        return
+      }
 
-    callback(media)
+      body = JSON.parse(body)
+      let rand = getRandomInt(body.data.length)
+      let media = body.data[rand].images.fixed_height.url
+      resolve(media)
+    })
   })
 }
 

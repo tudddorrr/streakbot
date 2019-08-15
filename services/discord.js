@@ -41,55 +41,59 @@ removeActiveStreakRoles = () => {
   })
 }
 
-exports.broadcastNewDay = () => {
-  console.log(`It's a new day!`)
+exports.broadcastNewDay = async () => {
   const channel = client.channels.find(c => c.name === 'announcements')
 
-  giphy.getMedia('morning', media => {
+  if(db.getActiveStreaks(channel.guild.id).length > 0) {
+    console.log(`It's a new day!`)
+
+    const media = await giphy.getMedia('morning')
     channel.send('Today is a brand new day! Make sure to keep up all your active streaks!', {
        files: media ? [{
-          attachment: media,
-          name: 'giphy.gif'
+        attachment: media,
+        name: 'giphy.gif'
        }] : null
     })
+  }
 
-    removeActiveStreakRoles()
-  
-    setTimeout(() => {
-      broadcastTopStreaks()
-      broadcastAllActiveStreaks()
-      assignTopStreakRoles()
-    }, 5000)
-  })
+  removeActiveStreakRoles()
+
+  setTimeout(() => {
+    broadcastTopStreaks()
+    broadcastAllActiveStreaks()
+    assignTopStreakRoles()
+  }, 5000)
 }
 
-exports.broadcastWarning = hoursRemaining => {
-  console.log(`Broadcasting ${hoursRemaining} hours remaining`)
+exports.broadcastWarning = async hoursRemaining => {
   const channel = client.channels.find(c => c.name === 'announcements')
 
-  giphy.getMedia('countdown', media => {
+  if(db.getActiveStreaks(channel.guild.id).length > 0) {
+    console.log(`Broadcasting ${hoursRemaining} hours remaining`)
+
+    const media = await giphy.getMedia('countdown')
     channel.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streaks!`, {
       files: media ? [{
-          attachment: media,
-          name: 'giphy.gif'
+        attachment: media,
+        name: 'giphy.gif'
       }] : null
     })
+  }
 
-    // send the users a warning
-    client.guilds.forEach(guild => {
-      if (guild && guild.available && db.getActiveStreaks(guild.id).length > 0) {
-        guild.members.forEach(user => {
-          if(db.getUserActiveStreaks(user.id).length > 0 && db.getDMSettingForUser(user.id)) {
-            user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command \`!toggledm\`.`, {
-              files: media ? [{
-                  attachment: media,
-                  name: 'giphy.gif'
-              }] : null
-            })
-          }
-        })  
-      }
-    })
+  // send the users a warning
+  client.guilds.forEach(guild => {
+    if (guild && guild.available) {
+      guild.members.forEach(user => {
+        if(db.getUserActiveStreaks(user.id).length > 0 && db.getDMSettingForUser(user.id)) {
+          user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command \`!toggledm\`.`, {
+            files: media ? [{
+              attachment: media,
+              name: 'giphy.gif'
+            }] : null
+          })
+        }
+      })  
+    }
   })
 }
 
