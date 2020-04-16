@@ -67,11 +67,11 @@ exports.broadcastNewDay = async () => {
 
 exports.broadcastWarning = async hoursRemaining => {
   const channel = client.channels.find(c => c.name === 'announcements')
+  const media = await giphy.getMedia('countdown')
 
   if(db.getActiveStreaks(channel.guild.id).length > 0) {
     console.log(`Broadcasting ${hoursRemaining} hours remaining`)
 
-    const media = await giphy.getMedia('countdown')
     channel.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streaks!`, {
       files: media ? [{
         attachment: media,
@@ -85,8 +85,6 @@ exports.broadcastWarning = async hoursRemaining => {
     if (guild && guild.available) {
       guild.members.forEach(user => {
         if(db.getUserActiveStreaks(user.id).length > 0 && db.getDMSettingForUser(user.id)) {
-          const media = await giphy.getMedia('countdown')
-
           user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command \`!toggledm\`.`, {
             files: media ? [{
               attachment: media,
