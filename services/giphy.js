@@ -3,8 +3,7 @@ const request = require('request');
 exports.getMedia = query => {
   if(!process.env.GIPHY_KEY) {
     console.log('Skipping media, no giphy key')
-    callback(null)
-    return
+    return null
   }
 
   const parameters = {

@@ -85,6 +85,8 @@ exports.broadcastWarning = async hoursRemaining => {
     if (guild && guild.available) {
       guild.members.forEach(user => {
         if(db.getUserActiveStreaks(user.id).length > 0 && db.getDMSettingForUser(user.id)) {
+          const media = await giphy.getMedia('countdown')
+
           user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command \`!toggledm\`.`, {
             files: media ? [{
               attachment: media,
