@@ -16,17 +16,17 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 
   // start the rest server
-  require('./services/server')
+  // require('./services/server')
 
-  schedule.scheduleJob('00 00 00 * * *', () => {
+  schedule.scheduleJob('00 00 * * *', () => {
     bot.broadcastNewDay()
   })
 
-  schedule.scheduleJob('00 00 18 * * *', () => {
+  schedule.scheduleJob('00 18 * * *', () => {
     bot.broadcastWarning(6)
   })
 
-  schedule.scheduleJob('00 00 22 * * *', () => {
+  schedule.scheduleJob('00 22 * * *', () => {
     bot.broadcastWarning(2)
   })
 })
