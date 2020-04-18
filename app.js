@@ -12,21 +12,29 @@ const topics = require('./utils/topics')
 
 bot.init(client)
 
+let newDayJob = null
+let warning1Job = null
+let warning2Job = null
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
 
   // start the rest server
   // require('./services/server')
 
-  schedule.scheduleJob('00 00 * * *', () => {
+  if (newDayJob) newDayJob.cancel()
+  if (warning1Job) warning1Job.cancel()
+  if (warning2Job) warning2Job.cancel()
+
+  newDayJob = schedule.scheduleJob('00 00 * * *', () => {
     bot.broadcastNewDay()
   })
 
-  schedule.scheduleJob('00 18 * * *', () => {
+  warning1Job = schedule.scheduleJob('00 18 * * *', () => {
     bot.broadcastWarning(6)
   })
 
-  schedule.scheduleJob('00 22 * * *', () => {
+  warning2Job = schedule.scheduleJob('00 22 * * *', () => {
     bot.broadcastWarning(2)
   })
 })
