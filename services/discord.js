@@ -84,7 +84,7 @@ exports.broadcastWarning = async hoursRemaining => {
   client.guilds.forEach(guild => {
     if (guild && guild.available) {
       guild.members.forEach(user => {
-        if(db.getUserActiveStreaks(user.id).length > 0 && db.getDMSettingForUser(user.id)) {
+        if(db.getDMSettingForUser(user.id) && db.getUserActiveStreaks(user.id).length > 0 && !db.hasUpdatedStreakToday(guild.id, user.id)) {
           user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command \`!toggledm\`.`, {
             files: media ? [{
               attachment: media,

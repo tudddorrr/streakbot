@@ -159,6 +159,16 @@ exports.hasStreakedToday = (guildID, userID, msg) => {
   })
 }
 
+exports.hasUpdatedStreakToday = (guildID, userID) => {
+  const streaks = db.get('streaks').value()
+  return streaks.some(streak => {
+    if(streak.guildID === guildID && streak.userID === userID) {
+      return isToday(streak.date)
+    }
+    return false
+  })
+}
+
 exports.isValidChannel = (guildID, channelName) => {
   return exports.getChannels(guildID).indexOf(channelName) !== -1
 }
