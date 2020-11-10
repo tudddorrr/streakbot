@@ -121,9 +121,11 @@ handleStreak = msg => {
     db.addStreak(msg)
 
     const streak = db.getUserStreak(msg.author.id, msg.guild.id, msg)
-    bot.assignActiveStreakRole(msg.guild, msg.author.id)
-    msg.reply(`nice one! Your ${streak.topic} streak is now ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'}!`)
-    msg.react('🔥')
+    if (streak) {
+      bot.assignActiveStreakRole(msg.guild, msg.author.id)
+      msg.reply(`nice one! Your ${streak.topic} streak is now ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'}!`)
+      msg.react('🔥')
+    }
   }
 }
 
