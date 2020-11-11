@@ -6,34 +6,34 @@ exports.init = discordClient => {
   client = discordClient
 }
 
-assignTopStreakRoles = () => {
+const assignTopStreakRoles = () => {
   // assign/remove top streak role
-  client.guilds.forEach(guild => {
+  client.guilds.cache.forEach(guild => {
     if (guild && guild.available) {
-      guild.members.forEach(user => {
+      guild.members.cache.forEach(guildMember => {
         const roleid = db.getRole(guild.id, 'top')
-        if (!roleid) { return }
-        if(db.userHasHighscore(guild.id, user.id)) {
-          user.addRole(roleid, 'Has a top streak at the end of the day')
+        if (!roleid) return
+        if(db.userHasHighscore(guild.id, guildMember.id)) {
+          guildMember.roles.add(roleid, 'Has a top streak at the end of the day')
         } else {
-          user.removeRole(roleid, 'No longer has a top streak')
+          guildMember.roles.remove(roleid, 'No longer has a top streak')
         }
       })  
     }
   })
 }
 
-removeActiveStreakRoles = () => {
-  client.guilds.forEach(guild => {
+const removeActiveStreakRoles = () => {
+  client.guilds.cache.forEach(guild => {
     if (guild && guild.available) {
-      db.checkStreaks(client.users)
+      db.checkStreaks(client.users.cache)
   
       for(let user of db.getUsers()) {
         if(db.getUserActiveStreaks(user.userID).filter(streak => streak.guildID === guild.id).length === 0) {
-          const guildMember = guild.members.find(u => u.id === user.userID)
+          const guildMember = guild.members.cache.find(u => u.id === user.userID)
           const role = db.getRole(guild.id, 'active')
           if(role && guildMember) {
-            guildMember.removeRole(role, 'No active streaks')
+            guildMember.roles.remove(role, 'No active streaks')
           }
         }
       }
@@ -42,18 +42,22 @@ removeActiveStreakRoles = () => {
 }
 
 exports.broadcastNewDay = async () => {
-  const channel = client.channels.find(c => c.name === 'announcements')
+  const channel = client.channels.cache.find(c => c.name === 'announcements')
 
   if(db.getActiveStreaks(channel.guild.id).length > 0) {
     console.log(`It's a new day!`)
 
     const media = await giphy.getMedia('morning')
-    channel.send('Today is a brand new day! Make sure to keep up all your active streaks!', {
-       files: media ? [{
-        attachment: media,
-        name: 'giphy.gif'
-       }] : null
-    })
+    try {
+      channel.send('Today is a brand new day! Make sure to keep up all your active streaks!', {
+        files: media ? [{
+         attachment: media,
+         name: 'giphy.gif'
+        }] : null
+     })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   removeActiveStreakRoles()
@@ -66,8 +70,15 @@ exports.broadcastNewDay = async () => {
 }
 
 exports.broadcastWarning = async hoursRemaining => {
-  const channel = client.channels.find(c => c.name === 'announcements')
-  const media = await giphy.getMedia('countdown')
+  const channel = client.channels.cache.find(c => c.name === 'announcements')
+  let media = null
+
+  try {
+    media = await giphy.getMedia('countdown')
+  } catch (err) {
+    console.log(err)
+  }
+
 
   if(db.getActiveStreaks(channel.guild.id).length > 0) {
     console.log(`Broadcasting ${hoursRemaining} hours remaining`)
@@ -81,9 +92,9 @@ exports.broadcastWarning = async hoursRemaining => {
   }
 
   // send the users a warning
-  client.guilds.forEach(guild => {
+  client.guilds.cache.forEach(guild => {
     if (guild && guild.available) {
-      guild.members.forEach(user => {
+      guild.members.cache.forEach(user => {
         if(db.getDMSettingForUser(user.id) && db.getUserActiveStreaks(user.id).length > 0 && !db.hasUpdatedStreakToday(guild.id, user.id)) {
           user.send(`Only ${hoursRemaining} hours to go until the day ends. Make sure to continue your streak(s)! You can disable these messages using the command \`!toggledm\`.`, {
             files: media ? [{
@@ -97,18 +108,18 @@ exports.broadcastWarning = async hoursRemaining => {
   })
 }
 
-broadcastTopStreaks = () => {
-  client.guilds.forEach(guild => {
+const broadcastTopStreaks = () => {
+  client.guilds.cache.forEach(async guild => {
     const highscores = db.getTopStreaks(guild.id)
     if(highscores.length === 0) return
   
-    const channel = client.channels.find(c => c.name === 'announcements')
+    const channel = client.channels.cache.find(c => c.name === 'announcements')
     channel.send('🏆 Here are the current highest streaks:')
   
     let topStreaks = []
   
     for(let highscore of highscores) {
-      let user = client.users.find(u => u.id === highscore.userID)
+      let user = await client.users.fetch(highscore.userID)
       if(!db.getMentionSettingForUser(highscore.userID)) user = `**${user.username}**`
       topStreaks.push(`${user} for *${highscore.topic}* with ${highscore.streakLevel} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
     }
@@ -117,36 +128,33 @@ broadcastTopStreaks = () => {
   })
 }
 
-broadcastAllActiveStreaks = () => {
-  client.guilds.forEach(guild => {
-    const channel = guild.channels.find(c => c.name === "announcements")
-    if (channel && exports.buildActiveStreaksMessage(guild.id)) {
-      channel.send(`🔥 Here are all the active streaks:\n` + exports.buildActiveStreaksMessage(guild.id) + '\n\nTip: you can turn off mentions using `!togglementions`')  
+const broadcastAllActiveStreaks = async () => {
+  client.guilds.cache.forEach(async guild => {
+    const channel = guild.channels.cache.find(c => c.name === "announcements")
+    const streaks = await exports.buildActiveStreaksMessage(guild.id)
+    if (channel && streaks) {
+      channel.send(`🔥 Here are all the active streaks:\n` + streaks + '\n\nTip: you can turn off mentions using `!togglementions`')  
     }
   })
 }
 
-exports.buildActiveStreaksMessage = guildID => {
+exports.buildActiveStreaksMessage = async guildID => {
   const streaks = db.getActiveStreaks(guildID)
   if(streaks.length === 0) return
 
   let userStreaks = {}
-  
-  streaks.sort((a, b) => {
-    if(a.streakLevel === b.streakLevel) {
-      const userA = client.users.find(u => u.id === a.userID).username
-      const userB = client.users.find(u => u.id === b.userID).username
-      return userA.localeCompare(userB)
-    }
-    return b.streakLevel - a.streakLevel
-  }).forEach(streak => {
-    const user = client.users.find(u => u.id === streak.userID).username
+
+  await Promise.all(streaks.sort((a, b) => b.streakLevel - a.streakLevel).map(async streak => {
+    const user = await client.users.fetch(streak.userID)
+
     if(!userStreaks[streak.userID]) {
-      userStreaks[streak.userID] = [`**${user}** with ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} for *${streak.topic}*`]
+      userStreaks[streak.userID] = [`**${user.username}** with ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} for *${streak.topic}*`]
     } else {
       userStreaks[streak.userID].push(`${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'} for *${streak.topic}*`)
     }
-  })
+
+    return streak
+  }))
 
   return Object.keys(userStreaks).map(userStreak => {
     return userStreaks[userStreak].join(", ")
@@ -155,16 +163,14 @@ exports.buildActiveStreaksMessage = guildID => {
 
 exports.assignActiveStreakRole = (guild, userID) => {
   if (guild && guild.available) {
-    const user = guild.members.find(u => u.id === userID)
+    const guildMember = guild.members.cache.find(u => u.id === userID)
     const role = db.getRole(guild.id, 'active')
-    if (role) {
-      user.addRole(role, 'Has an active streak')
-    }
+    if (role) guildMember.roles.add(role, 'Has an active streak')
   }  
 }
 
 exports.getUsername = userID => {
-  const user = client.users.find(u => u.id === userID)
+  const user = client.users.fetch(userID)
   if(user) return user.username
   return null
 }

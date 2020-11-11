@@ -41,7 +41,7 @@ exports.handleChannels = msg => {
     })
   
     for(let channel of channelsArray) {
-      if(!msg.guild.channels.find(gc => gc.name === channel)) {
+      if(!msg.guild.channels.cache.find(gc => gc.name === channel)) {
         msg.reply(CHANNEL_MANAGEMENT_ERROR)
         return
       }

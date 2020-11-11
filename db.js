@@ -217,7 +217,7 @@ exports.getDMSettingForUser = userID => {
   .find({userID})
   .value()
 
-  return user.messagesEnabled
+  return user ? user.messagesEnabled : false
 }
 
 exports.toggleMentions = msg => {

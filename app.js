@@ -26,6 +26,8 @@ client.on('ready', () => {
   if (warning1Job) warning1Job.cancel()
   if (warning2Job) warning2Job.cancel()
 
+  bot.broadcastNewDay()
+
   newDayJob = schedule.scheduleJob('00 00 * * *', () => {
     bot.broadcastNewDay()
   })
@@ -101,7 +103,7 @@ client.on('guildMemberAdd', member => {
 })
 
 client.on('guildCreate', guild => {
-  guild.createChannel('streakbot-setup', { type: 'text' }).then(channel => {
+  guild.channels.create('streakbot-setup', { type: 'text' }).then(channel => {
     channel.send('Before users can start creating streaks, you\'ll need to setup a few things:\n\n' +
     '1. Setup the top streaker role - a role assigned to users with the highest streaks at the start of a new day. Use: `!setrole top [role name/id]`\n\n' +
     '2. Setup the active streaker role - a role assigned to users with an active streak at the start of a new day. Use: `!setrole active [role name/id]`\n\n' +
@@ -116,7 +118,7 @@ client.on('guildCreate', guild => {
 
 client.login(process.env.BOT_SECRET)
 
-handleStreak = msg => {
+const handleStreak = msg => {
   if(isValidStreakMessage(msg)) {
     db.addStreak(msg)
 
@@ -129,7 +131,7 @@ handleStreak = msg => {
   }
 }
 
-isValidStreakMessage = msg => {
+const isValidStreakMessage = msg => {
   if(!msg.content.includes(' ')) {
     msg.reply('you can start a streak by using !streak [#topic (optional)] [what you did]`. You need to supply a small description of the work in your message for it to count')
     return false
@@ -159,7 +161,7 @@ isValidStreakMessage = msg => {
   return true
 }
 
-messageCurrentStreaks = msg => {
+const messageCurrentStreaks = msg => {
   const streaks = db.getUserActiveStreaks(msg.author.id)
 
   if(streaks.length === 0) {
@@ -179,7 +181,7 @@ messageCurrentStreaks = msg => {
   }
 }
 
-messageTimeLeft = msg => {
+const messageTimeLeft = msg => {
   const diff = differenceInHours(startOfTomorrow(), new Date())
   if(diff <= 1) {
     msg.reply(`there is under an hour left to continue a streak ⏳`)
@@ -188,7 +190,7 @@ messageTimeLeft = msg => {
   }
 }
 
-messageStats = msg => {
+const messageStats = async msg => {
   if(!msg.guild) {
     msg.reply(`You can't do that here, you can only run that command in a server.`)
     return
@@ -201,7 +203,7 @@ messageStats = msg => {
   let topStreaks = []
 
   for(let highscore of highscores) {
-    const user = client.users.find(u => u.id === highscore.userID)
+    const user = await client.users.fetch(highscore.userID)
     if(user) {
       topStreaks.push(`**${user.username}** for *${highscore.topic}* with ${highscore.bestStreak} ${highscore.streakLevel === 1 ? 'day' : 'days'}!`)
     }
@@ -223,7 +225,7 @@ messageStats = msg => {
   )
 }
 
-messageHelp = msg => {
+const messageHelp = msg => {
   msg.reply('here\'s a list of commands you can use: \n\n' +
     '**Streaks**\n' + 
     '`!streak [#topic (optional)] [what you did]` - start or continue a streak for your chosen topic. You need to supply a small description of the work in your message for it to count\n\n' + 
@@ -241,7 +243,7 @@ messageHelp = msg => {
     '`!checksetup` - show a checklist of settings required to use StreakBot')
 }
 
-messageAllStreaksForChannel = msg => {
+const messageAllStreaksForChannel = async msg => {
   const channel = msg.channel
 
   if(!channel.guild) {
@@ -261,22 +263,18 @@ messageAllStreaksForChannel = msg => {
   }
 
   streaks = streaks.sort((a, b) => {
-    if(a.streakLevel === b.streakLevel) {
-      const userA = client.users.find(u => u.id === a.userID).username
-      const userB = client.users.find(u => u.id === b.userID).username
-      return userA.localeCompare(userB)
-    }
     return b.streakLevel - a.streakLevel
   })
 
-  msg.reply(`here are all the active streaks in *${channel.name}*:\n\n` + 
-    streaks.map(streak => {
-      const user = client.users.find(u => u.id === streak.userID).username
-      return `**${user}** with ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'}`
-    }).join('\n'))
+  streaks = await Promise.all(streaks.map(async streak => {
+    const user = await client.users.fetch(streak.userID)
+    return `**${user.username}** with ${streak.streakLevel} ${streak.streakLevel === 1 ? 'day' : 'days'}`
+  }))
+
+  msg.reply(`here are all the active streaks in *${channel.name}*:\n\n` + streaks.join('\n'))
 }
 
-messageAllActiveStreaks = msg => {
+const messageAllActiveStreaks = async msg => {
   if(!msg.guild) {
     msg.reply(`You can't do that here, you can only run that command in a server.`)
     return
@@ -286,11 +284,11 @@ messageAllActiveStreaks = msg => {
   if(streaks.length === 0) {
     msg.reply(`there are currently no active streaks. Use \`!streak [#topic (optional)] [what you did]\` to start a streak for your chosen topic!`)
   } else {
-    msg.reply(`here are all the active streaks:\n\n` + bot.buildActiveStreaksMessage(msg.guild.id))
+    msg.reply(`here are all the active streaks:\n\n` + (await bot.buildActiveStreaksMessage(msg.guild.id)))
   }
 }
 
-messageSetupChecklist = msg => {
+const messageSetupChecklist = msg => {
   if(!msg.guild) {
     msg.reply(`You can't do that here, you can only run that command in a server.`)
     return
