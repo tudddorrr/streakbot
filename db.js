@@ -123,7 +123,7 @@ exports.checkStreaks = guildMembers => {
   const streaks = db.get('streaks').value()
 
   users.forEach(user => {
-    user.streaks.forEach(userStreak => {
+    user.streaks.forEach(async userStreak => {
       let foundStreakFromYesterday = false
       streaks.forEach(streak => {
         if(streak.userID === user.userID && streak.topic === userStreak.topic && isYesterday(streak.date)) {
@@ -136,9 +136,8 @@ exports.checkStreaks = guildMembers => {
 
         // send a message to them about it
         if(user.messagesEnabled) {
-          guildMembers
-            .fetch(user.userID)
-            .send(`Unfortunately you missed a day and your ${userStreak.streakLevel} day ${userStreak.topic} streak has ended. Use !streak ${userStreak.topic} to start a new one!`)
+          const guildMember = await guildMembers.fetch(user.userID) 
+          guildMember.send(`Unfortunately you missed a day and your ${userStreak.streakLevel} day ${userStreak.topic} streak has ended. Use !streak ${userStreak.topic} to start a new one!`)
         }
         userStreak.streakLevel = 0
       }
