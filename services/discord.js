@@ -26,7 +26,7 @@ const assignTopStreakRoles = () => {
 const removeActiveStreakRoles = () => {
   client.guilds.cache.forEach(guild => {
     if (guild && guild.available) {
-      db.checkStreaks(client.users.cache)
+      db.checkStreaks(guild.members.cache)
   
       for(let user of db.getUsers()) {
         if(db.getUserActiveStreaks(user.userID).filter(streak => streak.guildID === guild.id).length === 0) {
