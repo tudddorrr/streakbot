@@ -118,7 +118,7 @@ exports.getTopStreaks = guildID => {
 }
 
 // Consider adding guildID to tell the user which guild
-exports.checkStreaks = clientUsers => {
+exports.checkStreaks = guildMembers => {
   const users = db.get('users').value()
   const streaks = db.get('streaks').value()
 
@@ -136,7 +136,9 @@ exports.checkStreaks = clientUsers => {
 
         // send a message to them about it
         if(user.messagesEnabled) {
-          clientUsers.find(u => u.id === user.userID).send(`Unfortunately you missed a day and your ${userStreak.streakLevel} day ${userStreak.topic} streak has ended. Use !streak ${userStreak.topic} to start a new one!`)
+          guildMembers
+            .fetch(user.userID)
+            .send(`Unfortunately you missed a day and your ${userStreak.streakLevel} day ${userStreak.topic} streak has ended. Use !streak ${userStreak.topic} to start a new one!`)
         }
         userStreak.streakLevel = 0
       }
