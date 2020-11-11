@@ -26,8 +26,6 @@ client.on('ready', () => {
   if (warning1Job) warning1Job.cancel()
   if (warning2Job) warning2Job.cancel()
 
-  bot.broadcastNewDay()
-
   newDayJob = schedule.scheduleJob('00 00 * * *', () => {
     bot.broadcastNewDay()
   })
