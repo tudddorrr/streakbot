@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon app.js --ignore db.json",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migratev2": "node utils/migratev2.js > utils/dbv2.json"
+    "migratev2": "node utils/migratev2.js > utils/dbv2.json",
+    "prod": "screen -dmS streakbot node app.js",
   },
   "author": "Tudor Sandulescu",
   "license": "ISC",
